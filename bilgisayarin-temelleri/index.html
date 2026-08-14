@@ -35,17 +35,14 @@
 <details><summary>2. Programlama ve diller</summary><ol>
 <li><a href="#s2-1">2.1 Algoritma, program, programlama</a></li><li><a href="#s2-2">2.2 Makine dilinden yüksek seviyeye</a></li><li><a href="#s2-3">2.3 Kod nasıl çalıştırılır?</a></li><li><a href="#s2-4">2.4 Diller nasıl sınıflandırılır?</a></li><li><a href="#s2-5">2.5 Ortak yapı taşları</a></li><li><a href="#s2-6">2.6 Aynı algoritma, farklı diller</a></li>
 </ol></details>
-<details><summary>3. Düzenleme ve yeniden kullanım</summary><ol>
-<li><a href="#s3-1">3.1 Fonksiyon</a></li><li><a href="#s3-2">3.2 Modül, kütüphane, paket</a></li><li><a href="#s3-3">3.3 Bağımlılık ve sanal ortam</a></li><li><a href="#s3-4">3.4 Framework ve API</a></li><li><a href="#s3-5">3.5 Veri yapıları ve nesneler</a></li><li><a href="#s3-6">3.6 Algoritmanın maliyeti</a></li>
+<details><summary>3. Düzenleme, maliyet ve hız</summary><ol>
+<li><a href="#s3-1">3.1 Fonksiyon</a></li><li><a href="#s3-2">3.2 Modül, kütüphane, paket</a></li><li><a href="#s3-3">3.3 Bağımlılık ve sanal ortam</a></li><li><a href="#s3-4">3.4 Framework ve API</a></li><li><a href="#s3-5">3.5 Veri yapıları ve nesneler</a></li><li><a href="#s3-6">3.6 Algoritmanın maliyeti</a></li><li><a href="#s3-7">3.7 Vektörleştirme</a></li>
 </ol></details>
 <details><summary>4. Çalışma ortamı ve ekosistem</summary><ol>
 <li><a href="#s4-1">4.1 Script, program, proje</a></li><li><a href="#s4-2">4.2 Editör ve IDE</a></li><li><a href="#s4-3">4.3 Terminal ve dosya sistemi</a></li><li><a href="#s4-4">4.4 Hata mesajları ve hata ayıklama</a></li><li><a href="#s4-5">4.5 Sürüm kontrolü</a></li><li><a href="#s4-6">4.6 Dil ile uygulama farkı</a></li><li><a href="#s4-7">4.7 Açık kaynak ve ticari yazılım</a></li>
 </ol></details>
-<details><summary>5. Matematiksel programlama</summary><ol>
-<li><a href="#s5-1">5.1 Neden bilimsel programlama?</a></li><li><a href="#s5-2">5.2 Sayısal ve sembolik hesaplama</a></li><li><a href="#s5-3">5.3 Araçların farklı rolleri</a></li><li><a href="#s5-4">5.4 Paket ve toolbox ekosistemleri</a></li><li><a href="#s5-5">5.5 Vektörleştirme</a></li><li><a href="#s5-6">5.6 Alt katmanlarda performans</a></li>
-</ol></details>
-<details><summary>6. Büyük resim</summary><ol>
-<li><a href="#s6-1">6.1 Tek satırın altındaki katmanlar</a></li><li><a href="#s6-2">6.2 İlk programını çalıştır</a></li><li><a href="#s6-3">6.3 Kavramları öğrenme yolu</a></li><li><a href="#kaynaklar">Kaynaklar</a></li>
+<details><summary>5. Büyük resim</summary><ol>
+<li><a href="#s5-1">5.1 Tek satırın altındaki katmanlar</a></li><li><a href="#s5-2">5.2 İlk programını çalıştır</a></li><li><a href="#s5-3">5.3 Kavramları öğrenme yolu</a></li><li><a href="#kaynaklar">Kaynaklar</a></li>
 </ol></details>
 </nav>
 
@@ -218,7 +215,7 @@ for (int i = 1; i < n; i++) {
 }</code></pre>
 <p>Algoritma değişmez; dizilere erişim, blok gösterimi, tür bilgisi ve sözdizimi değişir.</p>
 <div class="callout"><span class="label">İki dil arasında geçerken en sık yapılan hata</span>Python ve C dizileri <strong>sıfırdan</strong> indislemeye başlar: ilk eleman <code>sayilar[0]</code>. MATLAB, Fortran ve Julia <strong>birden</strong> başlar: ilk eleman <code>sayilar(1)</code>. Ayrıca Python köşeli parantez <code>[]</code>, MATLAB normal parantez <code>()</code> kullanır. Bu iki farkı karıştırmak ya “bir eleman kaymış” sonuçlara ya da sınır dışı erişim hatalarına yol açar.</div>
-<p>Son bir uyarı: yukarıdaki kodlar dilleri karşılaştırmak için yazıldı, önerilen çözüm oldukları için değil. Gerçekte üç ortamda da hazır bir işlev vardır (<code>max(sayilar)</code>, <code>np.max(dizi)</code>, MATLAB'da <code>max(sayilar)</code>) ve büyük veride bunlar elle yazılmış döngüden hem daha kısa hem çok daha hızlıdır. Nedenini 5.5'te göreceğiz.</p>
+<p>Son bir uyarı: yukarıdaki kodlar dilleri karşılaştırmak için yazıldı, önerilen çözüm oldukları için değil. Gerçekte üç ortamda da hazır bir işlev vardır (<code>max(sayilar)</code>, <code>np.max(dizi)</code>, MATLAB'da <code>max(sayilar)</code>) ve büyük veride bunlar elle yazılmış döngüden hem daha kısa hem çok daha hızlıdır. Nedenini 3.7'de göreceğiz.</p>
 </div>
 
 <div class="exercises"><h4>Kendini sına</h4>
@@ -234,7 +231,7 @@ for (int i = 1; i < n; i++) {
 </section>
 
 <section class="chapter" id="bolum3">
-<header class="chapter-head"><p class="chapter-kicker">Bölüm 3</p><h2>Program büyüdüğünde: düzenleme ve yeniden kullanım</h2><p>Birkaç satır tek parça yazılabilir. Binlerce satırda aynı yaklaşım tekrar, hata ve karmaşa üretir.</p></header>
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 3</p><h2>Program büyüdüğünde: düzenleme, maliyet ve hız</h2><p>Birkaç satır tek parça yazılabilir. Binlerce satırda ve büyük veride aynı yaklaşım tekrar, hata ve gereksiz yavaşlık üretir.</p></header>
 
 <div class="subsection" id="s3-1"><h3><span class="num">3.1</span>Fonksiyon neden vardır?</h3>
 <p>Aynı hesabı on yerde yazarsak düzeltme gerektiğinde on yeri bulmamız gerekir. Birini unutursak program tutarsız davranır. İşlemi bir kez yazıp adlandırdığımız ve gerektiğinde çağırdığımız yapı <strong>fonksiyon</strong>dur.</p>
@@ -251,7 +248,7 @@ alan = dikdortgen_alani(4, 7)</code></pre>
 <p>İnsanlar aynı matris işlemini, grafik yöntemini veya dosya okuma kodunu farklı projelerde tekrar yazdıklarını gördü. Çözülmüş işleri paylaşmak için modülleri yeniden kullanılabilir koleksiyonlarda topladılar; bunlara genel olarak <strong>kütüphane</strong> (<span class="en">library</span>) denir.</p>
 <p>Koleksiyonun adı, sürümü, bağımlılıkları ve kurulum bilgileriyle dağıtılabilir bir birim hâline gelmesi <strong>paket</strong> (<span class="en">package</span>) kavramını oluşturur. Terimler ekosistemlere göre değişir; kütüphane ile paket her yerde kesin bir çizgiyle ayrılmaz.</p>
 <div class="analogy"><span class="label">Marangoz atölyesi</span><strong>Fonksiyon</strong> tek alet, <strong>modül</strong> aynı işe ait çekmece, <strong>kütüphane</strong> araç koleksiyonu, <strong>paket</strong> ise etiket, sürüm ve kurulum bilgisiyle taşınabilir kutuya konmuş koleksiyondur.</div>
-<p>Python'da NumPy paket/kütüphane, <code>numpy.linalg</code> lineer cebir modülü, <code>numpy.linalg.det</code> ise determinant fonksiyonudur.</p>
+<p>Python'da NumPy paket/kütüphane, <code>numpy.linalg</code> lineer cebir modülü, <code>numpy.linalg.det</code> ise determinant fonksiyonudur. Aynı ekosistemde SciPy bilimsel algoritmaları, Matplotlib grafik çizimini, pandas tablo biçimli veriyle çalışmayı üstlenir; her biri ayrı bir paket olarak kurulur ve ayrı ayrı içe aktarılır.</p>
 </div>
 
 <div class="subsection" id="s3-3"><h3><span class="num">3.3</span>Bağımlılık, paket yöneticisi ve sanal ortam</h3>
@@ -297,6 +294,19 @@ python -m pip install numpy   # artık kurulum bu ortama yapılır</code></pre>
 <div class="callout"><span class="label">Dikkat</span>Karmaşıklık, sabit çarpanları göz ardı eder. O(n) bir algoritma, küçük girdilerde O(n log n) olandan yavaş olabilir. Gösterim büyüme eğilimini anlatır, her durumda kesin süreyi değil.</div>
 </div>
 
+<div class="subsection" id="s3-7"><h3><span class="num">3.7</span>Vektörleştirme: döngü yerine dizi işlemi</h3>
+<p>2.6'da en büyük sayıyı bulmak için elle döngü yazmıştık. Büyük veriyle çalışırken bu genellikle yanlış alışkanlıktır. Python veya MATLAB'da yazdığın her döngü adımı yorumlayıcı tarafından tek tek işlenir ve bu, adım başına sabit bir maliyet getirir. Milyonlarca eleman için bu maliyet toplamda baskın hâle gelir.</p>
+<p>Bunun yerine işlemi <em>dizinin tamamına</em> uygulayan hazır işlevler kullanılır. Buna <strong>vektörleştirme</strong> (<span class="en">vectorization</span>) denir.</p>
+<div class="code-grid"><pre data-lang="Python"><code># Döngüyle: her adım yorumlayıcıdan geçer
+toplam = 0
+for x in dizi:
+    toplam += x * x</code></pre><pre data-lang="Python"><code># Vektörleştirilmiş: döngü alt katmanda çalışır
+import numpy as np
+toplam = np.sum(dizi ** 2)</code></pre></div>
+<p>İki kod aynı matematiği ifade eder. Fark şudur: ikincisinde döngü hâlâ vardır, ama Python seviyesinde değil, önceden derlenmiş kütüphane kodunun içindedir. Adım başına yorumlama maliyeti ortadan kalkar; ayrıca veri bellekte düzenli dizildiği için önbellek çok daha verimli kullanılır (1.4).</p>
+<p>MATLAB'da da aynı ilke geçerlidir: <code>sum(v.^2)</code> yazmak, <code>for</code> döngüsüyle toplamaktan hem kısa hem hızlıdır. Alışkanlık şöyle özetlenebilir: <strong>önce hazır dizi işlemini ara, döngüyü son çare olarak yaz.</strong></p>
+</div>
+
 <div class="exercises"><h4>Kendini sına</h4>
 <ol>
 <li>Bir paketi kurmak ile <code>import</code> etmek arasındaki fark nedir?
@@ -305,6 +315,10 @@ python -m pip install numpy   # artık kurulum bu ortama yapılır</code></pre>
 <details class="answer"><summary>Yanıt</summary><p>Her proje için ayrı bir sanal ortam oluşturulur. Böylece kurulumlar birbirinden yalıtılır ve bir projenin ihtiyacı diğerini bozmaz. Sürümler ayrıca <code>requirements.txt</code> gibi bir dosyada kayıt altına alınırsa ortam başka makinede yeniden kurulabilir.</p></details></li>
 <li>Bir listede eleman aramak O(n), sözlükte O(1). Bu, sözlüğün her zaman daha iyi olduğu anlamına gelir mi?
 <details class="answer"><summary>Yanıt</summary><p>Hayır. Karmaşıklık büyüme eğilimini anlatır; küçük veride fark önemsizdir. Ayrıca sözlük anahtar–değer eşlemesi için uygundur; sıralı erişim veya konuma göre indisleme gerektiren işlerde liste/dizi daha doğrudur. Doğru yapı, veriye değil yapılacak işleme göre seçilir.</p></details></li>
+<li>Vektörleştirilmiş NumPy kodu, aynı işi yapan Python döngüsünden neden daha hızlıdır? “NumPy hızlıdır” demeden açıkla.
+<details class="answer"><summary>Yanıt</summary><p>Döngü ortadan kalkmaz, yalnızca yer değiştirir: Python yorumlayıcısının adım adım işlediği döngü yerine, önceden derlenmiş kütüphane içindeki döngü çalışır. Böylece adım başına yorumlama maliyeti ödenmez ve veri bellekte düzenli dizildiği için önbellek verimli kullanılır.</p></details></li>
+<li>Bir meslektaşın “Python yavaş, bu hesabı C'ye taşımalıyız” diyor. Hangi soruları sorarsın?
+<details class="answer"><summary>Yanıt</summary><p>Yoğun hesap hâlihazırda derlenmiş bir kütüphaneye (NumPy/BLAS) aktarılıyor mu, yoksa Python seviyesinde döngüyle mi yapılıyor? Kod vektörleştirilmiş mi? Darboğaz ölçüldü mü ve seçilen algoritmanın karmaşıklığı uygun mu? Çoğu durumda kazanç, dili değiştirmeden bu üç noktada elde edilir.</p></details></li>
 </ol>
 </div>
 </section>
@@ -382,77 +396,9 @@ ZeroDivisionError: division by zero</code></pre>
 </section>
 
 <section class="chapter" id="bolum5">
-<header class="chapter-head"><p class="chapter-kicker">Bölüm 5</p><h2>Matematiksel ve bilimsel programlama</h2><p>Büyük matrisler, yaklaşık hesaplar, sembolik ifadeler ve doğrulanmış algoritmalar bilimsel çalışmada yeni ihtiyaçlar doğurur.</p></header>
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 5</p><h2>Büyük resim</h2><p>Bütün kavramları tek bir işlem üzerinde birleştirelim, sonra ilk programını çalıştıralım.</p></header>
 
-<div class="subsection" id="s5-1"><h3><span class="num">5.1</span>Bilimsel programlama neden ayrı bir alan gibi görünür?</h3>
-<p>Fiziksel bir sistemi simüle etmek, diferansiyel denklem çözmek veya milyonlarca veriyi analiz etmek yalnızca dört işlem değildir. Doğruluk, hata payı, süre ve bellek önem kazanır. Bilim insanları sık karşılaşılan sorunlara yönelik güvenilir algoritmaları ortak araçlarda toplamıştır.</p>
-<p><strong>Bilimsel programlama</strong> (<span class="en">scientific computing</span>), matematiksel modeli bilgisayarda temsil etme, sayısal yöntemi seçme, sonucu hesaplama ve güvenilirliğini değerlendirme sürecidir. Kod yazmak bunun yalnızca bir parçasıdır; 1.6'da gördüğümüz kayan nokta davranışı da tam burada devreye girer.</p>
-</div>
-
-<div class="subsection" id="s5-2"><h3><span class="num">5.2</span>Sayısal ve sembolik hesaplama</h3>
-<p><strong>Sayısal hesaplama</strong> (<span class="en">numerical computation</span>), matematiksel nesneleri sonlu sayılarla temsil edip sonuç üretir:</p><div class="math">√2 ≈ 1.41421356237…</div>
-<p>İntegralin yaklaşık değeri, büyük bir lineer sistemin çözümü veya diferansiyel denklemin adım adım çözümü sayısal yöntemlere girer.</p>
-<p><strong>Sembolik hesaplama</strong> (<span class="en">symbolic computation</span>) ise ifadelerin yapısıyla çalışır:</p><div class="math">∫ x<sup>2</sup> dx = x<sup>3</sup>/3 + C</div>
-<p>Sonuç bir ondalık sayı değil, değişken içeren bir formüldür. Bu tür sistemlere <strong>bilgisayar cebiri sistemi</strong> (<span class="en">computer algebra system, CAS</span>) denir. İki yaklaşım rakip değildir: sembolik sistem formülü türetir, sayısal sistem onu büyük veri üzerinde hesaplar.</p>
-</div>
-
-<div class="subsection" id="s5-3"><h3><span class="num">5.3</span>Farklı araçlar neden var?</h3>
-<p>Tek bir aracın her problemde en iyi olması beklenmez. Bazıları genel programlamaya, bazıları matris hesabına, istatistiğe veya sembolik cebire odaklanır.</p>
-<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Temel karakteri</th><th>Doğal kullanım</th></tr></thead><tbody>
-<tr><td>Python</td><td>Genel amaçlı dil, geniş paket ekosistemi</td><td>Veri, otomasyon, web, yapay öğrenme ve bilimsel hesap</td></tr>
-<tr><td>MATLAB</td><td>Dil ve bütünleşik sayısal ortam</td><td>Matris, mühendislik, simülasyon, prototipleme</td></tr>
-<tr><td>Julia</td><td>Bilimsel hesabı hedefleyen genel amaçlı dil</td><td>Yüksek performanslı sayısal modeller</td></tr>
-<tr><td>R</td><td>İstatistik için tasarlanmış dil ve ortam</td><td>Veri analizi, istatistiksel modelleme, grafik</td></tr>
-<tr><td>Mathematica / Maple</td><td>Genel CAS sistemleri</td><td>Sembolik ifadeler, kalkülüs ve cebir</td></tr>
-<tr><td>SageMath</td><td>Açık kaynak CAS; Python tabanlı, birçok aracı birleştirir</td><td>Cebir, sayı teorisi, geometri</td></tr>
-<tr><td>Magma</td><td>Cebir ve sayı teorisinde uzman CAS</td><td>Sonlu cisim, grup, kodlama teorisi</td></tr>
-<tr><td>GNU Octave</td><td>MATLAB uyumluluğunu hedefleyen açık ortam</td><td>MATLAB benzeri sayısal hesap</td></tr>
-</tbody></table></div>
-<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
-<p>Asıl soru “hangisi en güçlü?” değil, eldeki problem, gereken kütüphane, ekip ve paylaşım koşulları için hangisinin uygun olduğudur.</p>
-</div>
-
-<div class="subsection" id="s5-4"><h3><span class="num">5.4</span>Paket ve toolbox ekosistemleri</h3>
-<p>Özdeğer hesabı veya Fourier dönüşümü gibi algoritmaları herkesin sıfırdan yazması hem zaman kaybı hem hata kaynağı olurdu. Güvenilir uygulamalar paket ve <strong>toolbox</strong>'larda paylaşılır.</p>
-<dl class="defs"><dt>NumPy</dt><dd>Python'da dizi, matris ve temel sayısal işlemler.</dd><dt>SciPy</dt><dd>Optimizasyon, integral ve bilimsel algoritmalar.</dd><dt>Matplotlib</dt><dd>Grafik ve görselleştirme.</dd><dt>SymPy</dt><dd>Python içinde sembolik matematik.</dd><dt>pandas</dt><dd>Tablo biçimli veriyle çalışma.</dd><dt>MATLAB Toolbox</dt><dd>Optimizasyon, sinyal işleme veya sembolik matematik gibi alanlara yönelik bütünleşik koleksiyon.</dd></dl>
-<p><code>eig(A)</code> veya <code>numpy.linalg.eig(A)</code> yazdığında algoritma ortadan kalkmaz; daha önce dikkatle uygulanmış ve anlaşılır bir API ile sunulmuş olur.</p>
-</div>
-
-<div class="subsection" id="s5-5"><h3><span class="num">5.5</span>Vektörleştirme: döngü yerine dizi işlemi</h3>
-<p>2.6'da elle döngü yazmıştık. Bilimsel hesapta bu genellikle yanlış alışkanlıktır. Python veya MATLAB'da yazdığın her döngü adımı yorumlayıcı tarafından tek tek işlenir ve bu, adım başına sabit bir maliyet getirir. Milyonlarca eleman için bu maliyet toplamda baskın hâle gelir.</p>
-<p>Bunun yerine işlemi <em>dizinin tamamına</em> uygulayan hazır işlevler kullanılır. Buna <strong>vektörleştirme</strong> (<span class="en">vectorization</span>) denir.</p>
-<div class="code-grid"><pre data-lang="Python"><code># Döngüyle: her adım yorumlayıcıdan geçer
-toplam = 0
-for x in dizi:
-    toplam += x * x</code></pre><pre data-lang="Python"><code># Vektörleştirilmiş: döngü alt katmanda çalışır
-import numpy as np
-toplam = np.sum(dizi ** 2)</code></pre></div>
-<p>İki kod aynı matematiği ifade eder. Fark şudur: ikincisinde döngü hâlâ vardır, ama Python seviyesinde değil, önceden derlenmiş kütüphane kodunun içindedir. Adım başına yorumlama maliyeti ortadan kalkar; ayrıca veri bellekte düzenli dizildiği için önbellek çok daha verimli kullanılır (1.4).</p>
-<p>MATLAB'da da aynı ilke geçerlidir: <code>sum(v.^2)</code> yazmak, <code>for</code> döngüsüyle toplamaktan hem kısa hem hızlıdır. Alışkanlık şöyle özetlenebilir: <strong>önce hazır dizi işlemini ara, döngüyü son çare olarak yaz.</strong></p>
-</div>
-
-<div class="subsection" id="s5-6"><h3><span class="num">5.6</span>Alt katmanlarda neden hâlâ C ve Fortran var?</h3>
-<p>Büyük matris işlemlerinde işlemciden ve bellek hiyerarşisinden iyi yararlanmak gerekir. Yıllar içinde geliştirilen <strong>BLAS</strong> ve <strong>LAPACK</strong> gibi kütüphaneler bu ağır işleri verimli yapan C ve Fortran uygulamalarına sahiptir ve onlarca yıldır sınanmıştır.</p>
-<p>Python'da tek satır yazarken yoğun hesap alttaki bu derlenmiş kütüphaneye aktarılır. Bu yüzden “Python yavaştır” veya “Fortran eskidir” yargıları eksiktir. Performansı, görünen dil kadar kullanılan kütüphane, verinin bellekteki düzeni ve seçilen algoritma belirler.</p>
-<div class="flow">Kullanıcı kodu → yüksek seviyeli API → sayısal kütüphane (BLAS/LAPACK) → makine kodu</div>
-</div>
-
-<div class="exercises"><h4>Kendini sına</h4>
-<ol>
-<li>Sembolik ve sayısal hesaplama arasındaki farkı <code>∫x²dx</code> üzerinden bir cümleyle anlat.
-<details class="answer"><summary>Yanıt</summary><p>Sembolik sistem ifadenin yapısıyla çalışır ve <code>x³/3 + C</code> formülünü döndürür; sayısal sistem ise belirli sınırlar için bir sayı, yani yaklaşık bir değer üretir.</p></details></li>
-<li>Vektörleştirilmiş NumPy kodu, aynı işi yapan Python döngüsünden neden daha hızlıdır? “NumPy hızlıdır” demeden açıkla.
-<details class="answer"><summary>Yanıt</summary><p>Döngü ortadan kalkmaz, yalnızca yer değiştirir: Python yorumlayıcısının adım adım işlediği döngü yerine, önceden derlenmiş kütüphane içindeki döngü çalışır. Böylece adım başına yorumlama maliyeti ödenmez ve veri bellekte düzenli dizildiği için önbellek verimli kullanılır.</p></details></li>
-<li>Bir meslektaşın “Python yavaş, bu hesabı C'ye taşımalıyız” diyor. Hangi soruları sorarsın?
-<details class="answer"><summary>Yanıt</summary><p>Yoğun hesap hâlihazırda derlenmiş bir kütüphaneye (NumPy/BLAS) aktarılıyor mu, yoksa Python seviyesinde döngüyle mi yapılıyor? Kod vektörleştirilmiş mi? Darboğaz ölçüldü mü ve seçilen algoritmanın karmaşıklığı uygun mu? Çoğu durumda kazanç, dili değiştirmeden bu üç noktada elde edilir.</p></details></li>
-</ol>
-</div>
-</section>
-
-<section class="chapter" id="bolum6">
-<header class="chapter-head"><p class="chapter-kicker">Bölüm 6</p><h2>Büyük resim</h2><p>Bütün kavramları tek bir işlem üzerinde birleştirelim, sonra ilk programını çalıştıralım.</p></header>
-
-<div class="subsection" id="s6-1"><h3><span class="num">6.1</span>Tek satır kodun altındaki katmanlar</h3>
+<div class="subsection" id="s5-1"><h3><span class="num">5.1</span>Tek satır kodun altındaki katmanlar</h3>
 <p>Bir matrisin determinantını hesapladığını düşün:</p>
 <div class="code-grid"><pre data-lang="Python"><code>import numpy as np
 
@@ -463,6 +409,9 @@ sonuc = np.linalg.det(A)</code></pre><pre data-lang="MATLAB"><code>A = [1 2;
 
 sonuc = det(A);</code></pre></div>
 <ol><li><strong>Matematiksel amaç:</strong> Determinant değerini istiyorsun.</li><li><strong>Algoritma:</strong> Değeri hesaplayacak bir yöntem gerekiyor (burada LU ayrıştırması).</li><li><strong>Dil:</strong> İsteği Python veya MATLAB sözdizimiyle ifade ediyorsun.</li><li><strong>Paket ve fonksiyon:</strong> Hazır <code>det</code> uygulamayı sunuyor.</li><li><strong>Çalışma zamanı:</strong> Kodu, veriyi ve çağrıyı yönetiyor.</li><li><strong>Sayısal kütüphane:</strong> Yoğun işlemi LAPACK gibi derlenmiş kod yapıyor.</li><li><strong>İşletim sistemi:</strong> Bellek ve işlemci zamanını yönetiyor.</li><li><strong>Donanım:</strong> İşlemci elektriksel devrelerle komutları yürütüyor.</li></ol>
+<p>Altıncı basamak özellikle önemlidir. Büyük matris işlemlerinde işlemciden ve bellek hiyerarşisinden iyi yararlanmak gerekir. Yıllar içinde geliştirilen <strong>BLAS</strong> ve <strong>LAPACK</strong> gibi kütüphaneler bu ağır işleri verimli yapan C ve Fortran uygulamalarına sahiptir ve onlarca yıldır sınanmıştır.</p>
+<p>Python'da tek satır yazarken yoğun hesap alttaki bu derlenmiş kütüphaneye aktarılır. Bu yüzden “Python yavaştır” veya “Fortran eskidir” yargıları eksiktir. Performansı, görünen dil kadar kullanılan kütüphane, verinin bellekteki düzeni ve seçilen algoritma belirler.</p>
+<div class="flow">Kullanıcı kodu → yüksek seviyeli API → sayısal kütüphane (BLAS/LAPACK) → makine kodu</div>
 <p>Şimdi 1.6'ya geri dönelim. Bu determinantın matematiksel değeri tam olarak −2'dir. Ama çalıştırdığında çoğu ortamda şunu görürsün:</p>
 <pre data-lang="Python"><code>np.linalg.det(A)
 # -2.0000000000000004</code></pre>
@@ -470,7 +419,7 @@ sonuc = det(A);</code></pre></div>
 <p>İşte katmanları bilmenin somut faydası: bu çıktıyı gören biri “kütüphane bozuk” demez, “kayan nokta aritmetiği” der ve tolerans kullanır. Bir sorun çıktığında onun dilde mi, pakette mi, veride mi, sayısal temsilde mi yoksa ortamda mı olduğunu ayırt edebilmek, bu notun asıl kazandırmak istediği beceridir.</p>
 </div>
 
-<div class="subsection" id="s6-2"><h3><span class="num">6.2</span>İlk programını çalıştır</h3>
+<div class="subsection" id="s5-2"><h3><span class="num">5.2</span>İlk programını çalıştır</h3>
 <p>Buraya kadar programlama <em>hakkında</em> okudun. Kavramların yerine oturması için bir kez de çalıştırman gerekir. Aşağıdaki beş adım yaklaşık on dakika sürer ve bu sayfadaki katmanların çoğuna somut olarak dokunur.</p>
 <ol>
 <li><strong>Kur.</strong> <a href="https://www.python.org/downloads/">python.org</a> üzerinden Python'ı kur (Windows'ta kurulum sırasında “Add Python to PATH” seçeneğini işaretle). MATLAB kullanacaksan bu adım üniversite lisansıyla MATLAB kurulumudur.</li>
@@ -494,13 +443,13 @@ Mesajı 4.4'teki kurala göre oku: en alt satır sorunu söylüyor. Sonra satır
 
 A = np.array([[1, 2], [3, 4]])
 print(np.linalg.det(A))</code></pre>
-Böylece kurulum ile <code>import</code> farkını (3.3), paket kavramını (3.2) ve 6.1'deki katman zincirini kendi makinende görmüş olursun.</li>
+Böylece kurulum ile <code>import</code> farkını (3.3), paket kavramını (3.2) ve 5.1'deki katman zincirini kendi makinende görmüş olursun.</li>
 </ol>
 <div class="callout"><span class="label">Not</span>Bu adımlarda bir şeyin ters gitmesi normaldir ve öğrenmenin parçasıdır. Hata mesajını okuyup aratmak, kodu satır satır yeniden denemek tam olarak deneyimli kullanıcıların da yaptığı şeydir.</div>
 </div>
 
-<div class="subsection" id="s6-3"><h3><span class="num">6.3</span>Kavramları öğrenmenin yolu</h3>
-<ol><li>Bilgisayar, veriyi ve talimatı fiziksel olarak temsil eden programlanabilir bir makinedir; gücü de sınırı da evrensel makine fikrinden gelir.</li><li>Algoritma çözüm fikri, program bu fikrin yürütülebilir ifadesidir.</li><li>Sayılar bilgisayarda sonlu bitlerle temsil edilir; kayan nokta davranışını bilmek matematiksel hesapta zorunludur.</li><li>Programlama dili, çözümü makineye anlatmayı kolaylaştıran kurallar sistemidir.</li><li>Derleyici, yorumlayıcı ve çalışma zamanı bu ifadeyi çalıştırılabilir işlemlere bağlar.</li><li>Fonksiyon, modül, kütüphane ve paket çözülmüş işleri düzenleyip yeniden kullandırır.</li><li>Veri yapısı ve algoritma seçimi, girdi büyüdüğünde ölçülebilir sonuçlar doğurur.</li><li>Editör, IDE, terminal, hata ayıklayıcı ve sürüm kontrolü çalışma araçlarıdır; dilin kendisi değildir.</li><li>Bilimsel ekosistemler güvenilir matematiksel algoritmaları erişilebilir kılar; vektörleştirme bunları verimli kullanmanın yoludur.</li></ol>
+<div class="subsection" id="s5-3"><h3><span class="num">5.3</span>Kavramları öğrenmenin yolu</h3>
+<ol><li>Bilgisayar, veriyi ve talimatı fiziksel olarak temsil eden programlanabilir bir makinedir; gücü de sınırı da evrensel makine fikrinden gelir.</li><li>Algoritma çözüm fikri, program bu fikrin yürütülebilir ifadesidir.</li><li>Sayılar bilgisayarda sonlu bitlerle temsil edilir; kayan nokta davranışını bilmek matematiksel hesapta zorunludur.</li><li>Programlama dili, çözümü makineye anlatmayı kolaylaştıran kurallar sistemidir.</li><li>Derleyici, yorumlayıcı ve çalışma zamanı bu ifadeyi çalıştırılabilir işlemlere bağlar.</li><li>Fonksiyon, modül, kütüphane ve paket çözülmüş işleri düzenleyip yeniden kullandırır.</li><li>Veri yapısı ve algoritma seçimi, girdi büyüdüğünde ölçülebilir sonuçlar doğurur.</li><li>Editör, IDE, terminal, hata ayıklayıcı ve sürüm kontrolü çalışma araçlarıdır; dilin kendisi değildir.</li><li>Hazır kütüphaneler çözülmüş işleri erişilebilir kılar; vektörleştirme onları verimli kullanmanın yoludur.</li></ol>
 <blockquote>Yeni bir terim gördüğünde önce “Bu hangi sorunu çözüyor ve hangi katmanda yer alıyor?” diye sor. Tanım çoğu zaman ardından yerine oturur.</blockquote>
 </div>
 

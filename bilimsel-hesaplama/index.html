@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bilimsel Hesaplama ve Bilgisayar Cebiri | MAT6201</title>
+<meta name="description" content="Matematiksel bir problemin bilgisayara nasıl aktarıldığını, bilgisayarın neden yaklaşık sonuç ürettiğini, sayısal ve sembolik hesaplamanın farkını ve MATLAB'ın bu resimdeki yerini anlatan rehber.">
+<meta name="author" content="Melih Mert Oskay">
+<link rel="canonical" href="https://melihmertoskay.github.io/MAT6201/bilimsel-hesaplama/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MAT6201 Ders Notları">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="Bilimsel Hesaplama ve Bilgisayar Cebiri">
+<meta property="og:description" content="Matematiksel bir problemin bilgisayara nasıl aktarıldığını, bilgisayarın neden yaklaşık sonuç ürettiğini, sayısal ve sembolik hesaplamanın farkını ve MATLAB'ın bu resimdeki yerini anlatan rehber.">
+<meta property="og:url" content="https://melihmertoskay.github.io/MAT6201/bilimsel-hesaplama/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/notes.css">
+<script src="../assets/site.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="hero">
+<a class="back-link" href="../">← Ders notlarına dön</a>
+<p class="eyebrow">MAT6201 · 2. konu</p>
+<h1>Bilimsel Hesaplama ve Bilgisayar Cebiri</h1>
+<p class="lead">Matematiksel bir problemi bilgisayara verdiğimizde gerçekte ne olur? Sayısal ve sembolik hesaplama neden iki ayrı yoldur, hangi hatalar nereden gelir ve MATLAB bu resmin neresine oturur?</p>
+</header>
+<div class="layout">
+<nav class="toc" aria-label="İçindekiler"><strong>İçindekiler</strong>
+<details open><summary>1. Matematik bilgisayara nasıl aktarılır?</summary><ol>
+<li><a href="#s1-1">1.1 Gerçek problemden modele</a></li><li><a href="#s1-2">1.2 Formül ile algoritma</a></li><li><a href="#s1-3">1.3 Çözülebilir ve hesaplanabilir</a></li>
+</ol></details>
+<details><summary>2. Bilimsel hesaplama nedir?</summary><ol>
+<li><a href="#s2-1">2.1 Tekrarlanan hesabın yükü</a></li><li><a href="#s2-2">2.2 Bilimsel hesaplama döngüsü</a></li><li><a href="#s2-3">2.3 Bilimsel ve genel amaçlı programlama</a></li><li><a href="#s2-4">2.4 “Matematiksel programlama” ne demek?</a></li>
+</ol></details>
+<details><summary>3. Neden yaklaşık sonuç?</summary><ol>
+<li><a href="#s3-1">3.1 Sonsuz matematik, sonlu makine</a></li><li><a href="#s3-2">3.2 Sayısal hesaplama nedir?</a></li><li><a href="#s3-3">3.3 Yaklaşık sonuç yanlış mıdır?</a></li><li><a href="#s3-4">3.4 Hata nereden gelir?</a></li><li><a href="#s3-5">3.5 Koşullandırma ve kararlılık</a></li>
+</ol></details>
+<details><summary>4. Bilgisayar cebiri</summary><ol>
+<li><a href="#s4-1">4.1 Neden sayılar yetmedi?</a></li><li><a href="#s4-2">4.2 İfade ağacı</a></li><li><a href="#s4-3">4.3 CAS nasıl çalışır?</a></li><li><a href="#s4-4">4.4 Sembolik hesabın sınırları</a></li>
+</ol></details>
+<details><summary>5. Hangisi, ne zaman?</summary><ol>
+<li><a href="#s5-1">5.1 Aynı probleme iki bakış</a></li><li><a href="#s5-2">5.2 Karar ölçütleri</a></li><li><a href="#s5-3">5.3 İkisini birlikte kullanmak</a></li>
+</ol></details>
+<details><summary>6. Bilimsel hesaplama araçları</summary><ol>
+<li><a href="#s6-1">6.1 Neden tek bir araç yok?</a></li><li><a href="#s6-2">6.2 Araçların genel karakteri</a></li><li><a href="#s6-3">6.3 Dil, uygulama, paket</a></li>
+</ol></details>
+<details><summary>7. MATLAB bu resmin neresinde?</summary><ol>
+<li><a href="#s7-1">7.1 MATLAB nasıl ortaya çıktı?</a></li><li><a href="#s7-2">7.2 Neden matris merkezli?</a></li><li><a href="#s7-3">7.3 MATLAB'ın üç yönü</a></li><li><a href="#s7-4">7.4 MATLAB hangi dille yazıldı?</a></li><li><a href="#s7-5">7.5 Toolbox nedir?</a></li>
+</ol></details>
+<details><summary>8. Uçtan uca bir hesap</summary><ol>
+<li><a href="#s8-1">8.1 Baştan sona bir örnek</a></li><li><a href="#s8-2">8.2 Özet</a></li><li><a href="#kaynaklar">Kaynaklar</a></li>
+</ol></details>
+</nav>
+
+<main>
+<p>Bir denklemi çözmek, bir integrali hesaplamak veya bir veri kümesine eğri uydurmak istediğimizde bilgisayara ne veriyoruz ve o gerçekte ne yapıyor? Bu sayfa, matematiksel bir problemin bilgisayara aktarılma yolunu baştan sona izliyor: modelden algoritmaya, algoritmadan yaklaşık sonuca, sonuçtan da onun ne kadar güvenilir olduğuna.</p>
+<p>Bu bölüm kendi başına okunabilir; gerekli kavramlar geçtikleri yerde tanımlanıyor. Bilgisayarın donanım düzeyinde nasıl çalıştığı ve programlamanın genel kavramları için <a href="../bilgisayarin-temelleri/">birinci konuya</a> bakabilirsin. Terimlerin ilk geçtiği yerde yaygın İngilizce karşılıkları parantez içinde verilmiştir.</p>
+
+<section class="chapter" id="bolum1">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 1</p><h2>Matematik bilgisayara nasıl aktarılır?</h2><p>Gerçek bir problem ile çalışan bir program arasında birkaç dönüşüm vardır. Bu dönüşümleri görmeden bilgisayarın ne yaptığını anlamak zor.</p></header>
+
+<div class="subsection" id="s1-1"><h3><span class="num">1.1</span>Gerçek problemden matematiksel modele</h3>
+<p>Bilgisayara gerçek dünyanın kendisini veremeyiz. Ona verdiğimiz şey, problemin belirli yönlerini öne çıkaran bir temsildir. Bu temsile <strong>matematiksel model</strong> (<span class="en">mathematical model</span>) denir.</p>
+<p>Bir cismin belirli bir yükseklikten düşmesini incelediğimizi düşünelim. Bilgisayara cismi koymayız; konum, zaman, kütle, yerçekimi ivmesi gibi büyüklükleri ve aralarındaki ilişkiyi veririz. Cismin rengi, dokusu veya kokusu modele girmez; çünkü sorduğumuz soruyla ilgili değildir.</p>
+<div class="flow">Gerçek problem → matematiksel model → çözüm yöntemi → algoritma → program → sonuç → yorum</div>
+<p>Zincirin her halkasında bilgi kaybı ve tercih vardır. Hava direncini ihmal etmek bir tercihtir; yerçekimi ivmesini sabit almak başka bir tercihtir. Model gerçekliğin kendisi değil, <strong>belirli varsayımlar altında kurulmuş bir yaklaşımıdır.</strong></p>
+<div class="callout"><span class="label">Sık yapılan hata</span>Program doğru çalıştığı hâlde sonuç gerçeğe uymuyorsa, hata çoğu zaman kodda değil modeldedir. “Kod çalışıyor” ile “model uygun” ayrı sorulardır ve ayrı ayrı sınanmaları gerekir.</div>
+</div>
+
+<div class="subsection" id="s1-2"><h3><span class="num">1.2</span>Formül ile algoritma aynı şey midir?</h3>
+<p>Bir <strong>formül</strong>, büyüklükler arasındaki ilişkiyi gösterir. Bir <strong>algoritma</strong> (<span class="en">algorithm</span>) ise sonuca ulaşmak için izlenecek, uygulanabilir adımları belirtir. İkisi aynı şey değildir ve bu fark, bilgisayarla matematik yapmanın temelidir.</p>
+<p>Şu denklemi ele alalım:</p>
+<div class="math">x<sup>2</sup> − 2 = 0</div>
+<p>Formül düzeyinde yanıt hazırdır: <em>x = ±√2</em>. Ama bilgisayarın belleğinde “√2” diye bir sayı yoktur; onu hesaplaması gerekir. Hesaplaması için de bir yönteme ihtiyaç vardır. Örneğin Newton yöntemi şu adımı tekrarlar:</p>
+<div class="math">x<sub>n+1</sub> = ( x<sub>n</sub> + 2 / x<sub>n</sub> ) / 2</div>
+<p>1 değerinden başlarsak:</p>
+<div class="table-wrap"><table><thead><tr><th>Adım</th><th>Değer</th><th>√2'ye uzaklık</th></tr></thead><tbody>
+<tr><td>x<sub>0</sub></td><td>1.000000000</td><td>4 × 10<sup>−1</sup></td></tr>
+<tr><td>x<sub>1</sub></td><td>1.500000000</td><td>9 × 10<sup>−2</sup></td></tr>
+<tr><td>x<sub>2</sub></td><td>1.416666667</td><td>2 × 10<sup>−3</sup></td></tr>
+<tr><td>x<sub>3</sub></td><td>1.414215686</td><td>2 × 10<sup>−6</sup></td></tr>
+<tr><td>x<sub>4</sub></td><td>1.414213562</td><td>2 × 10<sup>−12</sup></td></tr>
+</tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
+<p>Formülün söylemediği, algoritmanın söylemek zorunda olduğu kararlar şunlardır:</p>
+<ul>
+<li>Hangi yöntem kullanılacak?</li>
+<li>Nereden başlanacak (başlangıç değeri)?</li>
+<li>Ne zaman durulacak (durma ölçütü, <span class="en">stopping criterion</span>)?</li>
+<li>Hangi doğruluk yeterli sayılacak (tolerans, <span class="en">tolerance</span>)?</li>
+</ul>
+<p>Dikkat edilirse yöntem <em>tam</em> değeri hiç üretmez; ona giderek yaklaşan bir dizi üretir ve biz bir yerde durmaya karar veririz. Bilgisayarla matematik yapmanın büyük kısmı böyle işler.</p>
+</div>
+
+<div class="subsection" id="s1-3"><h3><span class="num">1.3</span>Çözülebilir olmak ile hesaplanabilir olmak</h3>
+<p>Bir problemin matematiksel çözümünün var olması, o çözümün bilgisayarda makul sürede elde edilebileceği anlamına gelmez. Bu ayrım özellikle matematikten gelen biri için önemlidir, çünkü kâğıt üstünde kusursuz bir yöntem bilgisayarda kullanışsız olabilir.</p>
+<p>Klasik örnek determinanttır. Kofaktör açılımı (Cramer'ın da dayandığı yol) matematiksel olarak tam doğrudur, ama <em>n</em> × <em>n</em> bir matris için işlem sayısı <em>n</em>! ile büyür.</p>
+<div class="table-wrap"><table><thead><tr><th>Yöntem</th><th>20 × 20 matris için kabaca işlem sayısı</th><th>Sonuç</th></tr></thead><tbody>
+<tr><td>Kofaktör açılımı</td><td>20! ≈ 2 × 10<sup>18</sup></td><td>En hızlı bilgisayarlarda bile pratik değil</td></tr>
+<tr><td>LU ayrıştırması</td><td>≈ 3 × 10<sup>3</sup></td><td>Anlık</td></tr>
+</tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
+<p>İki yöntem de aynı matematiksel büyüklüğü hesaplar. Aradaki fark matematikte değil, <strong>hesaplanabilirlikte</strong> (<span class="en">computational feasibility</span>) yatar. Bu yüzden bilimsel hesaplamada “hangi formül doğrudur?” sorusunun yanında “hangi yöntem uygulanabilir?” sorusu da sorulur.</p>
+<p>Aynı çerçevede süre dışında iki sınır daha vardır: kullanılabilir <strong>bellek</strong> ve verinin <strong>büyüklüğü</strong>. Milyon satırlık bir veriyi tek seferde belleğe almak her zaman mümkün olmayabilir; o zaman yöntem de buna göre seçilir.</p>
+<div class="callout"><span class="label">Daha ileri bir not</span>Bazı problemler yalnızca zor değil, <em>ilkece</em> çözülemezdir: hiçbir algoritma onları her durumda doğru yanıtlayamaz. Bu, hesaplama kuramının konusudur ve pratik yavaşlıktan farklı bir sınırdır. Bu bölümde odağımız pratik sınırlar olacak.</div>
+</div>
+
+<div class="exercises"><h4>Kendini sına</h4>
+<ol>
+<li>“Bilgisayar bize gerçek problemin cevabını verir.” Bu cümlede yanlış olan nedir?
+<details class="answer"><summary>Yanıt</summary><p>Bilgisayar gerçek problemi değil, o problem için kurduğumuz modeli işler. Sonucun gerçeğe ne kadar uyduğu, modelin varsayımlarının ne kadar geçerli olduğuna bağlıdır. Doğru çalışan bir program yanlış bir modeli sadıkça hesaplayabilir.</p></details></li>
+<li><em>x</em>² − 2 = 0 denkleminin çözümü √2'dir. Bilgisayara bu formülü vermek neden yeterli değildir?
+<details class="answer"><summary>Yanıt</summary><p>√2 bir formüldür, bir sayı değil. Bilgisayarın ona bir yaklaşım üretmesi gerekir ve bunun için bir yöntem, bir başlangıç değeri, bir durma ölçütü ve bir tolerans belirlenmelidir. Bu kararların hiçbiri formülün içinde yazmaz.</p></details></li>
+<li>Kofaktör açılımı matematiksel olarak doğruysa, neden hiçbir yazılım determinantı bu yolla hesaplamaz?
+<details class="answer"><summary>Yanıt</summary><p>İşlem sayısı <em>n</em>! ile büyüdüğü için orta boy bir matriste bile pratik olmaktan çıkar. LU ayrıştırması aynı sonucu <em>n</em>³ mertebesinde işlemle verir. Doğruluk ile uygulanabilirlik ayrı ölçütlerdir.</p></details></li>
+</ol>
+</div>
+</section>
+
+<section class="chapter" id="bolum2">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 2</p><h2>Bilimsel hesaplama nedir?</h2><p>Bilgisayarla matematik yapmak yeni bir ihtiyaç değil; yüzyıllardır süren bir işin modern biçimi.</p></header>
+
+<div class="subsection" id="s2-1"><h3><span class="num">2.1</span>Tekrarlanan hesabın yükü</h3>
+<p>“Computer” kelimesi uzun süre bir makineyi değil, <em>hesap yapan insanı</em> anlattı. Astronomi, denizcilik, topçuluk, sigortacılık ve mühendislik, aynı işlemin binlerce farklı değer için tekrarlanmasını gerektiriyordu. Denizde konum belirlemek için kullanılan gökbilim almanakları, sayfalarca tablonun elle hesaplanmasıyla üretiliyordu.</p>
+<p>Bu yükü hafifletmek için üç yol geliştirildi:</p>
+<ul>
+<li><strong>Tablolar:</strong> Logaritma tabloları çarpmayı toplamaya indirgeyerek işlem yükünü azalttı.</li>
+<li><strong>Araçlar:</strong> Hesap cetveli ve mekanik hesap makineleri işlemin bir kısmını fiziksel düzene aktardı.</li>
+<li><strong>İş bölümü:</strong> Büyük hesaplar, her biri tek bir adımı tekrarlayan insan ekiplerine paylaştırıldı. Bu ekipler bugünün “paralel hesaplama” fikrinin insan hâliydi.</li>
+</ul>
+<p>Elektronik bilgisayarların ilk işlerinden biri de tam olarak buydu: uzun ve tekrarlı tabloları hızlı ve hatasız üretmek. Yani bilimsel hesaplama, bilgisayarla birlikte doğmadı; bilgisayar, çok eski bir ihtiyaca verilmiş bir yanıttı.</p>
+</div>
+
+<div class="subsection" id="s2-2"><h3><span class="num">2.2</span>Bilimsel hesaplama döngüsü</h3>
+<p><strong>Bilimsel hesaplama</strong> (<span class="en">scientific computing</span>), matematiksel modellerin bilgisayar yardımıyla kurulması, çözülmesi ve sonuçlarının değerlendirilmesidir. Kod yazmak bu işin yalnızca bir adımıdır.</p>
+<ol>
+<li><strong>Problemi tanımla:</strong> Neyi, hangi doğrulukla bilmek istiyorsun?</li>
+<li><strong>Model kur:</strong> Hangi büyüklükler, hangi ilişkiler, hangi varsayımlar?</li>
+<li><strong>Yöntem seç:</strong> Analitik çözüm var mı; yoksa hangi sayısal yöntem uygun?</li>
+<li><strong>Algoritmayı programla:</strong> Yöntemi çalıştırılabilir adımlara dök.</li>
+<li><strong>Hesapla:</strong> Programı çalıştır, sonucu al.</li>
+<li><strong>Doğrula ve yorumla:</strong> Sonuç anlamlı mı, mertebesi doğru mu, biliniyorsa referansla uyuşuyor mu?</li>
+<li><strong>Gerekirse geri dön:</strong> Modeli, yöntemi veya toleransı düzelt ve döngüyü tekrarla.</li>
+</ol>
+<p>Bu bir çizgi değil, bir döngüdür. Altıncı adım çoğu zaman ikinci veya üçüncü adıma geri gönderir. Deneyimsiz kullanıcının en sık yaptığı hata, beşinci adımda durup sonucu olduğu gibi kabul etmektir.</p>
+</div>
+
+<div class="subsection" id="s2-3"><h3><span class="num">2.3</span>Bilimsel programlama ile genel amaçlı programlama</h3>
+<p>Bilimsel programlama ayrı bir programlama <em>türü</em> değildir; programlamanın bilimsel ve matematiksel problemlere yönelmiş biçimidir. Kullanılan diller ve araçlar büyük ölçüde aynıdır, ama öne çıkan ihtiyaçlar farklılaşır.</p>
+<div class="table-wrap"><table><thead><tr><th></th><th>Genel amaçlı yazılım</th><th>Bilimsel hesaplama</th></tr></thead><tbody>
+<tr><td>Tipik iş</td><td>Kullanıcı hesabı, mesajlaşma, web sayfası, kayıt yönetimi</td><td>Denklem çözme, benzetim, optimizasyon, veri analizi, görselleştirme</td></tr>
+<tr><td>Temel veri</td><td>Metin, kayıt, ilişkisel tablo</td><td>Sayı dizileri, vektör ve matrisler</td></tr>
+<tr><td>Başarı ölçütü</td><td>Doğru davranış, kullanılabilirlik, güvenlik</td><td>Doğruluk, hata payı, çalışma süresi, bellek</td></tr>
+<tr><td>“Doğru” ne demek</td><td>Beklenen çıktıyı üretmek</td><td>Kabul edilebilir hata sınırında bir yaklaşım üretmek</td></tr>
+</tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
+<p>Son satır kritiktir: bilimsel hesaplamada “doğru sonuç” çoğu zaman tek bir değer değil, <em>ne kadar yanılabileceğini bildiğin</em> bir değerdir.</p>
+</div>
+
+<div class="subsection" id="s2-4"><h3><span class="num">2.4</span>“Matematiksel programlama” ne demek?</h3>
+<p>Bu terim iki farklı anlamda kullanıldığı için kafa karıştırır. İkisini de bilmekte yarar var.</p>
+<dl class="defs">
+<dt>Geniş (gündelik) anlam</dt><dd>Matematiksel problemleri programlama yoluyla çözmek. Sayısal analiz, sembolik hesaplama, lineer cebir, istatistik ve görselleştirme bu şemsiyenin altına girer.</dd>
+<dt>Teknik anlam</dt><dd>Optimizasyon alanının klasik adı: belirli kısıtlar altında bir amaç fonksiyonunu en küçük veya en büyük yapma problemi (<span class="en">mathematical programming</span>).</dd>
+</dl>
+<p>Teknik anlamda alt dallar şöyle adlandırılır: amaç ve kısıtlar doğrusalsa <strong>lineer programlama</strong> (<span class="en">linear programming</span>), değişkenlerin tam sayı olması isteniyorsa <strong>tamsayılı programlama</strong> (<span class="en">integer programming</span>), doğrusal olmayan ifadeler varsa <strong>doğrusal olmayan programlama</strong> (<span class="en">nonlinear programming</span>). Buradaki “programlama” kelimesinin kod yazmakla ilgisi yoktur; 1940'lardan kalan ve “planlama, çizelgeleme” anlamına gelen bir kullanımdır.</p>
+<div class="callout"><span class="label">Bu derste terimleri nasıl kullanıyoruz</span>Karışıklığı azaltmak için: geniş alan için <strong>bilimsel hesaplama</strong>, yaklaşık sayısal yöntemler için <strong>sayısal hesaplama</strong>, cebirsel ifadelerle çalışma için <strong>sembolik hesaplama</strong>, optimizasyon için ise <strong>matematiksel programlama</strong> diyeceğiz.</div>
+</div>
+
+<div class="exercises"><h4>Kendini sına</h4>
+<ol>
+<li>Bir meslektaşın “matematiksel programlama üzerine çalışıyorum” diyor. Ne sorarsın?
+<details class="answer"><summary>Yanıt</summary><p>Hangi anlamda kullandığını. Optimizasyon (kısıtlı en iyileme) mi kastediyor, yoksa genel olarak matematiksel problemleri bilgisayarla çözmeyi mi? İki alan birbirinden oldukça farklıdır.</p></details></li>
+<li>Bilimsel hesaplama döngüsünde altıncı adım (doğrulama) atlanırsa ne kaybedilir?
+<details class="answer"><summary>Yanıt</summary><p>Sonucun anlamlı olup olmadığını bilme imkânı. Program hatasız çalışıp yanlış bir modelin veya uygunsuz bir yöntemin sonucunu üretebilir; doğrulama olmadan bu fark edilmez ve döngü hiç kapanmaz.</p></details></li>
+<li>Bilimsel programlamada “doğru sonuç” ile genel amaçlı yazılımdaki “doğru sonuç” neden farklı anlamlara gelir?
+<details class="answer"><summary>Yanıt</summary><p>Genel amaçlı yazılımda beklenen çıktı çoğunlukla kesindir. Bilimsel hesaplamada sonuç genellikle bir yaklaşımdır; doğruluk, hatanın kabul edilebilir bir sınırın altında kalması anlamına gelir. Bu yüzden hata payını bilmek sonucun kendisi kadar önemlidir.</p></details></li>
+</ol>
+</div>
+</section>
+
+<section class="chapter" id="bolum3">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 3</p><h2>Bilgisayar neden yaklaşık sonuç üretir?</h2><p>Yaklaşıklık bir kusur değil, sonlu bir makinede sonsuz matematik yapmanın kaçınılmaz sonucudur. Önemli olan hatayı yok saymak değil, nereden geldiğini bilmek.</p></header>
+
+<div class="subsection" id="s3-1"><h3><span class="num">3.1</span>Sonsuz matematik, sonlu makine</h3>
+<p>Matematikte 1/3, √2 ve π gibi sayılar sorunsuzca yazılır. Bilgisayarda ise her sayı sonlu sayıda bitle saklanır. Sonsuz basamaklı bir açılımı sonlu bir yere sığdırmanın tek yolu onu kesmektir.</p>
+<p>Gerçek sayılar için kullanılan yaygın temsil <strong>kayan noktalı sayı</strong>dır (<span class="en">floating point</span>) ve neredeyse tüm ortamlarda <strong>IEEE 754</strong> standardına uyar. Yaygın 64 bitlik biçimde yaklaşık 15–17 anlamlı ondalık basamak elde edilir; ancak temsil <em>ikilik tabanda</em> yapılır.</p>
+<p>Bunun görünür sonucu şudur: onluk tabanda masum görünen sayılar ikilik tabanda devirli açılıma sahip olabilir, tıpkı 1/3'ün onlukta 0.333… olması gibi.</p>
+<pre data-lang="Python"><code>0.1 + 0.2
+# 0.30000000000000004
+
+0.1 + 0.2 == 0.3
+# False</code></pre>
+<p>Buradaki sapmanın ölçeğine <strong>makine epsilonu</strong> (<span class="en">machine epsilon</span>) denir ve 64 bitlik kayan noktada yaklaşık 2.2 × 10<sup>−16</sup>'dır. MATLAB'da <code>eps</code>, Python'da <code>sys.float_info.epsilon</code> ile görülebilir.</p>
+<div class="callout"><span class="label">Pratik kural</span>Kayan noktalı sayıları <code>==</code> ile karşılaştırma. Farkın bir toleransın altında olup olmadığına bak: <code>abs(a - b) &lt; tol</code>. Tolerans, sayıların büyüklüğüne ve problemin gerektirdiği doğruluğa göre seçilir.</div>
+<p>Bu bölümün geri kalanında asıl soru şu olacak: madem sonuçlar yaklaşık, bu yaklaşıklığın <em>ne kadarı</em> nereden geliyor?</p>
+</div>
+
+<div class="subsection" id="s3-2"><h3><span class="num">3.2</span>Sayısal hesaplama nedir?</h3>
+<p><strong>Sayısal hesaplama</strong> (<span class="en">numerical computation</span>), matematiksel problemlere yaklaşık sayısal sonuçlar üretmek için geliştirilmiş yöntemler bütünüdür. Tipik problem türleri şunlardır:</p>
+<dl class="defs">
+<dt>Kök bulma</dt><dd><em>f</em>(<em>x</em>) = 0 denklemini sağlayan değerleri bulmak (<span class="en">root finding</span>).</dd>
+<dt>Lineer sistem çözme</dt><dd><em>A</em><strong>x</strong> = <strong>b</strong> sistemini çözmek (<span class="en">linear systems</span>).</dd>
+<dt>Sayısal integral</dt><dd>Belirli integralin değerini yaklaşık hesaplamak (<span class="en">numerical integration, quadrature</span>).</dd>
+<dt>Diferansiyel denklem</dt><dd>Çözümü adım adım ilerleterek üretmek (<span class="en">ODE/PDE solvers</span>).</dd>
+<dt>Eğri uydurma</dt><dd>Veriye en uygun modeli belirlemek (<span class="en">curve fitting, regression</span>).</dd>
+</dl>
+<p>Bu yöntemlerin ortak özelliği, bilinen bir formülü tek seferde uygulamak yerine <strong>doğru sonuca giderek yaklaşan bir dizi üretmeleridir</strong>. 1.2'deki karekök örneği bunun küçük bir gösterimiydi: her adım öncekinden daha iyi bir yaklaşım verdi ve biz bir yerde durduk.</p>
+<p>Bu diziye <strong>yakınsama</strong> (<span class="en">convergence</span>) denir. İyi bir sayısal yöntem yalnızca doğru cevaba yaklaşmakla kalmaz, <em>ne kadar hızlı</em> yaklaştığı da bilinir; böylece kaç adım sonra hangi doğruluğa ulaşılacağı önceden kestirilebilir.</p>
+</div>
+
+<div class="subsection" id="s3-3"><h3><span class="num">3.3</span>Yaklaşık sonuç yanlış sonuç mudur?</h3>
+<p>Hayır. Bir hesabın</p>
+<div class="math">√2 ≈ 1.41421356</div>
+<p>vermesi, √2'nin yanlış hesaplandığı anlamına gelmez; sonucun belirli bir hassasiyetle temsil edildiği anlamına gelir. Yaklaşıklık ile hata farklı kavramlardır: yaklaşıklık bilinçli bir tercihtir, hata ise bu tercihin büyüklüğüdür.</p>
+<p>Hatayı iki biçimde ölçeriz:</p>
+<dl class="defs">
+<dt>Mutlak hata</dt><dd>| gerçek değer − hesaplanan değer | (<span class="en">absolute error</span>).</dd>
+<dt>Bağıl hata</dt><dd>Mutlak hatanın gerçek değere oranı (<span class="en">relative error</span>).</dd>
+</dl>
+<p>Hangisinin anlamlı olduğu ölçeğe bağlıdır. 1 metrelik bir uzunlukta 1 milimetrelik sapma önemsizken, 2 milimetrelik bir parçada aynı sapma ürünü kullanılamaz hâle getirir. Bu yüzden bilimsel hesaplamada çoğunlukla bağıl hata tercih edilir.</p>
+<p>Bir sonucu bildirirken hangi basamağa kadar güvendiğini de bildirmek gerekir. On beş basamak yazdırmak, on beş basamağın doğru olduğu anlamına gelmez.</p>
+</div>
+
+<div class="subsection" id="s3-4"><h3><span class="num">3.4</span>Hata nereden gelir?</h3>
+<p>Bu, bölümün en önemli başlığı. Bilimsel bir hesabın sonucundaki sapma tek bir kaynaktan gelmez; birbirinden bağımsız en az altı kaynak vardır ve bunları ayırt edememek, yanlış yerde çözüm aramaya yol açar.</p>
+<div class="table-wrap"><table><thead><tr><th>Hata kaynağı</th><th>Nereden çıkar</th><th>Nasıl azaltılır</th></tr></thead><tbody>
+<tr><td><strong>Modelleme hatası</strong><br><span class="en">modelling error</span></td><td>Gerçeklik basitleştirilirken yapılan varsayımlar (hava direncini ihmal etmek gibi)</td><td>Modeli zenginleştirmek; varsayımların geçerlilik aralığını bilmek</td></tr>
+<tr><td><strong>Veri belirsizliği</strong><br><span class="en">measurement uncertainty</span></td><td>Girdi ölçümlerinin sınırlı hassasiyeti</td><td>Daha iyi ölçüm; sonucu bir aralık olarak bildirmek</td></tr>
+<tr><td><strong>Kesme hatası</strong><br><span class="en">truncation error</span></td><td>Sonsuz bir sürecin sonlu adımda kesilmesi (seriyi kısaltmak, iterasyonu durdurmak)</td><td>Daha fazla adım; daha yüksek mertebeli yöntem</td></tr>
+<tr><td><strong>Yuvarlama hatası</strong><br><span class="en">round-off error</span></td><td>Sayıların sonlu bitle temsil edilmesi</td><td>Daha yüksek hassasiyet; işlem sırasını iyileştirmek</td></tr>
+<tr><td><strong>Programlama hatası</strong><br><span class="en">bug</span></td><td>Kodun, amaçlanan algoritmayı yanlış gerçeklemesi</td><td>Test, bilinen çözümle karşılaştırma, kod gözden geçirme</td></tr>
+<tr><td><strong>Yorumlama hatası</strong><br><span class="en">misinterpretation</span></td><td>Doğru sayının yanlış anlamlandırılması (birim, mertebe, bağlam)</td><td>Birim kontrolü, mertebe kontrolü, sonucu fiziksel olarak sınamak</td></tr>
+</tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
+<p>Bu ayrımın pratik değeri şudur: sonucun beklenenden sapması hâlinde nereye bakacağını bilirsin. Adım sayısını artırdığında sonuç değişmiyorsa sorun kesme hatası değildir. Daha yüksek hassasiyete geçtiğinde değişmiyorsa yuvarlama hatası değildir. Geriye model, veri, kod ve yorum kalır.</p>
+<p>Kesme ve yuvarlama hatalarının çoğu zaman <em>ters yönde</em> çalıştığını da not etmek gerekir: adım sayısını artırmak kesme hatasını azaltır ama daha çok işlem yaptığı için yuvarlama hatasını biriktirir. Bu yüzden “daha fazla adım her zaman daha iyi” değildir; bir yerde en uygun denge vardır.</p>
+<div class="callout"><span class="label">Anahtar cümle</span>Bir yazılımın sonuç üretmesi, sonucun doğru veya anlamlı olduğu anlamına gelmez. MATLAB, Python veya Mathematica sana her zaman bir sayı verir; o sayının ne kadarına güvenebileceğine karar veren sensin.</div>
+</div>
+
+<div class="subsection" id="s3-5"><h3><span class="num">3.5</span>Aynı problem, farklı duyarlılık: koşullandırma</h3>
+<p>Bazı problemler, girdideki küçük bir değişikliğe çıktıda büyük bir değişiklikle karşılık verir. Bu, kullanılan yöntemin değil <em>problemin</em> bir özelliğidir ve <strong>koşullandırma</strong> (<span class="en">conditioning</span>) olarak adlandırılır.</p>
+<p>Şu iki denklemi ele alalım:</p>
+<div class="math">x + y = 2 <br> x + 1.0001 y = 2.0001</div>
+<p>Çözüm: <em>x</em> = 1, <em>y</em> = 1. Şimdi ikinci denklemin sağ tarafını 2.0001 yerine 2.0002 yapalım; yani veriyi yaklaşık yüzde 0.005 değiştirelim:</p>
+<div class="math">x + y = 2 <br> x + 1.0001 y = 2.0002</div>
+<p>Yeni çözüm: <em>x</em> = 0, <em>y</em> = 2. Girdideki binde birlik bir oynama, sonucu tamamen değiştirdi. Böyle problemlere <strong>kötü koşullu</strong> (<span class="en">ill-conditioned</span>), duyarlılığı düşük olanlara <strong>iyi koşullu</strong> (<span class="en">well-conditioned</span>) denir.</p>
+<p>Buradaki kritik nokta: bu, bilgisayarın veya algoritmanın hatası değildir. Problemin kendisi verideki belirsizliği büyütmektedir. Kusursuz aritmetiğe sahip bir makine de aynı sonucu verirdi.</p>
+<p>Buna karşılık <strong>kararlılık</strong> (<span class="en">stability</span>) algoritmanın özelliğidir: kararlı bir algoritma, yuvarlama hatalarını gereksiz yere büyütmez. Yani iki ayrı soru vardır:</p>
+<ul>
+<li><strong>Problem iyi koşullu mu?</strong> Veri biraz oynarsa sonuç ne kadar oynar?</li>
+<li><strong>Algoritma kararlı mı?</strong> Sonlu aritmetikte çalışırken hatayı büyütüyor mu?</li>
+</ul>
+<p>Kötü koşullu bir problemi en kararlı algoritmayla çözsen bile sonuca duyduğun güven sınırlıdır — çünkü sınırı koyan girdideki belirsizliktir. Bu, sayısal analizin en çok tekrarlanan uyarılarından biridir.</p>
+</div>
+
+<div class="exercises"><h4>Kendini sına</h4>
+<ol>
+<li>Bir hesabın sonucunu daha çok iterasyonla tekrarladın, sonuç değişmedi. Bu ne söyler, ne söylemez?
+<details class="answer"><summary>Yanıt</summary><p>Kesme hatasının artık baskın olmadığını söyler. Sonucun doğru olduğunu söylemez: modelleme, veri, kodlama ve yorumlama hataları ile yuvarlama hatası yerinde durur.</p></details></li>
+<li>Kesme hatası ile yuvarlama hatası arasındaki fark nedir? Adım sayısını artırmak ikisini de azaltır mı?
+<details class="answer"><summary>Yanıt</summary><p>Kesme hatası sonsuz bir süreci sonlu adımda kesmekten, yuvarlama hatası sayıların sonlu bitle temsilinden doğar. Adım sayısını artırmak kesme hatasını azaltır ama daha fazla işlem yapıldığı için yuvarlama hatasını biriktirir; bu yüzden bir noktadan sonra sonuç iyileşmez, kötüleşebilir.</p></details></li>
+<li>Kötü koşullu bir problemde daha iyi bir algoritma kullanmak sorunu çözer mi?
+<details class="answer"><summary>Yanıt</summary><p>Tam olarak çözmez. Kararlı bir algoritma gereksiz hata büyümesini önler, ama koşullandırma problemin kendi özelliğidir: girdideki belirsizlik zaten çıktıda büyür. Bu durumda yapılacak şey daha iyi veri toplamak veya problemi yeniden formüle etmektir.</p></details></li>
+<li>Bir program 15 basamaklı bir sonuç yazdırdı. Bu 15 basamağa güvenebilir misin?
+<details class="answer"><summary>Yanıt</summary><p>Hayır. Yazdırılan basamak sayısı, doğru olan basamak sayısıyla ilgili değildir. Güvenilen basamak sayısı hata analiziyle, yöntemin doğruluğuyla ve girdi verisinin hassasiyetiyle belirlenir.</p></details></li>
+</ol>
+</div>
+</section>
+
+<section class="chapter" id="bolum4">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 4</p><h2>Bilgisayar cebiri ve sembolik hesaplama</h2><p>Bazen istediğimiz bir sayı değil, ifadenin kendisidir. Bilgisayarın formüllerle çalışabilmesi bambaşka bir yaklaşım gerektirir.</p></header>
+
+<div class="subsection" id="s4-1"><h3><span class="num">4.1</span>Neden yalnızca sayılar yetmedi?</h3>
+<p>Şu iki isteği karşılaştıralım:</p>
+<ul>
+<li>“∫<sub>0</sub><sup>1</sup> <em>x</em>² d<em>x</em> kaçtır?” → beklenen yanıt bir sayı: 0.333…</li>
+<li>“∫ <em>x</em>² d<em>x</em> nedir?” → beklenen yanıt bir ifade: <em>x</em>³/3 + C</li>
+</ul>
+<p>İkincisinde sayısal bir yaklaşım işe yaramaz, çünkü sonuçta bir <em>değişken</em> vardır. Aynı ihtiyaç şu durumlarda da ortaya çıkar: bir formülü parametreleriyle birlikte türetmek, iki ifadenin özdeş olup olmadığını sınamak, bir denklemi genel çözümüyle vermek, bir ifadeyi sadeleştirip yapısını görmek.</p>
+<p>Bir başka fark da kesinlikte. Sayısal hesapta 1/3 yaklaşık saklanır; sembolik hesapta 1/3 tam olarak “bir bölü üç”tür ve üçle çarpıldığında tam olarak 1 verir.</p>
+</div>
+
+<div class="subsection" id="s4-2"><h3><span class="num">4.2</span>Sembolik hesaplama nedir? İfade ağacı</h3>
+<p><strong>Sembolik hesaplama</strong>da (<span class="en">symbolic computation</span>) bilgisayar ifadeleri hemen sayıya çevirmez; değişkenleri, katsayıları, fonksiyonları ve işlem yapısını koruyarak çalışır.</p>
+<p>Bunu yapabilmesi için ifadeyi bir metin parçası olarak değil, <strong>yapısal bir nesne</strong> olarak saklaması gerekir. Kullanılan temsil <strong>ifade ağacıdır</strong> (<span class="en">expression tree</span>). Örneğin (<em>x</em> + 1)² şöyle tutulur:</p>
+<pre data-lang="İfade ağacı"><code>        ^
+       / \
+      +   2
+     / \
+    x   1</code></pre>
+<p>Ağacın kökünde üs alma işlemi, sol dalında bir toplama, onun altında da değişken ve sayı düğümleri vardır. Bilgisayar bu yapıyı gezerek işlem yapar: türev almak, ağacı türev kurallarına göre yeni bir ağaca dönüştürmektir.</p>
+<p>Bu temsil sayesinde “<em>x</em>'e göre türev al” komutu anlamlı hâle gelir. Sayısal bir dizide böyle bir işlem tanımlı değildir; çünkü orada <em>x</em> diye bir nesne yoktur, yalnızca değerler vardır.</p>
+</div>
+
+<div class="subsection" id="s4-3"><h3><span class="num">4.3</span>Bilgisayar cebiri sistemi nasıl çalışır?</h3>
+<p>İfadeleri saklayan ve üzerlerinde matematiksel dönüşümler uygulayan yazılımlara <strong>bilgisayar cebiri sistemi</strong> (<span class="en">computer algebra system, CAS</span>) denir.</p>
+<p>Sistem, ağaç üzerinde tanımlı kuralları uygular. Örneğin açılım kuralı:</p>
+<div class="math">(x + 1)<sup>2</sup> ⟶ x<sup>2</sup> + 2x + 1</div>
+<p>Ters yönde çarpanlara ayırma kuralı aynı ifadeyi geri döndürür. Buradan hemen bir soru çıkar: hangisi “sade” olandır?</p>
+<div class="callout"><span class="label">Sadeleştirme neden zordur</span>Bir ifadenin tek bir doğal gösterimi yoktur. <em>x</em>² + 2<em>x</em> + 1 mi daha sadedir, (<em>x</em> + 1)² mi? Yanıt ne yapmak istediğine bağlıdır: kök arıyorsan ikincisi, katsayı okuyorsan birincisi. Bu yüzden CAS'lerde <code>simplify</code>, <code>expand</code>, <code>factor</code>, <code>collect</code> gibi ayrı komutlar bulunur ve “sadeleştir” komutu her zaman beklediğin biçimi vermez.</div>
+<p>Sistemlerin bir kısmı, ifadeleri karşılaştırabilmek için onları <strong>kanonik biçime</strong> (<span class="en">canonical form</span>) sokar: aynı matematiksel nesneyi temsil eden her ifade tek bir standart yazıma çevrilir; böylece eşitlik sınaması, iki ağacın aynı olup olmadığına indirgenir.</p>
+<p>Son olarak bir uyarı: bilgisayarın matematiği bir insan gibi “anladığı” söylenemez. Yaptığı şey, iyi tanımlanmış temsiller üzerinde iyi tanımlanmış kurallar ve algoritmalar çalıştırmaktır. Bu ayrım, sistemin neden bazen şaşırtıcı biçimde güçlü, bazen de beklenmedik biçimde çaresiz olduğunu açıklar.</p>
+</div>
+
+<div class="subsection" id="s4-4"><h3><span class="num">4.4</span>Sembolik hesaplamanın sınırları</h3>
+<p>Sembolik yaklaşım “her problemin kusursuz çözümü” değildir. Üç tür sınırla karşılaşılır.</p>
+<p><strong>1. Kapalı biçimde çözüm olmayabilir.</strong> Bu bir yazılım eksikliği değil, matematiksel bir olgudur. Örneğin</p>
+<div class="math">∫ e<sup>−x<sup>2</sup></sup> dx</div>
+<p>ifadesinin temel fonksiyonlar cinsinden bir ilkeli yoktur. Benzer biçimde, beşinci ve daha yüksek dereceden genel polinom denklemlerinin kökleri radikallerle ifade edilemez (Abel–Ruffini teoremi). Böyle durumlarda tek yol sayısal hesaplamadır.</p>
+<p><strong>2. İfade şişmesi.</strong> Ara adımlarda üretilen ifadeler, girdi küçük olsa bile devasa büyüyebilir; buna <strong>ifade şişmesi</strong> (<span class="en">expression swell</span>) denir. Sonuç sayfalarca sürebilir, bellek tükenebilir veya hesap makul sürede bitmeyebilir.</p>
+<p><strong>3. Sonuç sade görünmeyebilir.</strong> Doğru ama okunaksız bir ifade, çoğu zaman elde etmek istediğin şey değildir. Sadeleştirme komutlarını denemek ve sonucu insan gözüyle düzenlemek işin normal bir parçasıdır.</p>
+<p>Bu sınırlar sembolik hesaplamayı değersiz kılmaz; onu <em>ne zaman</em> kullanacağını bilmeyi gerektirir. Bir sonraki bölüm tam olarak bu soruyu ele alıyor.</p>
+</div>
+</section>
+
+<section class="chapter" id="bolum5">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 5</p><h2>Sayısal ve sembolik: hangisi, ne zaman?</h2><p>İki yaklaşım rakip değil, farklı sorulara verilen farklı yanıtlardır.</p></header>
+
+<div class="subsection" id="s5-1"><h3><span class="num">5.1</span>Aynı probleme iki bakış</h3>
+<p>Yine tanıdık denklemi alalım:</p>
+<div class="math">x<sup>2</sup> − 2 = 0</div>
+<div class="table-wrap"><table><thead><tr><th></th><th>Sembolik çözüm</th><th>Sayısal çözüm</th></tr></thead><tbody>
+<tr><td>Sonuç</td><td><em>x</em> = ±√2</td><td><em>x</em> ≈ ±1.41421356</td></tr>
+<tr><td>Ne saklar</td><td>Matematiksel yapıyı</td><td>Kullanıma hazır bir değeri</td></tr>
+<tr><td>Kesinlik</td><td>Tam</td><td>Belirli bir hassasiyette</td></tr>
+<tr><td>Sonraki adımda</td><td>Türetilebilir, sadeleştirilebilir, parametreli kalabilir</td><td>Doğrudan hesaba, çizime, benzetime girer</td></tr>
+</tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
+<p>Hiçbiri “daha doğru” değildir. √2 yazmak, bir köprünün taşıyıcı hesabında doğrudan işe yaramaz; 1.41421356 yazmak ise formülün genel yapısını kaybettirir.</p>
+</div>
+
+<div class="subsection" id="s5-2"><h3><span class="num">5.2</span>Karar ölçütleri</h3>
+<p>Seçim, elindeki problemin ne istediğine bakılarak yapılır.</p>
+<div class="table-wrap"><table><thead><tr><th>Sembolik yaklaşım uygun olabilir</th><th>Sayısal yaklaşım uygun olabilir</th></tr></thead><tbody>
+<tr><td>Genel bir formül aranıyorsa</td><td>Gerçek ölçüm verisiyle çalışılıyorsa</td></tr>
+<tr><td>Parametreler korunmak isteniyorsa</td><td>Problem çok büyükse (büyük matrisler, çok değişken)</td></tr>
+<tr><td>Özdeşlik veya cebirsel yapı inceleniyorsa</td><td>Kapalı biçimde çözüm yoksa</td></tr>
+<tr><td>Türev/integralin kapalı biçimi isteniyorsa</td><td>Belirli bir sayısal değere ihtiyaç varsa</td></tr>
+<tr><td>Sonuç insan tarafından okunacaksa</td><td>Benzetim ve mühendislik uygulamalarında</td></tr>
+</tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
+<p>Pratik bir ipucu: sonucun bir sonraki adımda ne olacağını sor. Sonuç başka bir türetmeye girecekse sembolik, bir sayı üretmesi bekleniyorsa sayısal yol genellikle doğrudur.</p>
+</div>
+
+<div class="subsection" id="s5-3"><h3><span class="num">5.3</span>İkisini birlikte kullanmak</h3>
+<p>Gerçek çalışmada en verimli yol çoğu zaman ikisini sıralamaktır. Tipik desen şudur:</p>
+<div class="flow">Sembolik türetme → elde edilen formül → sayısal değerlendirme</div>
+<p>Örneğin bir fonksiyonun türevi sembolik olarak alınır, sonra bu türev binlerce noktada sayısal olarak hesaplanır. Böylece hem türev formülü kesindir hem de değerler hızlı üretilir.</p>
+<p>Bu birleşimin bir başka yararı da doğrulukla ilgilidir. Sembolik sadeleştirme, sayısal olarak sorunlu bir ifadeyi daha güvenli bir eşdeğerine dönüştürebilir. Birbirine çok yakın iki sayının çıkarılması anlamlı basamakları silecekse, ifadeyi önce cebirsel olarak yeniden yazmak bu kaybı önleyebilir.</p>
+<div class="callout"><span class="label">Akılda kalacak biçimde</span>Sembolik hesaplama <em>ne</em> hesaplayacağını bulmakta, sayısal hesaplama onu <em>gerçekten</em> hesaplamakta iyidir.</div>
+</div>
+
+<div class="exercises"><h4>Kendini sına</h4>
+<ol>
+<li>Bir CAS'e <code>simplify</code> komutu verdin ve beklediğin biçimi alamadın. Bu bir hata mıdır?
+<details class="answer"><summary>Yanıt</summary><p>Hayır. Bir ifadenin tek bir “en sade” biçimi yoktur; hangisinin sade sayılacağı amaca bağlıdır. Bu yüzden sistemler <code>expand</code>, <code>factor</code>, <code>collect</code> gibi ayrı komutlar sunar; istediğin biçimi elde etmek için uygun olanı seçmen gerekir.</p></details></li>
+<li>∫ e<sup>−x²</sup> d<em>x</em> için bir CAS kapalı biçim vermiyor. Yazılımın yetersizliği mi?
+<details class="answer"><summary>Yanıt</summary><p>Hayır, matematiksel bir olgu: bu ifadenin temel fonksiyonlar cinsinden ilkeli yoktur. Belirli bir aralıktaki değeri gerekiyorsa sayısal integral kullanılır.</p></details></li>
+<li>Bir fonksiyonun türevini on bin noktada hesaplaman gerekiyor. Nasıl bir yol izlersin?
+<details class="answer"><summary>Yanıt</summary><p>Türevi bir kez sembolik olarak alıp kapalı formülü elde eder, sonra bu formülü on bin nokta için sayısal olarak (tercihen vektörleştirilmiş biçimde) hesaplarsın. Böylece türev kesin, değerlendirme hızlı olur.</p></details></li>
+</ol>
+</div>
+</section>
+
+<section class="chapter" id="bolum6">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 6</p><h2>Bilimsel hesaplama araçları</h2><p>Bu kadar farklı ihtiyaç varken tek bir aracın hepsine birden en iyi yanıtı vermesi beklenemez.</p></header>
+
+<div class="subsection" id="s6-1"><h3><span class="num">6.1</span>Neden tek bir araç yok?</h3>
+<p>Araçlar farklı ihtiyaçların etrafında büyüdü: hızlı prototip çıkarma, matris hesabı, sembolik cebir, istatistiksel analiz, yüksek performans, eğitim, endüstriyel kullanım, açık kaynaklı çalışma. Her biri bir tarafta güçlüyken başka bir tarafta ortalama kalır.</p>
+<p>Bu yüzden “hangisi en iyi?” sorusu genellikle yanlış sorudur. Yerine sorulacak olanlar şunlardır: Problem hangi tür? Gereken kütüphaneler nerede? Ekip neyi biliyor? Sonucu kim, hangi lisansla tekrarlayacak?</p>
+</div>
+
+<div class="subsection" id="s6-2"><h3><span class="num">6.2</span>Araçların genel karakteri</h3>
+<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Temel karakteri</th><th>Doğal kullanım</th></tr></thead><tbody>
+<tr><td>MATLAB</td><td>Matris temelli dil ve bütünleşik sayısal ortam</td><td>Mühendislik, sinyal işleme, kontrol, benzetim, prototipleme</td></tr>
+<tr><td>Python</td><td>Genel amaçlı dil, geniş bilimsel paket ekosistemi</td><td>Veri analizi, otomasyon, yapay öğrenme, bilimsel hesap</td></tr>
+<tr><td>Julia</td><td>Bilimsel hesabı hedefleyen genel amaçlı dil</td><td>Yüksek performanslı sayısal modeller</td></tr>
+<tr><td>R</td><td>İstatistik için tasarlanmış dil ve ortam</td><td>Veri analizi, istatistiksel modelleme, grafik</td></tr>
+<tr><td>Mathematica / Maple</td><td>Genel amaçlı CAS ve etkileşimli hesap ortamı</td><td>Sembolik cebir, kalkülüs, karma sembolik–sayısal çalışma</td></tr>
+<tr><td>SageMath</td><td>Açık kaynak CAS; Python tabanlı, birçok aracı birleştirir</td><td>Cebir, sayı teorisi, geometri</td></tr>
+<tr><td>Magma</td><td>Cebir ve sayı teorisinde uzmanlaşmış CAS</td><td>Sonlu cisimler, gruplar, kodlama teorisi</td></tr>
+<tr><td>GNU Octave</td><td>MATLAB uyumluluğunu hedefleyen açık kaynak ortam</td><td>MATLAB benzeri sayısal hesap</td></tr>
+</tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
+<p>Sınırlar geçirgendir: Python sembolik hesap yapabilir (SymPy), MATLAB'ın sembolik toolbox'ı vardır, Mathematica sayısal çözücüler barındırır. Tablodaki karakterler yasak değil, ağırlık merkezi gösterir.</p>
+<p>Lisans da bir seçim ölçütüdür. Python, Julia, R, SageMath ve Octave açık kaynaktır; MATLAB, Mathematica, Maple ve Magma ticari ürünlerdir. Akademik açıdan sorulacak soru şudur: yayımladığın bir sonucu okuyan biri, aynı lisansa erişimi olmadan hesabını tekrarlayabilir mi?</p>
+</div>
+
+<div class="subsection" id="s6-3"><h3><span class="num">6.3</span>Dil, uygulama, kütüphane ve paket</h3>
+<p>Bilimsel yazılımlarda en sık karışan ayrım budur. Dört kavram farklı katmanlara aittir:</p>
+<dl class="defs">
+<dt>Programlama dili</dt><dd>Sözdizimi ve davranış kurallarının tanımı (<span class="en">language</span>). Python, Julia, MATLAB dili.</dd>
+<dt>Uygulama / ortam</dt><dd>Kodu yazdığın ve çalıştırdığın yazılım (<span class="en">application, environment</span>). MATLAB masaüstü, Jupyter, VS Code, RStudio.</dd>
+<dt>Kütüphane</dt><dd>Hazır fonksiyon koleksiyonu (<span class="en">library</span>). NumPy, SciPy, LAPACK.</dd>
+<dt>Paket</dt><dd>Kütüphanenin adı, sürümü ve bağımlılıklarıyla kurulabilir hâle gelmiş biçimi (<span class="en">package</span>).</dd>
+</dl>
+<p>Bu ayrım netleşince sık sorulan soru da yanıtlanır: <strong>“MATLAB bir dil mi, program mı?”</strong> İkisi de. MATLAB adı hem bir programlama dilini, hem o dili çalıştıran masaüstü uygulamayı, hem de etrafındaki fonksiyon ve toolbox ekosistemini birden anlatır. Python'da ise bu üçü ayrı adlar taşır: dil Python, ortam Jupyter veya VS Code, paketler NumPy ve SciPy.</p>
+<div class="callout"><span class="label">Bir örnek daha</span>“Python C ile yazılmıştır” cümlesi de aynı karışıklıktan doğar. Python bir dildir; onu çalıştıran en yaygın program olan CPython'ın önemli bölümleri C ile yazılmıştır. Bu, Python'ı C'nin bir çeşidi yapmaz — kuralları tanımlayan şey ile onları gerçekleyen araç farklıdır.</div>
+</div>
+</section>
+
+<section class="chapter" id="bolum7">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 7</p><h2>MATLAB bu resmin neresinde?</h2><p>Aracı tanımadan önce neden var olduğunu anlamak, sonraki derslerde öğrenilecek her komutu yerine oturtur.</p></header>
+
+<div class="subsection" id="s7-1"><h3><span class="num">7.1</span>MATLAB nasıl ortaya çıktı?</h3>
+<p>Adı <strong>MATrix LABoratory</strong> ifadesinin kısaltmasıdır. 1970'lerin sonunda Cleve Moler tarafından, öğrencilerin güçlü lineer cebir kütüphanelerine daha kolay erişebilmesi için geliştirildi.</p>
+<p>O dönemde LINPACK ve EISPACK gibi kütüphaneler mevcuttu, ama kullanmak için Fortran programı yazmak, derlemek ve çalıştırmak gerekiyordu. Basit bir matris işlemi bile birkaç dosyalık bir iş demekti. MATLAB'ın fikri şuydu: kullanıcı komutu yazsın, sonucu hemen görsün; arka planda hesabı zaten var olan sınanmış kütüphaneler yapsın.</p>
+<p>Yani MATLAB, yeni bir sayısal yöntem icat etmek için değil, <strong>var olan yöntemlere erişimi kolaylaştırmak</strong> için doğdu. Bugünkü etkileşimli karakteri de buradan gelir.</p>
+</div>
+
+<div class="subsection" id="s7-2"><h3><span class="num">7.2</span>Neden matris merkezli?</h3>
+<p>MATLAB'da temel veri türü tek bir sayı değil, matristir. Bir sayı bile aslında 1 × 1'lik bir matristir. Bu tercih, hedeflediği alanla doğrudan ilgilidir: lineer denklem sistemleri, dönüşümler, sinyaller, görüntüler, ölçüm serileri ve sonlu fark şemaları doğal olarak matris ve vektörlerle ifade edilir.</p>
+<p>Pratik sonucu, işlemlerin tek tek elemanlar yerine tüm diziye uygulanabilmesidir:</p>
+<pre data-lang="MATLAB"><code>x = [1 2 3 4];
+y = x.^2;
+% y = [1 4 9 16]</code></pre>
+<p>Buradaki nokta işareti (<code>.^</code>) işlemin eleman eleman yapılacağını belirtir. Sözdiziminin ayrıntısı üçüncü derse ait; şu an fark edilmesi gereken şey, dört ayrı hesabın tek satırda ve döngü yazmadan ifade edilebilmesidir.</p>
+</div>
+
+<div class="subsection" id="s7-3"><h3><span class="num">7.3</span>MATLAB'ın üç yönü</h3>
+<p>“MATLAB” denince aslında üç ayrı şeyden söz edilir:</p>
+<dl class="defs">
+<dt>Programlama dili</dt><dd>Kod yazarken kullanılan sözdizimi ve kurallar.</dd>
+<dt>Uygulama</dt><dd>Command Window, Editor, Workspace ve grafik pencerelerinden oluşan masaüstü yazılım.</dd>
+<dt>Ekosistem</dt><dd>Hazır fonksiyonlar, toolbox'lar, belgeler ve yardımcı araçlar bütünü.</dd>
+</dl>
+<p>Uygulama yönünü en iyi gösteren şey etkileşimli çalışmadır. Command Window'a bir ifade yazarsın, sonucu anında görürsün:</p>
+<pre data-lang="MATLAB"><code>2 + 3
+% ans = 5
+
+r = 5;
+alan = pi * r^2
+% alan = 78.5398</code></pre>
+<p>İkinci satırdaki noktalı virgül çıktıyı bastırır, üçüncü satırda olmadığı için sonuç ekrana yazılır. Bu ayrıntılar üçüncü derste ele alınacak; buradaki amaç yalnızca bir MATLAB hesabının neye benzediğini görmek.</p>
+</div>
+
+<div class="subsection" id="s7-4"><h3><span class="num">7.4</span>MATLAB hangi dille yazılmıştır?</h3>
+<p>MATLAB'ın kendisi C, C++ ve Fortran ile yazılmış bileşenlerden oluşur ve yoğun sayısal işleri BLAS/LAPACK gibi optimize edilmiş kütüphanelere aktarır. İlk sürümleri Fortran ile yazılmış, sonraki sürümlerde C'ye taşınmıştır.</p>
+<p>Bu bilgi ilginç bir ayrıntı olmaktan öte bir işe yarar: bir dilin kuralları ile onu gerçekleyen teknolojinin ayrı şeyler olduğunu gösterir. MATLAB dili, altyapısında C kullanılıyor diye C'nin bir çeşidi olmaz. Aynı ilişki Python ile CPython arasında da vardır.</p>
+<p>Performans açısından da anlamlıdır: MATLAB'da yazdığın tek satırlık bir matris çarpımı, onlarca yıldır sınanmış derlenmiş kütüphanelerde çalışır. Bu yüzden “yorumlanan ortam yavaştır” genellemesi, hesabın nerede yapıldığına bakmadan kurulamaz.</p>
+</div>
+
+<div class="subsection" id="s7-5"><h3><span class="num">7.5</span>Toolbox nedir?</h3>
+<p>Temel MATLAB ortamı genel sayısal hesap için gerekli olanı sunar. Belirli alanlara özgü yetenekler ise ayrı paketler hâlinde gelir; bunlara <strong>Toolbox</strong> denir.</p>
+<div class="analogy"><span class="label">Benzetme</span>MATLAB temel çalışma tezgâhıysa Toolbox'lar belirli işler için hazırlanmış takım kutularıdır. Tezgâh olmadan kutular işe yaramaz; kutular olmadan da tezgâhta her iş yapılamaz.</div>
+<p>Symbolic Math Toolbox, Optimization Toolbox ve Statistics and Machine Learning Toolbox yaygın örneklerdir. Bu bölümdeki sembolik–sayısal ayrımını MATLAB içinde de görebilirsin:</p>
+<pre data-lang="MATLAB"><code>sqrt(2)
+% ans = 1.4142        → kayan noktalı yaklaşık değer
+
+sym(sqrt(2))
+% ans = 2^(1/2)       → sembolik ifade (Symbolic Math Toolbox)</code></pre>
+<p>Aynı matematiksel nesne, hangi katmanda çalıştığına göre iki farklı biçimde temsil edilir. Birincisi hesaba hazır bir sayı, ikincisi üzerinde cebir yapılabilecek bir ifadedir.</p>
+</div>
+
+<div class="exercises"><h4>Kendini sına</h4>
+<ol>
+<li>“MATLAB bir dil midir, program mıdır?” sorusuna nasıl yanıt verirsin?
+<details class="answer"><summary>Yanıt</summary><p>Üçü birden: bir programlama dili, o dili çalıştıran masaüstü uygulama ve etrafındaki fonksiyon/toolbox ekosistemi aynı adı taşır. Python'da bu üç katman ayrı adlarla anılır (Python, Jupyter/VS Code, NumPy).</p></details></li>
+<li>MATLAB'ın altyapısında C ve Fortran kullanılması, MATLAB dilini C'nin bir çeşidi yapar mı?
+<details class="answer"><summary>Yanıt</summary><p>Hayır. Bir dilin kurallarını tanımlayan şey ile o kuralları gerçekleyen yazılım farklıdır. Aynı ilişki Python ile CPython arasında da vardır.</p></details></li>
+<li><code>sqrt(2)</code> ile <code>sym(sqrt(2))</code> arasındaki fark nedir?
+<details class="answer"><summary>Yanıt</summary><p>Birincisi kayan noktalı yaklaşık bir sayı üretir ve doğrudan hesapta kullanılır. İkincisi sembolik bir ifade üretir; tam değeri temsil eder ve üzerinde cebirsel işlem yapılabilir.</p></details></li>
+<li>MATLAB neden matris merkezli tasarlanmıştır?
+<details class="answer"><summary>Yanıt</summary><p>Hedeflediği alanlarda (lineer cebir, mühendislik, sinyal ve görüntü işleme, benzetim) veriler doğal olarak vektör ve matris biçimindedir. Matrisi temel tür yapmak, bu işlemleri döngü yazmadan tek satırda ifade etmeyi sağlar.</p></details></li>
+</ol>
+</div>
+</section>
+
+<section class="chapter" id="bolum8">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 8</p><h2>Uçtan uca bir hesap</h2><p>Bütün kavramları tek bir küçük problem üzerinde birleştirelim.</p></header>
+
+<div class="subsection" id="s8-1"><h3><span class="num">8.1</span>Baştan sona bir örnek</h3>
+<p><strong>Soru:</strong> 45 metre yükseklikten bırakılan bir cisim yere ne zaman düşer?</p>
+
+<p><strong>1. Problemi tanımla.</strong> Aranan şey bir süre. Kabul edilebilir doğruluk, bu bağlamda yüzde bir mertebesinde olsun.</p>
+
+<p><strong>2. Model kur.</strong> Cismi bir noktaya indirgiyor, hava direncini ihmal ediyor ve yerçekimi ivmesini sabit alıyoruz. Bu varsayımlar altında:</p>
+<div class="math">h = ½ g t<sup>2</sup> &nbsp;&nbsp;⟹&nbsp;&nbsp; t = √(2h / g)</div>
+
+<p><strong>3. Yöntem seç.</strong> Burada kapalı biçimde bir çözüm var, dolayısıyla iteratif bir yönteme gerek yok. Yalnızca bir karekök hesaplanacak — ki bu bile, 1.2'de gördüğümüz gibi, alt katmanda bir sayısal yöntemle yapılır.</p>
+
+<p><strong>4–5. Programla ve hesapla.</strong></p>
+<pre data-lang="MATLAB"><code>h = 45;              % yükseklik, metre
+g = 9.81;            % yerçekimi ivmesi, m/s^2
+
+t = sqrt(2*h/g)
+% t = 3.0289</code></pre>
+
+<p><strong>6. Doğrula ve yorumla.</strong> Sonucu olduğu gibi kabul etmeden önce üç sınama yapılır:</p>
+<ul>
+<li><strong>Birim kontrolü:</strong> 2<em>h</em>/<em>g</em> ifadesinin birimi m / (m/s²) = s²; karekökü saniye verir. Tutarlı.</li>
+<li><strong>Mertebe kontrolü:</strong> Serbest düşüşte ilk saniyede yaklaşık 5 m, üç saniyede yaklaşık 45 m yol alınır. 3 saniye civarı beklenen mertebedir.</li>
+<li><strong>Sınır durumu:</strong> <em>h</em> = 0 için <em>t</em> = 0 çıkmalı; formül bunu sağlıyor.</li>
+</ul>
+
+<p><strong>7. Varsayımları tartış.</strong> Sonuç modelin sonucudur, gerçekliğin değil. Hava direnci ihmal edildi; hafif ve geniş yüzeyli bir cisim için bu varsayım çabuk bozulur ve gerçek süre daha uzun olur. Yerçekimi ivmesi sabit alındı; 45 metrelik ölçekte bu son derece makul. Cismin dönmesi ve rüzgâr hiç modellenmedi.</p>
+
+<div class="callout"><span class="label">Asıl ders</span>Hava direncini modele katarsak denklem artık kapalı biçimde kolayca çözülemez ve bir diferansiyel denklem çözücüsüne, yani sayısal yönteme ihtiyaç duyarız. Modeli gerçeğe yaklaştırmak, çoğu zaman analitik çözümden sayısal çözüme geçmek demektir. Bu bölümün başından beri anlatılan zincir tam da budur.</div>
+<p>Dikkat edilirse bilgisayar bu yedi adımın yalnızca beşincisini yaptı. Problemi tanımlayan, modeli kuran, yöntemi seçen, sonucu sınayan ve varsayımların sınırını bilen insandır.</p>
+</div>
+
+<div class="subsection" id="s8-2"><h3><span class="num">8.2</span>Özet</h3>
+<ol>
+<li>Bilgisayar gerçek problemi değil, onun için kurduğumuz modeli işler.</li>
+<li>Matematiksel model, çözüm yöntemi, algoritma ve program birbirinden farklı kavramlardır.</li>
+<li>Bir formülün var olması, onun bilgisayarda uygulanabilir olduğu anlamına gelmez.</li>
+<li>Sonlu bir makinede sonuçlar yaklaşıktır; yaklaşıklık kusur değil, çalışma koşuludur.</li>
+<li>Hata en az altı ayrı kaynaktan gelir; hangisinin baskın olduğunu bilmek doğru yerde çözüm aramayı sağlar.</li>
+<li>Koşullandırma problemin, kararlılık algoritmanın özelliğidir; ikisi ayrı sorulardır.</li>
+<li>Sayısal hesaplama değerlerle, sembolik hesaplama ifade yapılarıyla çalışır ve çoğu zaman birbirini tamamlar.</li>
+<li>“Matematiksel programlama” teknik anlamda optimizasyon demektir.</li>
+<li>MATLAB, matris merkezli bir dil, bir uygulama ve bir ekosistemdir; var oluş nedeni sınanmış sayısal kütüphanelere kolay erişim sağlamaktır.</li>
+<li>Bir yazılımın sonuç üretmesi, sonucun doğru veya anlamlı olduğu anlamına gelmez.</li>
+</ol>
+<blockquote>Artık bilimsel hesaplamanın ne olduğunu ve MATLAB'ın bu resimde nereye oturduğunu biliyoruz. Sıradaki adım MATLAB çalışma ortamını tanımak ve tek kullanımlık komutları düzenli programlara dönüştürmektir.</blockquote>
+</div>
+
+<div class="subsection sources" id="kaynaklar"><h3><span class="num">Ek</span>Kaynaklar</h3>
+<p>Bölümde geçen konular için okuma bağlantıları.</p>
+<h4>Sayısal hesaplama ve hata</h4>
+<ul>
+<li><a href="https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">David Goldberg — What Every Computer Scientist Should Know About Floating-Point Arithmetic</a></li>
+<li><a href="https://docs.python.org/3/tutorial/floatingpoint.html">Python Belgeleri — Floating Point Arithmetic: Issues and Limitations</a></li>
+<li><a href="https://www.netlib.org/lapack/lug/">LAPACK Users' Guide — Accuracy and Stability</a></li>
+</ul>
+<h4>Bilgisayar cebiri</h4>
+<ul>
+<li><a href="https://www.sympy.org/en/index.html">SymPy — Python için sembolik matematik kütüphanesi</a></li>
+<li><a href="https://doc.sagemath.org/html/en/tutorial/">SageMath Tutorial</a></li>
+</ul>
+<h4>MATLAB ve tarihçesi</h4>
+<ul>
+<li><a href="https://www.mathworks.com/company/technical-articles/the-origins-of-matlab.html">Cleve Moler — The Origins of MATLAB</a></li>
+<li><a href="https://www.mathworks.com/help/matlab/getting-started-with-matlab.html">MathWorks — Getting Started with MATLAB</a></li>
+<li><a href="https://www.netlib.org/linpack/">Netlib — LINPACK</a> ve <a href="https://www.netlib.org/eispack/">EISPACK</a></li>
+</ul>
+</div>
+</section>
+</main>
+</div>
+<footer>MAT6201 · Bilimsel Hesaplama ve Bilgisayar Cebiri</footer>
+</div>
+</body>
+</html>
