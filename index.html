@@ -19,17 +19,43 @@
 <main>
 <p>Bilgisayarla bilimsel veya matematiksel bir çalışma yapmaya başladığında karşına çok sayıda kavram çıkar: programlama dili, uygulama, paket, kütüphane, toolbox, derleyici, yorumlayıcı, algoritma, sayısal hesaplama, sembolik hesaplama, MATLAB, Python, C, Magma… Bunların hepsi birbirine bağlıdır ama aynı şeyi ifade etmez. Temel resmi kurduğunda yeni bir yazılım veya dil gördüğünde onun ne olduğunu çok daha kolay anlayabilirsin.</p>
 
-<section id="s0"><h2>1. Bilgisayar nedir?</h2>
-<p><strong>Bilgisayar</strong>, kendisine verilen verileri bir programdaki talimatlara göre işleyen, sonuçları saklayabilen ve kullanıcıya ya da başka bir sisteme aktarabilen elektronik bir sistemdir.</p>
-<p>Günlük dilde bilgisayar denince çoğu zaman masaüstü veya dizüstü bilgisayar akla gelir. Oysa akıllı telefonlar, tabletler, oyun konsolları, sunucular ve otomobillerin içindeki kontrol birimleri de aynı temel ilkeye göre çalışan bilgisayarlardır.</p>
-<p>Bir bilgisayarın yaptığı işi dört temel adımda düşünebiliriz:</p>
-<dl class="defs"><dt>Girdi</dt><dd>Klavye, fare, sensör veya bir dosya aracılığıyla veri alınır.</dd><dt>Bellek</dt><dd>Veriler ve çalıştırılacak talimatlar geçici ya da kalıcı olarak saklanır.</dd><dt>İşleme</dt><dd>İşlemci, programın talimatlarını izleyerek veriler üzerinde hesaplama ve karşılaştırma yapar.</dd><dt>Çıktı</dt><dd>Sonuç ekranda gösterilir, bir dosyaya yazılır veya başka bir sisteme gönderilir.</dd></dl>
-<div class="flow">Girdi → Bellek ↔ İşlemci → Çıktı</div>
-<p>Bilgisayarı güçlü yapan yalnızca hızlı hesaplama yapması değildir. Aynı fiziksel makineye farklı <strong>programlar</strong> verildiğinde metin yazabilir, müzik çalabilir, bir diferansiyel denklemi çözebilir veya bir web sitesi çalıştırabilir. Program, bilgisayara hangi işlemleri hangi sırayla yapacağını söyleyen talimatlar bütünüdür.</p>
-<p>Bu noktada iki temel kavramı ayırmak yararlıdır:</p>
-<dl class="defs"><dt>Donanım</dt><dd>İşlemci, bellek, disk, ekran ve klavye gibi bilgisayarın fiziksel parçalarıdır.</dd><dt>Yazılım</dt><dd>Donanıma ne yapacağını söyleyen işletim sistemi, uygulamalar ve programlardır.</dd></dl>
-<blockquote>Bilgisayar kendi başına “ne yapılması gerektiğini” bilmez; verilen talimatları son derece hızlı ve düzenli biçimde uygular.</blockquote>
-<p>Şimdi bu genel tanımdan bir adım aşağı inip işlemcinin bu talimatları nasıl anladığına bakalım.</p></section>
+<section id="s0"><h2>1. Bilgisayar nedir? Nasıl bir makinedir?</h2>
+<p>En somut tanımıyla <strong>bilgisayar; elektrik enerjisiyle çalışan, fiziksel parçaları belirli bir düzende birbirine bağlanmış, bilgiyi saklayabilen ve verilen talimatlara göre dönüştürebilen bir makinedir.</strong></p>
+<p>Bir çamaşır makinesi de elektrikli bir makinedir; fakat temel görevi baştan bellidir. Bilgisayarı farklı kılan, <strong>programlanabilir</strong> olmasıdır. Aynı fiziksel makine, içine farklı talimatlar yüklendiğinde hesap makinesi, daktilo, müzik çalar, çizim aracı, haberleşme sistemi veya bilimsel simülasyon aracı olabilir. Bu nedenle bilgisayar yalnızca “hesap yapan” değil, <strong>genel amaçlı ve programlanabilir bir bilgi işleme makinesi</strong>dir.</p>
+
+<h3>Fiziksel olarak içinde ne vardır?</h3>
+<p>Modern bir bilgisayarın en temel yapı taşı <strong>transistör</strong>dür. Transistörü, elektrik akımını açıp kapatabilen çok küçük ve çok hızlı bir anahtar gibi düşünebilirsin. Bir transistör tek başına pek bir şey yapmaz. Fakat çok sayıda transistör belirli biçimlerde bağlandığında mantık kapıları; mantık kapıları birleştiğinde toplama, karşılaştırma, veri saklama ve komut yürütme devreleri oluşur.</p>
+<dl class="defs"><dt>İşlemci (CPU)</dt><dd>Talimatları sırayla alır, yorumlar ve gerekli aritmetik ya da mantıksal işlemleri yaptırır.</dd><dt>Bellek (RAM)</dt><dd>Çalışan programın talimatlarını ve o anda kullanılan verileri elektriksel durumlar halinde geçici olarak tutar.</dd><dt>Kalıcı depolama</dt><dd>Programları ve dosyaları elektrik kesildiğinde de korunacak biçimde SSD veya benzeri aygıtlarda saklar.</dd><dt>Girdi/çıktı aygıtları</dt><dd>Klavye, fare, ekran, ağ bağlantısı ve sensörler makinenin dış dünyayla veri alışverişini sağlar.</dd></dl>
+<p>Bugün bir işlemcinin içinde milyarlarca transistör bulunabilir. Bunlar rastgele yerleştirilmiş anahtarlar değildir; katman katman düzenlenmiş devrelerdir. En altta elektriksel durumlar, onların üzerinde mantık işlemleri, daha yukarıda makine komutları ve en üstte kullandığımız programlar vardır.</p>
+
+<h3>Neden 0 ve 1?</h3>
+<p>Elektronik devrede iki durumu birbirinden güvenilir biçimde ayırmak kolaydır: örneğin düşük ve yüksek gerilim. Bu iki fiziksel durumu <strong>0</strong> ve <strong>1</strong> ile gösteririz. “Bilgisayar yalnızca 0 ve 1 anlar.” sözü bu nedenle söylenir. Buradaki 0 ve 1 soyut sayı olmanın yanında, devredeki iki farklı fiziksel durumu temsil eder.</p>
+<p>Metin, resim veya ses de sonunda bu iki durumdan oluşan bit dizileriyle temsil edilir. Bilgisayar bir resmin “güzel”, bir kelimenin “anlamlı” olduğunu kendiliğinden bilmez; bunları belirlenmiş kurallara göre kodlanmış veriler olarak işler.</p>
+
+<h3>Somut bir işlem nasıl gerçekleşir?</h3>
+<p>Klavyede bir tuşa bastığını düşün. Klavye bu olayı elektriksel bir sinyale dönüştürür. İşletim sistemi sinyali hangi tuşa bastığın bilgisi olarak yorumlar. Çalışan program bu bilgiyi belleğe alır; işlemci programdaki talimatlara göre ne yapılacağını belirler; ekran kartı ve ekran da sonucu ışıklı pikseller halinde gösterir.</p>
+<div class="flow">Fiziksel hareket → elektriksel sinyal → sayısal veri → program talimatları → elektriksel işlem → görünen sonuç</div>
+<p>Yani ekranda gördüğün tek bir harfin arkasında bile fizik, elektronik devreler, veri gösterimleri ve yazılım katmanları birlikte çalışır.</p>
+
+<h3>Bu makineye neden ihtiyaç duyduk?</h3>
+<p>Bilgisayar tek bir anda icat edilmedi. İnsanlar yüzyıllar boyunca aynı temel sorunla karşılaştı: <strong>uzun, tekrarlı hesapları ve büyük miktardaki bilgiyi daha hızlı, düzenli ve daha az hatayla işlemek.</strong></p>
+<ol>
+<li><strong>Hesabı kolaylaştırmak:</strong> Abaküs gibi araçlar insanın yaptığı hesabı destekliyordu. 17. yüzyılda geliştirilen mekanik hesap makineleri, dişliler ve çarklarla toplama gibi işlemleri makineye yaptırmaya başladı.</li>
+<li><strong>Tekrarlı hesapları otomatikleştirmek:</strong> 19. yüzyılda bilim, denizcilik ve mühendislikte kullanılan matematik tabloları insanlar tarafından hazırlanıyor ve hata içerebiliyordu. Charles Babbage, bu tabloları otomatik hesaplayıp basacak <em>Fark Makinesi</em>ni bu soruna karşı tasarladı.</li>
+<li><strong>Makineye farklı görevler verebilmek:</strong> Babbage'ın daha sonraki <em>Analitik Makine</em> tasarımı, yalnızca tek bir hesabı yapan mekanik düzenekten genel amaçlı hesaplamaya geçiş fikrini taşıyordu: veriler, işlemler, bellek ve makineye ne yapacağını bildiren talimatlar birbirinden ayrılacaktı.</li>
+<li><strong>Büyük miktarda veriyi işlemek:</strong> Herman Hollerith'in delikli kart sistemi, 1890 ABD nüfus sayımındaki kayıtların daha hızlı işlenmesine yardımcı oldu. Böylece hesap makinelerinin yanında veri işleme makineleri de önem kazandı.</li>
+<li><strong>Çok daha yüksek hız:</strong> 20. yüzyılda bilimsel hesaplar, mühendislik, savaş dönemindeki balistik tablolar ve şifre çözme gibi ihtiyaçlar elektromekanik ve elektronik makinelerin gelişimini hızlandırdı. ENIAC gibi erken elektronik bilgisayarlarda çok sayıda vakum tüpü kullanılıyordu.</li>
+<li><strong>Küçülmek ve güvenilirleşmek:</strong> Transistörler vakum tüplerine göre daha küçük, daha az enerji tüketen ve daha güvenilir devreler kurulmasını sağladı. Ardından tümleşik devreler çok sayıda transistörü tek bir çip üzerinde topladı; oda büyüklüğündeki makineler zamanla masaüstüne, cebe ve gündelik nesnelerin içine girdi.</li>
+</ol>
+<blockquote>Bilgisayarın tarihi, “insan düşüncesinin yerini alan bir makine” yapma tarihinden çok; belirli ve tekrarlanabilir işlemleri insandan daha hızlı, düzenli ve hatasız gerçekleştirecek bir makine geliştirme tarihidir.</blockquote>
+
+<h3>Bilgisayarın yaptığı işi nasıl özetleyebiliriz?</h3>
+<p>Bütün bu fiziksel ve tarihsel ayrıntıları dört temel işlevde toplayabiliriz:</p>
+<dl class="defs"><dt>Girdi</dt><dd>Klavye, fare, sensör, ağ veya bir dosya aracılığıyla veri alınır.</dd><dt>Saklama</dt><dd>Veriler ve talimatlar geçici ya da kalıcı bellekte tutulur.</dd><dt>İşleme</dt><dd>İşlemci, programın talimatlarını izleyerek veriler üzerinde aritmetik ve mantıksal işlemler yapar.</dd><dt>Çıktı</dt><dd>Sonuç ekranda gösterilir, dosyaya yazılır, bir aygıtı hareket ettirir veya başka bir sisteme gönderilir.</dd></dl>
+<div class="flow">Girdi → Saklama ↔ İşleme → Çıktı</div>
+<p>Bu noktada iki temel kavramı ayırabiliriz: <strong>donanım</strong>, makinenin işlemci, bellek, disk ve ekran gibi fiziksel parçalarıdır; <strong>yazılım</strong> ise bu fiziksel düzene hangi işlemleri hangi sırayla yapacağını söyleyen talimatlardır.</p>
+<p>Şimdi bu somut makinenin en alt katmanına inip işlemcinin talimatları nasıl anladığına bakalım.</p>
+<p><small>Tarihsel çerçeve için: <a href="https://www.computerhistory.org/babbage/overview/">Computer History Museum — Babbage Engine</a> ve <a href="https://www.computerhistory.org/timeline/computers/">Computer History Museum — Computer Timeline</a>.</small></p></section>
 
 <section id="s1"><h2>2. En temelden başlayalım: Bilgisayar aslında ne anlar?</h2>
 <p>Bir bilgisayarın işlemcisi doğrudan MATLAB, Python veya C anlamaz. İşlemci en alt seviyede <strong>makine komutlarını</strong> çalıştırır. Bunlar işlemcinin anlayabildiği çok temel komutlardır:</p>
