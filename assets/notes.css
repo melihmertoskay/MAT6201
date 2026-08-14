@@ -278,8 +278,55 @@ pre code{padding:0;background:none;color:inherit;font:inherit}
 .table-wrap th{background:var(--wash);color:#345047;font-size:.82rem}
 .table-wrap tr:last-child td{border-bottom:0}
 
+/* Kavramların yaygın İngilizce karşılıkları: metin içinde parantezde. */
+.en{color:#4d5d57;font-style:italic}
+
+/* --- Alıştırmalar --- */
+
+.exercises{
+  margin:30px 0 0;
+  padding:20px 24px 24px;
+  border:1px solid var(--line);
+  border-left:4px solid var(--accent);
+  border-radius:0 16px 16px 0;
+  background:var(--wash);
+}
+.exercises h4{
+  margin:0 0 14px;
+  color:var(--accent);
+  font-size:.74rem;
+  font-weight:850;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.exercises ol{margin:0;padding-left:1.3rem}
+.exercises > ol > li{margin:0 0 14px}
+.exercises > ol > li:last-child{margin-bottom:0}
+
+.answer{margin:7px 0 0}
+.answer summary{
+  display:inline-block;
+  padding:3px 11px;
+  border:1px solid #b7d3c9;
+  border-radius:999px;
+  background:var(--paper);
+  color:var(--accent);
+  font-size:.76rem;
+  font-weight:750;
+  list-style:none;
+  cursor:pointer;
+}
+.answer summary::-webkit-details-marker{display:none}
+.answer summary:hover{background:var(--soft)}
+.answer summary:focus-visible{outline:3px solid #7ab5a4;outline-offset:2px}
+.answer[open] summary{margin-bottom:9px}
+.answer > p{margin:0 0 10px;font-size:.95rem}
+.answer > p:last-child{margin-bottom:0}
+
 .sources{font-size:.9rem;color:var(--muted)}
 .sources a{color:var(--accent)}
+.sources h4{margin:22px 0 8px;color:#203a32;font-size:.95rem}
+.sources ul{margin:0 0 6px}
 
 /* --- Duyarlı davranış --- */
 
