@@ -3,15 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Bilgisayarların nasıl çalıştığını, programlamanın neden ortaya çıktığını ve temel yazılım kavramlarını tarihsel bağlamlarıyla anlatan rehber.">
 <title>Bilgisayarın ve Programlamanın Temelleri | MAT6201</title>
-<style>
-:root{--ink:#17211d;--muted:#617069;--paper:#fffdf8;--wash:#eef3ed;--accent:#176b5b;--soft:#deeee8;--line:#d9e0d9;--code:#15211e}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:radial-gradient(circle at 8% 0,#e3f0e8 0,transparent 30rem),#f1f4ef;font:17px/1.72 system-ui,-apple-system,"Segoe UI",sans-serif}.shell{width:min(1160px,calc(100% - 30px));margin:28px auto 70px}.hero{padding:clamp(38px,7vw,80px);border-radius:28px;color:#fff;background:linear-gradient(135deg,#123d35,#176b5b 65%,#438d7e);box-shadow:0 18px 60px #20352d1a}.eyebrow{margin:0 0 14px;font-size:.78rem;font-weight:750;letter-spacing:.14em;text-transform:uppercase;opacity:.78}h1{max-width:900px;margin:0;font:750 clamp(2.3rem,6vw,5rem)/1.03 Georgia,serif;letter-spacing:-.04em}.lead{max-width:780px;margin:24px 0 0;font-size:clamp(1.05rem,2vw,1.25rem);color:#ffffffdf}.layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:26px;margin-top:26px}nav,main{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 15px 45px #20352d12}nav{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding:20px 16px}nav strong{display:block;margin:0 8px 10px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}nav ol{margin:0;padding:0;list-style:none;counter-reset:toc}nav li{counter-increment:toc}nav a{display:grid;grid-template-columns:2em 1fr;gap:5px;padding:6px 8px;border-radius:8px;color:#35433e;text-decoration:none;font-size:.83rem;line-height:1.32}nav a:before{content:counter(toc,decimal-leading-zero);color:#829088}nav a:hover{background:var(--soft);color:var(--accent)}main{padding:clamp(26px,5vw,64px)}section{scroll-margin-top:22px;padding:0 0 34px;margin:0 0 38px;border-bottom:1px solid var(--line)}section:last-child{border:0;margin:0;padding:0}h2{margin:0 0 18px;font:700 clamp(1.55rem,3vw,2.1rem)/1.18 Georgia,serif;letter-spacing:-.02em}h3{margin:28px 0 10px;font-size:1.08rem;color:var(--accent)}p{margin:0 0 16px}ul,ol{padding-left:1.35rem}li{margin:.28rem 0}blockquote{margin:22px 0;padding:15px 19px;border-left:4px solid var(--accent);border-radius:0 12px 12px 0;background:var(--soft);font:1.07rem/1.6 Georgia,serif}pre{position:relative;overflow:auto;margin:18px 0 22px;padding:38px 20px 20px;border-radius:14px;color:#eaf4ef;background:var(--code);font:.92rem/1.58 ui-monospace,Consolas,monospace}pre:before{content:attr(data-lang);position:absolute;top:11px;left:20px;color:#8ab8ab;font:700 .68rem/1 system-ui;letter-spacing:.11em;text-transform:uppercase}code{padding:.12em .35em;border-radius:.35em;background:#edf1ec;font:.88em ui-monospace,Consolas,monospace}pre code{padding:0;color:inherit;background:none;font:inherit}.math{overflow:auto;margin:20px 0;padding:10px;text-align:center;font:italic 1.28rem/1.5 Georgia,serif}.flow{margin:20px 0;padding:17px;border:1px solid var(--line);border-radius:14px;background:var(--wash);text-align:center;font-weight:650}.defs{display:grid;grid-template-columns:minmax(135px,.38fr) 1fr;gap:8px 22px;margin:18px 0}.defs dt{font-weight:750;color:var(--accent)}.defs dd{margin:0}.back-link{display:inline-flex;align-items:center;margin:0 0 24px;padding:8px 12px;border:1px solid #ffffff4d;border-radius:999px;color:#fff;text-decoration:none;font-size:.86rem;font-weight:700;background:#ffffff12}.back-link:hover{background:#ffffff22}.closing{padding:25px;border-radius:16px;background:linear-gradient(135deg,var(--soft),#f2f4e9)}footer{padding:26px 0 0;text-align:center;color:var(--muted);font-size:.82rem}@media(max-width:840px){.layout{grid-template-columns:1fr}nav{position:static;max-height:none}nav ol{columns:2}nav li{break-inside:avoid}}@media(max-width:560px){.shell{width:calc(100% - 18px);margin-top:9px}.hero,main{border-radius:16px}nav{display:none}.defs{grid-template-columns:1fr;gap:0}}@media print{.back-link{display:none}body{background:#fff;font-size:11pt}.shell{width:100%;margin:0}.hero{color:#111;background:none;box-shadow:none;padding:0 0 24px}.lead{color:#333}.layout{display:block}nav{display:none}main{padding:0;border:0;box-shadow:none}pre{white-space:pre-wrap}}
-
-/* Yeniden kurgulanan bölüm yapısı */
-main{min-width:0}
-.toc details{border-top:1px solid var(--line)}.toc details:first-of-type{border-top:0}.toc summary{cursor:pointer;list-style:none;padding:11px 8px;color:#31413b;font-size:.87rem;font-weight:750;line-height:1.35}.toc summary::-webkit-details-marker{display:none}.toc summary:before{content:"+";display:inline-block;width:1.4em;color:var(--accent)}.toc details[open] summary:before{content:"−"}.toc details ol{margin:0 0 10px;padding:0 8px 0 29px;list-style:none}.toc details li{counter-increment:none}.toc details a::before{content:none}.toc details a{display:block;padding:4px 0;color:#5d6a65;text-decoration:none;font-size:.78rem;line-height:1.35}.chapter{scroll-margin-top:22px}.chapter-head{margin:28px 0 34px;padding:24px;border-radius:18px;background:linear-gradient(135deg,var(--soft),#f2f5eb)}.chapter-kicker{margin:0 0 6px;color:var(--accent);font-size:.74rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.chapter-head h2{margin:0;font-size:clamp(1.8rem,3.4vw,2.65rem)}.chapter-head p{margin:12px 0 0;color:#4d5d57}.subsection{scroll-margin-top:22px;margin:0 0 38px}.subsection h3{margin:0 0 16px;font:700 clamp(1.32rem,2.5vw,1.7rem)/1.24 Georgia,serif;color:#203a32}.subsection h3 .num{display:block;margin-bottom:4px;color:var(--accent);font:800 .72rem/1 system-ui;letter-spacing:.12em}.analogy,.note{margin:22px 0;padding:18px 20px;border-radius:14px}.analogy{background:#f6efe1;border:1px solid #eadcc0}.note{background:var(--wash);border:1px solid var(--line)}.label{display:block;margin-bottom:7px;color:var(--accent);font-size:.72rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}.timeline{margin:24px 0;padding:0;list-style:none;border-left:3px solid #b7d3c9}.timeline li{position:relative;margin:0;padding:0 0 22px 24px}.timeline li:before{content:"";position:absolute;left:-8px;top:.5em;width:13px;height:13px;border:2px solid var(--paper);border-radius:50%;background:var(--accent)}.timeline strong{display:block;color:#25483e}.table-wrap{overflow:auto;margin:22px 0;border:1px solid var(--line);border-radius:14px}.table-wrap table{width:100%;min-width:620px;border-collapse:collapse;background:#fff}.table-wrap th,.table-wrap td{padding:13px 15px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.table-wrap th{background:var(--wash);color:#345047;font-size:.82rem}.code-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.code-grid>*{min-width:0}.code-grid pre{margin:0;max-width:100%}.sources{font-size:.9rem;color:var(--muted)}.sources a{color:var(--accent)}@media(max-width:840px){.layout{grid-template-columns:minmax(0,1fr)}.toc details{break-inside:avoid}}@media(max-width:620px){.code-grid{grid-template-columns:1fr}.chapter-head{padding:20px}.subsection{margin-bottom:32px}}
-</style>
+<meta name="description" content="Bilgisayarların nasıl çalıştığını, programlamanın neden ortaya çıktığını ve temel yazılım kavramlarını tarihsel bağlamlarıyla anlatan rehber.">
+<meta name="author" content="Melih Mert Oskay">
+<link rel="canonical" href="https://melihmertoskay.github.io/MAT6201/bilgisayarin-temelleri/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MAT6201 Ders Notları">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="Bilgisayarın ve Programlamanın Temelleri">
+<meta property="og:description" content="Bilgisayarların nasıl çalıştığını, programlamanın neden ortaya çıktığını ve temel yazılım kavramlarını tarihsel bağlamlarıyla anlatan rehber.">
+<meta property="og:url" content="https://melihmertoskay.github.io/MAT6201/bilgisayarin-temelleri/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/notes.css">
+<script src="../assets/site.js" defer></script>
 </head>
 <body>
 <div class="shell">
@@ -81,7 +87,7 @@ main{min-width:0}
 <p>Bir karaktere belirli sayı atanır; görüntü piksellerin renk değerleriyle, ses ise zaman içinde ölçülen değerlerle temsil edilir. Dosya biçimi, bitlerin hangi kuralla yorumlanacağını belirler.</p>
 <div class="flow">Fiziksel durum → bitler → sayılar → kodlama kuralı → metin / görüntü / ses</div>
 <p>Aynı bit dizisi, nasıl okunduğuna bağlı olarak sayı, karakter veya resmin parçası olabilir. Veri tek başına anlam taşımaz; anlamı onu yorumlayan kuralla birlikte ortaya çıkar.</p>
-<div class="note"><span class="label">Sayısal hesap için önemli</span>Gerçek sayılar sınırlı sayıda bitle saklanır. Bu nedenle <code>0.1</code> gibi bazı değerler tam temsil edilemez ve küçük yuvarlama farkları oluşabilir.</div>
+<div class="callout"><span class="label">Sayısal hesap için önemli</span>Gerçek sayılar sınırlı sayıda bitle saklanır. Bu nedenle <code>0.1</code> gibi bazı değerler tam temsil edilemez ve küçük yuvarlama farkları oluşabilir.</div>
 </div>
 
 <div class="subsection" id="s1-5"><h3><span class="num">1.5</span>İşlemci bir komutu nasıl çalıştırır?</h3>
@@ -105,7 +111,7 @@ main{min-width:0}
 <div class="subsection" id="s2-1"><h3><span class="num">2.1</span>Algoritma, program ve programlama</h3>
 <p>Bir problemi çözmek için izlenen düzenli işlem yoluna <strong>algoritma</strong> denir. Algoritma belirli bir dile bağlı değildir. Bir listedeki en büyük sayıyı bulma fikrini Türkçe anlatabilir, şema olarak çizebilir veya farklı dillerde kodlayabiliriz.</p>
 <p><strong>Program</strong>, bu çözüm yolunun bilgisayar tarafından yürütülebilecek biçimde ifade edilmiş hâlidir. <strong>Programlama</strong> ise yalnızca kod yazmak değil; problemi anlamak, çözümü adımlara ayırmak, veriyi temsil etmek, kodlamak, sınamak ve hataları düzeltmektir.</p>
-<div class="note"><span class="label">Sık karışan terim</span><strong>Dinamik programlama</strong> bir dil türü değildir. Aynı alt problemlerin yeniden hesaplanmasını önlemek için sonuçları saklayan bir algoritma tasarım tekniğidir.</div>
+<div class="callout"><span class="label">Sık karışan terim</span><strong>Dinamik programlama</strong> bir dil türü değildir. Aynı alt problemlerin yeniden hesaplanmasını önlemek için sonuçları saklayan bir algoritma tasarım tekniğidir.</div>
 <p>Tarif algoritmaya, o tarifi belirli mutfakta uygulamak programın çalışmasına benzer. Tarif başka dilde yazılabilir; kullanılan araçlar değişebilir ama çözüm fikri korunur.</p>
 </div>
 
@@ -132,6 +138,7 @@ main{min-width:0}
 <tr><td>Tür sistemi</td><td>Statik/dinamik ve diğer ayrımlar</td><td>Değer türlerinin ne zaman ve nasıl kontrol edildiğini.</td></tr>
 <tr><td>Çalıştırma</td><td>Derleme, yorumlama, sanal makine, JIT</td><td>Belirli implementasyonun kodu nasıl yürüttüğünü.</td></tr>
 </tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
 <p>Modern diller birden fazla paradigmayı destekleyebilir. Python prosedürel, nesne yönelimli ve fonksiyonel öğeleri birlikte sunar. Kategorileri kesin duvarlar değil, tasarım tercihlerini anlamaya yarayan mercekler olarak görmek daha doğrudur.</p>
 </div>
 
@@ -261,6 +268,7 @@ alan = dikdortgen_alani(4, 7)</code></pre>
 <tr><td>Magma</td><td>Cebir ve sayı teorisinde uzman CAS</td><td>Sonlu cisim, grup, kodlama teorisi</td></tr>
 <tr><td>GNU Octave</td><td>MATLAB uyumluluğunu hedefleyen açık ortam</td><td>MATLAB benzeri sayısal hesap</td></tr>
 </tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
 <p>Sınırlar kesin değildir. Asıl soru “hangisi en güçlü?” değil, problem, kütüphane, ekip ve paylaşım gereksinimi için hangisinin uygun olduğudur.</p>
 </div>
 
@@ -299,7 +307,8 @@ sonuc = det(A);</code></pre></div>
 <blockquote>Yeni terim gördüğünde önce “Bu hangi sorunu çözüyor ve hangi katmanda yer alıyor?” diye sor. Tanım çoğu zaman ardından yerine oturur.</blockquote>
 </div>
 
-<div class="subsection sources" id="kaynaklar"><h3><span class="num">Kaynaklar</span>Tarihsel okuma bağlantıları</h3>
+<div class="subsection sources" id="kaynaklar"><h3><span class="num">Ek</span>Kaynaklar</h3>
+<p>Bölümlerde geçen tarihsel bilgiler için okuma bağlantıları.</p>
 <ul><li><a href="https://www.computerhistory.org/babbage/history/">Computer History Museum — Babbage Engine: A Brief History</a></li><li><a href="https://www.computerhistory.org/storageengine/punched-cards-control-jacquard-loom/">Computer History Museum — Punched Cards Control Jacquard Loom</a></li><li><a href="https://www.computerhistory.org/timeline/computers/">Computer History Museum — Timeline of Computer History</a></li><li><a href="https://www.ibm.com/history/fortran">IBM — The History of Fortran</a></li></ul>
 </div>
 </section>

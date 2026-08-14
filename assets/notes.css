@@ -1,0 +1,319 @@
+/* MAT6201 — konu sayfası bileşenleri.
+   style.css'in üzerine yüklenir: içindekiler menüsü, bölüm/alt bölüm yapısı,
+   kod blokları, tablolar ve anlatım kutuları. */
+
+/* --- Sayfa düzeni --- */
+
+.layout{
+  display:grid;
+  grid-template-columns:270px minmax(0,1fr);
+  gap:26px;
+  margin-top:26px;
+}
+.layout > nav,
+.layout > main{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:0 15px 45px #20352d12;
+}
+main{min-width:0;padding:clamp(26px,5vw,64px)}
+
+/* --- İçindekiler --- */
+
+nav.toc{
+  position:sticky;
+  top:16px;
+  max-height:calc(100vh - 32px);
+  overflow:auto;
+  padding:20px 16px;
+}
+nav.toc > strong{
+  display:block;
+  margin:0 8px 10px;
+  color:var(--muted);
+  font-size:.78rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.toc details{border-top:1px solid var(--line)}
+.toc details:first-of-type{border-top:0}
+.toc summary{
+  padding:11px 8px;
+  color:#31413b;
+  font-size:.87rem;
+  font-weight:750;
+  line-height:1.35;
+  list-style:none;
+  cursor:pointer;
+}
+.toc summary::-webkit-details-marker{display:none}
+.toc summary:before{
+  content:"+";
+  display:inline-block;
+  width:1.4em;
+  color:var(--accent);
+}
+.toc details[open] summary:before{content:"−"}
+.toc summary:hover{color:var(--accent)}
+.toc summary:focus-visible{outline:3px solid #7ab5a4;outline-offset:-2px;border-radius:8px}
+
+.toc ol{margin:0 0 10px;padding:0 8px 0 29px;list-style:none}
+.toc li{margin:0}
+.toc a{
+  display:block;
+  padding:4px 6px;
+  border-radius:7px;
+  color:#5d6a65;
+  text-decoration:none;
+  font-size:.79rem;
+  line-height:1.35;
+}
+.toc a:hover{background:var(--soft);color:var(--accent)}
+.toc a:focus-visible{outline:3px solid #7ab5a4;outline-offset:-1px}
+
+/* Okunan bölüm (site.js işaretler; JS yoksa menü yine tam çalışır). */
+.toc a[aria-current="true"]{
+  background:var(--soft);
+  color:var(--accent);
+  font-weight:700;
+}
+
+/* --- Bölüm ve alt bölüm --- */
+
+.chapter{scroll-margin-top:22px;margin:0 0 38px}
+.chapter:last-child{margin:0}
+
+.chapter-head{
+  margin:28px 0 34px;
+  padding:24px;
+  border-radius:18px;
+  background:linear-gradient(135deg,var(--soft),#f2f5eb);
+}
+.chapter-kicker{
+  margin:0 0 6px;
+  color:var(--accent);
+  font-size:.74rem;
+  font-weight:800;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.chapter-head h2{
+  margin:0;
+  font:700 clamp(1.55rem,3.4vw,2.65rem)/1.2 Georgia,"Times New Roman",serif;
+  letter-spacing:-.02em;
+}
+.chapter-head p{margin:12px 0 0;color:#4d5d57}
+
+.subsection{scroll-margin-top:22px;margin:0 0 38px}
+.subsection h3{
+  margin:0 0 16px;
+  color:#203a32;
+  font:700 clamp(1.32rem,2.5vw,1.7rem)/1.24 Georgia,"Times New Roman",serif;
+}
+.subsection h3 .num{
+  display:block;
+  margin-bottom:4px;
+  color:var(--accent);
+  font:800 .72rem/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.12em;
+}
+
+/* Başlık bağlantısı: paylaşılabilir derin link (site.js ekler). */
+.anchor{
+  margin-left:.4em;
+  color:#a8b5af;
+  font:700 .8em/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  text-decoration:none;
+  opacity:0;
+  transition:opacity .15s ease;
+}
+.subsection h3:hover .anchor,
+.anchor:focus-visible{opacity:1}
+.anchor:hover{color:var(--accent)}
+@media(hover:none){.anchor{opacity:.55}}
+
+/* --- Metin öğeleri --- */
+
+p{margin:0 0 16px}
+ul,ol{padding-left:1.35rem}
+li{margin:.28rem 0}
+
+blockquote{
+  margin:22px 0;
+  padding:15px 19px;
+  border-left:4px solid var(--accent);
+  border-radius:0 12px 12px 0;
+  background:var(--soft);
+  font:1.07rem/1.6 Georgia,"Times New Roman",serif;
+}
+
+.analogy,
+.callout{margin:22px 0;padding:18px 20px;border-radius:14px}
+.analogy{background:#f6efe1;border:1px solid #eadcc0}
+.callout{background:var(--wash);border:1px solid var(--line)}
+.label{
+  display:block;
+  margin-bottom:7px;
+  color:var(--accent);
+  font-size:.72rem;
+  font-weight:850;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.flow{
+  margin:20px 0;
+  padding:17px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--wash);
+  text-align:center;
+  font-weight:650;
+}
+.math{
+  overflow:auto;
+  margin:20px 0;
+  padding:10px;
+  text-align:center;
+  font:italic 1.28rem/1.5 Georgia,"Times New Roman",serif;
+}
+
+.defs{
+  display:grid;
+  grid-template-columns:minmax(135px,.38fr) 1fr;
+  gap:8px 22px;
+  margin:18px 0;
+}
+.defs dt{font-weight:750;color:var(--accent)}
+.defs dd{margin:0}
+
+.timeline{
+  margin:24px 0;
+  padding:0;
+  list-style:none;
+  border-left:3px solid #b7d3c9;
+}
+.timeline li{position:relative;margin:0;padding:0 0 22px 24px}
+.timeline li:before{
+  content:"";
+  position:absolute;
+  left:-8px;
+  top:.5em;
+  width:13px;
+  height:13px;
+  border:2px solid var(--paper);
+  border-radius:50%;
+  background:var(--accent);
+}
+.timeline strong{display:block;color:#25483e}
+
+/* --- Kod --- */
+
+pre{
+  position:relative;
+  overflow:auto;
+  margin:18px 0 22px;
+  padding:38px 20px 20px;
+  border-radius:14px;
+  background:var(--code);
+  color:#eaf4ef;
+  font:.92rem/1.58 ui-monospace,Consolas,monospace;
+}
+pre:before{
+  content:attr(data-lang);
+  position:absolute;
+  top:11px;
+  left:20px;
+  color:#8ab8ab;
+  font:700 .68rem/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+code{
+  padding:.12em .35em;
+  border-radius:.35em;
+  background:#edf1ec;
+  font:.88em ui-monospace,Consolas,monospace;
+}
+pre code{padding:0;background:none;color:inherit;font:inherit}
+
+.code-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.code-grid > *{min-width:0}
+.code-grid pre{margin:0;max-width:100%}
+
+/* --- Tablo --- */
+
+.table-wrap{
+  overflow:auto;
+  margin:22px 0 6px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+}
+.table-wrap table{
+  width:100%;
+  min-width:620px;
+  border-collapse:collapse;
+  background:none;
+}
+
+/* Dar ekranda tablo yana kaydırılır; bunu görünür biçimde söylüyoruz. */
+.table-hint{
+  display:none;
+  margin:0 0 22px;
+  color:var(--muted);
+  font-size:.82rem;
+}
+@media(max-width:760px){
+  .table-hint{display:block}
+}
+.table-wrap th,
+.table-wrap td{
+  padding:13px 15px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+  vertical-align:top;
+}
+.table-wrap th{background:var(--wash);color:#345047;font-size:.82rem}
+.table-wrap tr:last-child td{border-bottom:0}
+
+.sources{font-size:.9rem;color:var(--muted)}
+.sources a{color:var(--accent)}
+
+/* --- Duyarlı davranış --- */
+
+@media(max-width:840px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  /* Menü mobilde de kalır: sticky olmaktan çıkıp içeriğin üstünde akordeon olur. */
+  nav.toc{position:static;max-height:none}
+  .toc details{break-inside:avoid}
+}
+
+@media(max-width:620px){
+  .code-grid{grid-template-columns:1fr}
+  .chapter-head{padding:20px}
+  .subsection{margin-bottom:32px}
+}
+
+@media(max-width:560px){
+  .layout > nav,
+  .layout > main{border-radius:16px}
+  .defs{grid-template-columns:1fr;gap:0}
+  .defs dd{margin:0 0 10px}
+}
+
+@media print{
+  .layout{display:block}
+  nav.toc{display:none}
+  .layout > main{padding:0;border:0;border-radius:0;box-shadow:none}
+  .anchor{display:none}
+  .chapter-head{border:1px solid var(--line)}
+  .code-grid{grid-template-columns:1fr}
+  pre{white-space:pre-wrap;color:#111;background:#f4f6f3;border:1px solid var(--line)}
+  pre:before{color:#4d5d57}
+  .table-wrap{overflow:visible}
+  .table-wrap table{min-width:0}
+  .table-hint{display:none}
+  .chapter,.subsection{break-inside:avoid}
+}
