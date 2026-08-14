@@ -1,1 +1,228 @@
-<p>Merhaba Dünya</p>
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Programlama dili, uygulama, kütüphane, bilimsel ve sembolik hesaplama kavramları için kapsamlı rehber.">
+<title>Programlama Dünyasını Anlamak</title>
+<style>
+:root{--ink:#17211d;--muted:#617069;--paper:#fffdf8;--wash:#eef3ed;--accent:#176b5b;--soft:#deeee8;--line:#d9e0d9;--code:#15211e}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:radial-gradient(circle at 8% 0,#e3f0e8 0,transparent 30rem),#f1f4ef;font:17px/1.72 system-ui,-apple-system,"Segoe UI",sans-serif}.shell{width:min(1160px,calc(100% - 30px));margin:28px auto 70px}.hero{padding:clamp(38px,7vw,80px);border-radius:28px;color:#fff;background:linear-gradient(135deg,#123d35,#176b5b 65%,#438d7e);box-shadow:0 18px 60px #20352d1a}.eyebrow{margin:0 0 14px;font-size:.78rem;font-weight:750;letter-spacing:.14em;text-transform:uppercase;opacity:.78}h1{max-width:900px;margin:0;font:750 clamp(2.3rem,6vw,5rem)/1.03 Georgia,serif;letter-spacing:-.04em}.lead{max-width:780px;margin:24px 0 0;font-size:clamp(1.05rem,2vw,1.25rem);color:#ffffffdf}.layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:26px;margin-top:26px}nav,main{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 15px 45px #20352d12}nav{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding:20px 16px}nav strong{display:block;margin:0 8px 10px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}nav ol{margin:0;padding:0;list-style:none;counter-reset:toc}nav li{counter-increment:toc}nav a{display:grid;grid-template-columns:2em 1fr;gap:5px;padding:6px 8px;border-radius:8px;color:#35433e;text-decoration:none;font-size:.83rem;line-height:1.32}nav a:before{content:counter(toc,decimal-leading-zero);color:#829088}nav a:hover{background:var(--soft);color:var(--accent)}main{padding:clamp(26px,5vw,64px)}section{scroll-margin-top:22px;padding:0 0 34px;margin:0 0 38px;border-bottom:1px solid var(--line)}section:last-child{border:0;margin:0;padding:0}h2{margin:0 0 18px;font:700 clamp(1.55rem,3vw,2.1rem)/1.18 Georgia,serif;letter-spacing:-.02em}h3{margin:28px 0 10px;font-size:1.08rem;color:var(--accent)}p{margin:0 0 16px}ul,ol{padding-left:1.35rem}li{margin:.28rem 0}blockquote{margin:22px 0;padding:15px 19px;border-left:4px solid var(--accent);border-radius:0 12px 12px 0;background:var(--soft);font:1.07rem/1.6 Georgia,serif}pre{position:relative;overflow:auto;margin:18px 0 22px;padding:38px 20px 20px;border-radius:14px;color:#eaf4ef;background:var(--code);font:.92rem/1.58 ui-monospace,Consolas,monospace}pre:before{content:attr(data-lang);position:absolute;top:11px;left:20px;color:#8ab8ab;font:700 .68rem/1 system-ui;letter-spacing:.11em;text-transform:uppercase}code{padding:.12em .35em;border-radius:.35em;background:#edf1ec;font:.88em ui-monospace,Consolas,monospace}pre code{padding:0;color:inherit;background:none;font:inherit}.math{overflow:auto;margin:20px 0;padding:10px;text-align:center;font:italic 1.28rem/1.5 Georgia,serif}.flow{margin:20px 0;padding:17px;border:1px solid var(--line);border-radius:14px;background:var(--wash);text-align:center;font-weight:650}.defs{display:grid;grid-template-columns:minmax(135px,.38fr) 1fr;gap:8px 22px;margin:18px 0}.defs dt{font-weight:750;color:var(--accent)}.defs dd{margin:0}.closing{padding:25px;border-radius:16px;background:linear-gradient(135deg,var(--soft),#f2f4e9)}footer{padding:26px 0 0;text-align:center;color:var(--muted);font-size:.82rem}@media(max-width:840px){.layout{grid-template-columns:1fr}nav{position:static;max-height:none}nav ol{columns:2}nav li{break-inside:avoid}}@media(max-width:560px){.shell{width:calc(100% - 18px);margin-top:9px}.hero,main{border-radius:16px}nav{display:none}.defs{grid-template-columns:1fr;gap:0}}@media print{body{background:#fff;font-size:11pt}.shell{width:100%;margin:0}.hero{color:#111;background:none;box-shadow:none;padding:0 0 24px}.lead{color:#333}.layout{display:block}nav{display:none}main{padding:0;border:0;box-shadow:none}pre{white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="hero"><p class="eyebrow">Temel kavramlar rehberi</p><h1>Programlama Dünyasını Anlamak</h1><p class="lead">Dilden uygulamaya, kütüphaneden bilimsel hesaplamaya: programlama dili, derleyici, algoritma, paket, CAS ve daha fazlasını tek bir zihinsel modelde buluşturan bir giriş.</p></header>
+<div class="layout">
+<nav aria-label="İçindekiler"><strong>İçindekiler</strong><ol>
+<li><a href="#s1">Bilgisayar ne anlar?</a></li><li><a href="#s2">Programlama dili</a></li><li><a href="#s3">MATLAB bir program mı?</a></li><li><a href="#s4">Dilin implementasyonu</a></li><li><a href="#s5">Derleyici ve yorumlayıcı</a></li><li><a href="#s6">Yüksek seviyeli dil</a></li><li><a href="#s7">Algoritma</a></li><li><a href="#s8">Kütüphane</a></li><li><a href="#s9">Fonksiyon</a></li><li><a href="#s10">Paket</a></li><li><a href="#s11">Modül</a></li><li><a href="#s12">Toolbox</a></li><li><a href="#s13">Framework</a></li><li><a href="#s14">API</a></li><li><a href="#s15">Bilimsel programlama</a></li><li><a href="#s16">Sayısal hesaplama</a></li><li><a href="#s17">Sembolik hesaplama</a></li><li><a href="#s18">CAS</a></li><li><a href="#s19">MATLAB ve Magma</a></li><li><a href="#s20">Python ekosistemi</a></li><li><a href="#s21">Veri yapısı</a></li><li><a href="#s22">Nesne</a></li><li><a href="#s23">Script ve program</a></li><li><a href="#s24">IDE</a></li><li><a href="#s25">Terminal</a></li><li><a href="#s26">İşletim sistemi</a></li><li><a href="#s27">Açık kaynak ve ticari</a></li><li><a href="#s28">GNU Octave</a></li><li><a href="#s29">Fortran</a></li><li><a href="#s30">Bütün katmanlar</a></li><li><a href="#s31">MATLAB'ın katmanları</a></li><li><a href="#s32">Öğrenme sırası</a></li>
+</ol></nav>
+<main>
+<p>Bilgisayarla bilimsel veya matematiksel bir çalışma yapmaya başladığında karşına çok sayıda kavram çıkar: programlama dili, uygulama, paket, kütüphane, toolbox, derleyici, yorumlayıcı, algoritma, sayısal hesaplama, sembolik hesaplama, MATLAB, Python, C, Magma… Bunların hepsi birbirine bağlıdır ama aynı şeyi ifade etmez. Temel resmi kurduğunda yeni bir yazılım veya dil gördüğünde onun ne olduğunu çok daha kolay anlayabilirsin.</p>
+
+<section id="s1"><h2>1. En temelden başlayalım: Bilgisayar aslında ne anlar?</h2>
+<p>Bir bilgisayarın işlemcisi doğrudan MATLAB, Python veya C anlamaz. İşlemci en alt seviyede <strong>makine komutlarını</strong> çalıştırır. Bunlar işlemcinin anlayabildiği çok temel komutlardır:</p>
+<ul><li>bellekteki bir değeri al,</li><li>iki sayıyı topla,</li><li>iki değeri karşılaştır,</li><li>başka bir bellek konumuna git,</li><li>bir sonucu belleğe yaz.</li></ul>
+<p>Bunların insanlar tarafından doğrudan yazılması çok zahmetlidir. Bu nedenle bilgisayara ne yapmasını istediğimizi daha rahat ifade edebilmek için <strong>programlama dilleri</strong> geliştirilmiştir.</p>
+<div class="flow">İnsan → programlama dili → çeviri/çalıştırma sistemi → makine komutları → işlemci</div>
+<p>Örneğin MATLAB'da:</p><pre data-lang="MATLAB"><code>x = 5;
+y = x^2;</code></pre>
+<p>yazmak bizim için anlaşılırdır. Fakat işlemci <code>x^2</code> ifadesinin ne olduğunu doğrudan bilmez. MATLAB sistemi bu talebi bilgisayarın gerçekleştirebileceği işlemlere dönüştürür.</p></section>
+
+<section id="s2"><h2>2. Programlama dili nedir?</h2>
+<p>Programlama dili, bilgisayara yapılacak işlemleri ifade etmek için oluşturulmuş <strong>kurallar bütünüdür</strong>.</p>
+<p>Bir dilin hangi kelimeleri kullanabileceği, ifadelerin nasıl yazılacağı, değişkenlerin nasıl tanımlanacağı, koşulların nasıl kurulacağı ve fonksiyonların nasıl oluşturulacağı gibi kuralları vardır.</p>
+<p>Örneğin MATLAB:</p><pre data-lang="MATLAB"><code>A = [1 2; 3 4];</code></pre><p>Python:</p><pre data-lang="Python"><code>A = [[1, 2], [3, 4]]</code></pre><p>C:</p><pre data-lang="C"><code>int x = 5;</code></pre>
+<p>Bunlar üç farklı programlama dilinin sözdizimleridir. Dolayısıyla <strong>MATLAB başlı başına bir programlama dilidir.</strong> Python'ın veya C'nin bir çeşidi değildir.</p></section>
+
+<section id="s3"><h2>3. Peki MATLAB aynı zamanda bir program değil mi?</h2>
+<p>Evet. Burada isimler biraz kafa karıştırır. “MATLAB” dediğimizde hem <strong>MATLAB programlama dilini</strong> hem de bilgisayarımıza kurduğumuz <strong>MATLAB uygulamasını</strong> kastedebiliriz.</p>
+<p>Bilgisayarındaki MATLAB uygulamasını açtığında gördüğün Command Window, Editor, Workspace, grafik pencereleri, debugger ve dosya yöneticisi programlama dilinin kendisi değildir. Bunlar MATLAB ile çalışmayı sağlayan <strong>yazılım ortamının parçalarıdır</strong>.</p>
+<p>Bunu doğal dille karşılaştırabiliriz. <strong>Türkçe</strong> bir dildir. <strong>Microsoft Word</strong> ise Türkçe yazabileceğin bir uygulamadır.</p>
+<p>Tam olarak aynı ilişki olmasa da MATLAB konusunda şöyle düşünmek yararlıdır:</p><dl class="defs"><dt>MATLAB dili</dt><dd>Yazdığın kodun kuralları.</dd><dt>MATLAB uygulaması</dt><dd>Bu kodu yazdığın ve çalıştırdığın sistem.</dd></dl></section>
+
+<section id="s4"><h2>4. Bir programlama dili başka bir programlama diliyle mi yazılır?</h2>
+<p>Çoğu zaman evet. Örneğin Python'ı çalıştıran en yaygın sistem olan <strong>CPython</strong>, büyük ölçüde C ile geliştirilmiştir.</p>
+<p>MATLAB'ın altyapısının da C, C++, Fortran ve farklı yüksek performanslı kütüphanelerden oluşan büyük bir yazılım sistemi olduğunu düşünebilirsin.</p>
+<blockquote>“Python C ile yazıldıysa Python aslında C'dir.” demek doğru değildir.</blockquote>
+<p>Aynı şekilde “MATLAB'ın altyapısında C++ kullanılıyor, o halde MATLAB C++'tır.” da doğru değildir.</p>
+<p>Burada <strong>dil</strong> ile <strong>dilin implementasyonu</strong> arasındaki ayrım önemlidir. Programlama dili, kuralların tanımıdır. Implementasyon ise bu kuralları gerçekten bilgisayarda gerçekleştiren yazılımdır.</p></section>
+
+<section id="s5"><h2>5. Derleyici ve yorumlayıcı nedir?</h2>
+<p>Programlama dilindeki kodun sonuçta bilgisayar tarafından çalıştırılabilir hale gelmesi gerekir. Burada farklı yöntemler kullanılabilir.</p>
+<h3>Derleyici</h3><p>Bir <strong>compiler (derleyici)</strong> programını alıp başka bir forma, çoğu zaman makine koduna, dönüştürür. C bunun klasik örneklerinden biridir.</p>
+<pre data-lang="Akış"><code>C kodu
+↓
+derleyici
+↓
+makine kodu
+↓
+işlemci</code></pre><p>Bu nedenle C programları genellikle önceden derlenir.</p>
+<h3>Yorumlayıcı</h3><p>Bir <strong>interpreter (yorumlayıcı)</strong> ise kodu çalışma sırasında değerlendirir. Python için sıklıkla “yorumlanan dil” ifadesini duyarsın.</p>
+<p>Ancak modern sistemler bu kadar kesin ayrılmaz. Python, MATLAB ve Julia gibi sistemlerin içinde yorumlama, ara kod üretme, derleme ve JIT derleme gibi farklı teknikler bir arada kullanılabilir.</p>
+<blockquote>Yazdığımız yüksek seviyeli kodun bir şekilde bilgisayarın gerçekleştirebileceği işlemlere dönüştürülmesi gerekir.</blockquote></section>
+
+<section id="s6"><h2>6. Yüksek seviyeli dil ne demektir?</h2>
+<p>Bir dil insanın düşünme biçimine ne kadar yakınsa genellikle <strong>yüksek seviyeli</strong> olarak adlandırılır.</p><pre data-lang="MATLAB"><code>mean(x)</code></pre>
+<p>yazarak bir veri kümesinin ortalamasını bulabilirsin. Bilgisayarın altında gerçekleşen işlemler ise çok daha ayrıntılıdır.</p>
+<p>Yüksek seviyeli dil sana “Ortalamayı hesapla.” deme imkânı verir. Düşük seviyeye yaklaştıkça “Belleğin şu kısmından bu değeri al, bunun üzerine bunu ekle, sonucu şu adrese yaz...” gibi ayrıntılar önem kazanmaya başlar.</p>
+<div class="flow">Makine dili → Assembly → C → C++ → Python/MATLAB gibi daha yüksek seviyeli kullanım</div><p>Ancak bu kesin bir sıralama değildir.</p></section>
+
+<section id="s7"><h2>7. Algoritma nedir?</h2>
+<p>Programlama dili ile algoritmayı ayırmak çok önemlidir. <strong>Algoritma</strong>, bir problemi çözmek için kullanılan işlem yöntemidir.</p>
+<p>Örneğin bir listedeki en büyük sayıyı bulmanın algoritması:</p><ol><li>İlk sayıyı şimdilik en büyük kabul et.</li><li>Sıradaki sayıyla karşılaştır.</li><li>Daha büyükse kayıtlı değeri değiştir.</li><li>Listenin sonuna kadar devam et.</li></ol>
+<p>Bu algoritmayı C, Python, MATLAB veya Julia ile yazabilirsin.</p><dl class="defs"><dt>Algoritma</dt><dd>Çözüm yöntemi.</dd><dt>Programlama dili</dt><dd>Bu çözümü bilgisayara anlatmak için kullandığın dil.</dd></dl>
+<p>Bu nedenle “dinamik programlama” da bir dil değildir. <strong>Bir algoritma tasarım tekniğidir.</strong></p></section>
+
+<section id="s8"><h2>8. Kütüphane nedir?</h2>
+<p>Her matematiksel işlemi sıfırdan yazmak zorunda kalsaydık programlama son derece zor olurdu. Örneğin bir matrisin özdeğerlerini hesaplamak için gelişmiş sayısal algoritmalar gerekir. Fakat MATLAB'da:</p><pre data-lang="MATLAB"><code>eig(A)</code></pre>
+<p>yazarsın. Çünkü bu işi yapan algoritma daha önce yazılmıştır. Bu tür tekrar kullanılabilir hazır kod koleksiyonlarına genel olarak <strong>library — kütüphane</strong> denir.</p>
+<p>Kütüphaneyi bir alet dolabı gibi düşünebilirsin. Sen marangozsun ama her çalışmanda tornavida, matkap veya testere üretmiyorsun. Hazır araçları kullanıyorsun. Programlamada da aynı fikir vardır.</p></section>
+
+<section id="s9"><h2>9. Fonksiyon nedir?</h2>
+<p>Bir kütüphanenin içinde belirli işleri yapan daha küçük parçalar bulunur. Bunların en yaygınlarından biri <strong>fonksiyondur</strong>.</p><pre data-lang="MATLAB"><code>sqrt(16)</code></pre>
+<p>yazdığında <code>sqrt</code> bir fonksiyondur. Girdi <code>16</code>, çıktı <code>4</code> olur. Benzer şekilde <code>det(A)</code> bir matris alır ve determinantını verir.</p>
+<blockquote>Fonksiyon, belirli bir işi gerçekleştiren, gerektiğinde çağırabileceğimiz kod parçasıdır.</blockquote></section>
+
+<section id="s10"><h2>10. Paket nedir?</h2>
+<p>Özellikle Python dünyasında <strong>package — paket</strong> kelimesini sık duyarsın. Paket, ilgili kodların ve fonksiyonların düzenli biçimde bir araya getirildiği yapıdır.</p>
+<p>Python'ın kendisi temel bir programlama dili sunar. Fakat bilimsel hesaplama yapmak için genellikle başka paketler ekleriz.</p>
+<dl class="defs"><dt>NumPy</dt><dd>Sayısal diziler, matrisler ve lineer cebir.</dd><dt>SciPy</dt><dd>Optimizasyon, integral, diferansiyel denklemler ve bilimsel algoritmalar.</dd><dt>Matplotlib</dt><dd>Grafik çizimi.</dd><dt>pandas</dt><dd>Tablo ve veri analizi.</dd><dt>SymPy</dt><dd>Sembolik matematik.</dd></dl>
+<pre data-lang="Python"><code>import numpy as np
+np.sqrt(16)</code></pre>
+<p>Bu kavramları hiyerarşik düşünmek yararlı olabilir:</p><dl class="defs"><dt>Python</dt><dd>Programlama dili.</dd><dt>NumPy</dt><dd>Paket/kütüphane.</dd><dt>numpy.linalg</dt><dd>Lineer cebirle ilgili alt bölüm.</dd><dt>numpy.linalg.det</dt><dd>Determinant hesaplayan fonksiyon.</dd></dl></section>
+
+<section id="s11"><h2>11. Modül nedir?</h2>
+<p>Python'da ayrıca <strong>module — modül</strong> kavramıyla karşılaşırsın. Modül genellikle belirli bir konuyla ilgili kodların bulunduğu bir dosya veya mantıksal birimdir. Paket ise birden fazla modül içerebilir.</p>
+<div class="flow">fonksiyon &lt; modül &lt; paket</div><p>Başlangıç seviyesinde böyle düşünebilirsin. Gerçek yapı biraz daha esnektir ama bu zihinsel model yeterlidir.</p></section>
+
+<section id="s12"><h2>12. MATLAB'daki Toolbox nedir?</h2>
+<p>MATLAB'da Python paketlerine benzeyen önemli bir kavram <strong>Toolbox</strong>'tır. Optimization Toolbox, Statistics and Machine Learning Toolbox, Signal Processing Toolbox ve Symbolic Math Toolbox bunlara örnektir.</p>
+<p>Bir Toolbox belirli bir çalışma alanı için fonksiyonlar, algoritmalar, veri yapıları ve bazen kullanıcı arayüzleri sağlar.</p>
+<p>Örneğin temel MATLAB'a ek olarak <strong>Symbolic Math Toolbox</strong> kurarsan:</p><pre data-lang="MATLAB"><code>syms x
+diff(x^3)</code></pre>
+<p>gibi sembolik işlemler gerçekleştirebilirsin. Bu nedenle bir metinde “MATLAB çok sayıda numerical tool içerir.” denildiğinde genellikle hazır fonksiyonlar, algoritmalar, kütüphaneler ve toolbox'lar kastedilir.</p></section>
+
+<section id="s13"><h2>13. Framework nedir?</h2>
+<p>Daha ileride <strong>framework</strong> kelimesiyle de karşılaşabilirsin.</p>
+<p>Kütüphanede genellikle sen kütüphanenin fonksiyonlarını çağırırsın. Framework'te ise çoğu zaman framework sana programın genel yapısını verir ve sen kendi kodunu onun içine yerleştirirsin.</p>
+<p>Örneğin web geliştirmede Django bir Python framework'üdür. Bilimsel hesaplamaya başlarken bu kavram çok gerekli değil fakat “package”, “library” ve “framework” kelimelerinin aynı şey olmadığını bilmek iyi olur.</p></section>
+
+<section id="s14"><h2>14. API nedir?</h2>
+<p>Bir başka sık kullanılan kavram <strong>API — Application Programming Interface</strong>'tir.</p><blockquote>API, bir yazılımın başka bir yazılıma hangi şekilde erişilebileceğini tanımlayan arayüzdür.</blockquote>
+<p>Örneğin bir kütüphanenin sana sunduğu fonksiyonlar onun API'sinin bir parçasıdır. Bir hava durumu servisi de internet üzerinden bir API sunabilir. Python programın “Hava durumunu bana ver.” şeklinde belirli kurallara uygun bir istek gönderir ve servis veri döndürür.</p>
+<p>Dolayısıyla API mutlaka internet anlamına gelmez. Temel fikir <strong>iki yazılım bileşeni arasındaki belirlenmiş iletişim biçimi</strong>dir.</p></section>
+
+<section id="s15"><h2>15. Bilimsel programlama nedir?</h2>
+<p>Programlama çok geniştir. Programlama ile web sitesi, oyun, telefon uygulaması, işletim sistemi, banka sistemi, yapay zekâ veya bilimsel simülasyon yapılabilir.</p>
+<p><strong>Bilimsel programlama</strong>, özellikle bilimsel ve matematiksel problemlerin bilgisayarla çözülmesine odaklanır. Büyük matrislerin çözülmesi, diferansiyel denklemler, optimizasyon, istatistik, veri analizi, fiziksel sistemlerin simülasyonu, sayısal integral ve matematiksel modelleme buna örnektir.</p>
+<p>MATLAB bu alan için özel olarak tasarlanmış bir ortamdır. Python ise genel amaçlı bir dil olmasına rağmen NumPy, SciPy gibi paketlerle çok güçlü bir bilimsel programlama ortamına dönüşmüştür.</p></section>
+
+<section id="s16"><h2>16. Sayısal hesaplama nedir?</h2>
+<p><strong>Numerical computing — sayısal hesaplama</strong>, matematiksel problemlerin bilgisayarda sayılar kullanılarak yaklaşık veya doğrudan hesaplanmasıdır.</p><div class="math">√2</div><p>sayısal olarak:</p><div class="math">1.41421356237…</div>
+<p>şeklinde temsil edilebilir. Bir integralin yaklaşık değerini bulmak, dev bir lineer denklem sistemini çözmek veya diferansiyel denklemin yaklaşık çözümünü hesaplamak sayısal matematiğin alanına girer. MATLAB'ın en güçlü olduğu alanlardan biri budur.</p></section>
+
+<section id="s17"><h2>17. Sembolik hesaplama nedir?</h2>
+<p>Sembolik hesaplamada bilgisayar yalnızca yaklaşık sayılarla değil, <strong>matematiksel ifadelerin kendileriyle</strong> çalışır.</p><div class="math">(x + 1)<sup>2</sup> &nbsp;→&nbsp; x<sup>2</sup> + 2x + 1</div>
+<p>Bu ifadeyi açmak sembolik işlemdir. Benzer şekilde:</p><div class="math">∫ x<sup>2</sup> dx &nbsp;→&nbsp; x<sup>3</sup>/3 + C</div>
+<p>sonucunu elde etmek sembolik hesaplamadır. Bu alanda Mathematica, Maple, Magma, SageMath ve SymPy gibi sistemlerle karşılaşabilirsin. Ancak bunların uzmanlık alanları aynı değildir.</p></section>
+
+<section id="s18"><h2>18. CAS nedir?</h2>
+<p><strong>CAS — Computer Algebra System</strong>, Türkçede genellikle <strong>Bilgisayarlı Cebir Sistemi</strong> olarak çevrilir.</p>
+<p>CAS sistemleri matematiksel nesneler üzerinde sembolik işlemler yapabilir: polinomları çarpanlara ayırma, denklem çözme, türev, integral, grup işlemleri, sonlu cisimler ve cebirsel yapılar.</p>
+<p>Mathematica ve Maple genel amaçlı CAS sistemleridir. <strong>Magma</strong> ise özellikle grup teorisi, sonlu cisimler, sayı teorisi, cebirsel geometri ve kodlama teorisi gibi alanlarda güçlü, daha uzmanlaşmış bir CAS'tır.</p></section>
+
+<section id="s19"><h2>19. MATLAB ile Magma arasındaki temel fark</h2>
+<p>İkisi de matematik yapabilir fakat amaçları farklıdır.</p>
+<blockquote>MATLAB'a: “Bu 10000 × 10000 matrisle sayısal hesaplama yap.” demek son derece doğaldır.</blockquote>
+<blockquote>Magma'ya: “ℱ<sub>2<sup>8</sup></sub> sonlu cismini oluştur, bu cisim üzerindeki polinom halkasında şu polinomu çarpanlarına ayır.” demek doğaldır.</blockquote>
+<dl class="defs"><dt>MATLAB</dt><dd>Sayısal bilimsel hesaplama.</dd><dt>Magma</dt><dd>Hesaplamalı soyut cebir ve sayı teorisi.</dd></dl></section>
+
+<section id="s20"><h2>20. Python neden farklı görünüyor?</h2>
+<p>Python baştan bilimsel hesaplama için geliştirilmiş bir dil değildir. <strong>Genel amaçlı programlama dilidir.</strong> Ama çok geniş bir ekosisteme sahiptir.</p>
+<p>Python'ın kendisini bir temel platform olarak düşün:</p><pre data-lang="Ekosistem"><code>Python
+│
+├── NumPy → sayısal hesaplama
+├── SciPy → bilimsel algoritmalar
+├── pandas → veri analizi
+├── Matplotlib → grafik
+├── SymPy → sembolik matematik
+├── PyTorch → yapay zekâ
+└── Django → web geliştirme</code></pre>
+<p>Aynı Python diliyle çok farklı alanlarda çalışabilirsin. MATLAB ise bilimsel ve mühendislik hesaplamalarına çok daha doğrudan odaklanmıştır.</p></section>
+
+<section id="s21"><h2>21. Veri yapısı nedir?</h2>
+<p>Programlamada yalnızca sayılar değil, verilerin nasıl düzenlendiği de önemlidir. Bir değeri:</p><pre data-lang="MATLAB"><code>x = 5;</code></pre><p>birden fazla değeri ise:</p><pre data-lang="MATLAB"><code>x = [1 2 3 4];</code></pre>
+<p>şeklinde saklayabilirsin. Bunlara <strong>veri yapıları</strong> denir. Sayı, metin, dizi, matris, liste, sözlük, küme, yapı ve nesne örnekler arasındadır. Farklı programlama dilleri farklı veri yapılarını destekler.</p>
+<p>MATLAB'ın tarihsel olarak merkezindeki yapı <strong>matris</strong>tir. Adı zaten <strong>MATrix LABoratory</strong> kelimelerinden gelir.</p></section>
+
+<section id="s22"><h2>22. Nesne nedir?</h2>
+<p>Daha ileride <strong>object — nesne</strong> kavramını göreceksin. Bir nesne hem veriyi hem de bu veriyle yapılabilecek işlemleri bir arada temsil edebilir.</p>
+<p>Örneğin Magma'da bir sonlu cisim gerçekten ayrı bir matematiksel nesne olarak oluşturulur:</p><pre data-lang="Magma"><code>F&lt;a&gt; := GF(16);</code></pre>
+<p>Artık <code>F</code>, belirli özelliklere sahip bir sonlu cisimdir. Benzer fikir modern programlama dillerindeki <strong>nesne yönelimli programlama</strong>da da bulunur.</p></section>
+
+<section id="s23"><h2>23. Script ve program arasındaki fark nedir?</h2>
+<p>MATLAB'da komutları tek tek Command Window'a yazabilirsin:</p><pre data-lang="MATLAB"><code>x = 1:10;
+y = x.^2;
+plot(x,y);</code></pre>
+<p>Bunları bir <code>.m</code> dosyasına kaydedersen <strong>script</strong> oluşturmuş olursun. Script, sırayla çalıştırılan komutlardan oluşur.</p>
+<p>Program ise daha genel bir kavramdır. Bir script de bir program olarak düşünülebilir fakat büyük programlarda fonksiyonlar, sınıflar, modüller ve farklı dosyalar birlikte kullanılır.</p></section>
+
+<section id="s24"><h2>24. IDE nedir?</h2>
+<p><strong>IDE — Integrated Development Environment</strong>, Türkçede bütünleşik geliştirme ortamıdır. Kod editörü, çalıştırma, hata ayıklama, dosya yönetimi ve değişken görüntüleme gibi araçları tek yerde toplar.</p>
+<p>MATLAB'ın kendi masaüstü ortamı bir IDE gibi çalışır. Python için ise VS Code, PyCharm veya Spyder gibi IDE ve editörler kullanılabilir.</p>
+<blockquote>Python ≠ VS Code. Python programlama dilidir. VS Code ise Python kodu yazabileceğin bir programdır.</blockquote></section>
+
+<section id="s25"><h2>25. Terminal nedir?</h2>
+<p>Terminal, bilgisayara <strong>metin komutlarıyla</strong> erişmeni sağlayan arayüzdür. Windows'ta Command Prompt, PowerShell ve Windows Terminal gibi seçenekler vardır.</p><pre data-lang="Terminal"><code>python program.py</code></pre>
+<p>yazarak Python programını çalıştırabilirsin. Grafik arayüzünde dosyaya çift tıklamak yerine bilgisayara doğrudan metin komutu verirsin. Terminal bir programlama dili değildir.</p></section>
+
+<section id="s26"><h2>26. İşletim sistemi bunun neresinde?</h2>
+<p>Windows, Linux ve macOS birer <strong>işletim sistemidir</strong>. İşletim sistemi işlemciyi, belleği, diski, dosyaları ve çalışan programları yönetir. MATLAB işletim sisteminin üzerinde çalışan bir uygulamadır.</p>
+<pre data-lang="Katmanlar"><code>Donanım
+↓
+İşletim sistemi
+↓
+MATLAB / Python / diğer uygulamalar
+↓
+Senin programın</code></pre></section>
+
+<section id="s27"><h2>27. Açık kaynak ve ticari yazılım</h2>
+<p>Bu araçlar arasında bir başka önemli ayrım da lisans modelidir.</p>
+<p><strong>MATLAB</strong> ticari bir MathWorks ürünüdür. <strong>Magma</strong> ticari bir sistemdir. <strong>Mathematica</strong> ticari bir Wolfram ürünüdür. <strong>Maple</strong> ticari bir Maplesoft ürünüdür.</p>
+<p>Buna karşılık Python, Julia ve GNU Octave açık kaynak dünyasında yer alır. Açık kaynak, programın kaynak kodunun incelenebilmesi ve lisans koşulları altında geliştirilebilmesi anlamına gelir.</p></section>
+
+<section id="s28"><h2>28. Octave neden MATLAB'a benziyor?</h2>
+<p>GNU Octave özellikle MATLAB'a büyük ölçüde benzer bir sözdizimine sahip olacak şekilde geliştirilmiştir.</p><pre data-lang="MATLAB / Octave"><code>A = [1 2; 3 4];
+eig(A)</code></pre>
+<p>Octave'da da büyük ölçüde aynı kod çalışabilir. Dolayısıyla Octave ayrı bir programlama dili/ortamdır, ücretsiz ve açık kaynaklıdır, MATLAB uyumluluğunu önemli ölçüde hedefler. Ama MATLAB'ın birebir ücretsiz kopyası değildir.</p></section>
+
+<section id="s29"><h2>29. Fortran neden hâlâ var?</h2>
+<p>Fortran çok eski bir programlama dilidir ama “eski olduğu için kullanılmıyor” sonucu çıkmaz. Bilimsel hesaplamada onlarca yılda geliştirilmiş son derece hızlı ve güvenilir kodlar bulunmaktadır.</p>
+<p>Hatta MATLAB, Python veya başka modern araçlarla yaptığın bazı işlemlerin altında eski ve optimize edilmiş <strong>Fortran veya C kodları</strong> çalışıyor olabilir.</p>
+<blockquote>Kullanıcının gördüğü dil ile hesaplamayı gerçekten yapan alt seviye kod aynı olmak zorunda değildir.</blockquote>
+<p>Python'da NumPy ile son derece hızlı matris işlemleri yapabilmenin nedenlerinden biri de budur. Ağır hesaplama çoğu zaman optimize edilmiş C/Fortran kütüphanelerine aktarılır.</p></section>
+
+<section id="s30"><h2>30. Son resmi nasıl düşünmelisin?</h2>
+<p>Bütün kavramları tek bir örnek üzerinde birleştirelim. Python'da şunu yazdığını düşün:</p><pre data-lang="Python"><code>import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+print(np.linalg.det(A))</code></pre>
+<dl class="defs"><dt>Python</dt><dd>Programlama dili.</dd><dt>Python interpreter/runtime</dt><dd>Kodu çalıştıran sistem.</dd><dt>NumPy</dt><dd>Haricî paket/kütüphane.</dd><dt><code>linalg</code></dt><dd>NumPy içindeki lineer cebir bölümü.</dd><dt><code>det()</code></dt><dd>Determinant hesaplayan fonksiyon.</dd><dt>Determinant hesaplama yöntemi</dt><dd>Matematiksel algoritma.</dd><dt>NumPy'ın altındaki optimize edilmiş C/Fortran kodu</dt><dd>Ağır hesaplamayı gerçekleştirebilir.</dd><dt>Windows</dt><dd>Bütün bunların çalıştığı işletim sistemi.</dd><dt>Intel/AMD işlemci</dt><dd>Sonunda gerçek makine komutlarını çalıştıran donanım.</dd></dl>
+<p>Yani sen <code>np.linalg.det(A)</code> gibi tek satır yazıyorsun ama altında birçok farklı katman çalışıyor.</p></section>
+
+<section id="s31"><h2>31. MATLAB için aynı resmi kurarsak</h2>
+<p>Sen:</p><pre data-lang="MATLAB"><code>eig(A)</code></pre><p>yazarsın. Bu tek satırın arkasında:</p>
+<dl class="defs"><dt>MATLAB dili</dt><dd>Senin kullandığın sözdizimi.</dd><dt>MATLAB uygulaması/runtime</dt><dd>Kodu değerlendirir.</dd><dt><code>eig</code> fonksiyonu</dt><dd>Hazır sayısal araç.</dd><dt>Özdeğer algoritmaları</dt><dd>Matematiksel yöntemler.</dd><dt>Optimize edilmiş sayısal kütüphaneler</dt><dd>Hesaplamayı verimli gerçekleştirir.</dd><dt>İşletim sistemi</dt><dd>Programı yönetir.</dd><dt>İşlemci</dt><dd>Gerçek makine işlemlerini gerçekleştirir.</dd></dl>
+<p>Böylece “MATLAB bir dil mi, program mı, araç mı?” sorusunun cevabı da netleşir:</p>
+<blockquote>MATLAB bir <strong>programlama dili</strong>, bu dili çalıştıran bir <strong>yazılım ortamı</strong> ve geniş bir <strong>bilimsel hesaplama ekosistemi</strong>dir.</blockquote></section>
+
+<section id="s32"><h2>32. Öğrenirken kavramları hangi sırayla oturtmak mantıklı?</h2>
+<p>Başlangıç için şu zihinsel sıra yeterlidir:</p>
+<dl class="defs"><dt>1. Donanım ve işletim sistemi</dt><dd>Bilgisayarın fiziksel ve temel yazılım katmanı.</dd><dt>2. Programlama dili</dt><dd>Bilgisayara ne yapmak istediğini ifade ettiğin dil.</dd><dt>3. Dil implementasyonu/runtime</dt><dd>Yazdığın kodu değerlendiren veya çalıştırılabilir hale getiren sistem.</dd><dt>4. Fonksiyon, modül, paket ve kütüphane</dt><dd>Tekrar kullanılabilen hazır yazılım parçaları ve bunların düzenlenme biçimleri.</dd><dt>5. Algoritma</dt><dd>Problemin çözüm yöntemi.</dd><dt>6. Uygulama ve IDE</dt><dd>Kod yazmayı, çalıştırmayı ve hata ayıklamayı kolaylaştıran araçlar.</dd><dt>7. Bilimsel alanlar</dt><dd>Sayısal hesaplama, sembolik hesaplama, veri analizi ve diğer uzmanlık alanları.</dd></dl>
+<div class="closing"><p><strong>Kısacası:</strong> MATLAB bir dil, uygulama ve bilimsel hesaplama ekosistemidir. Python genel amaçlı bir dildir; paketlerle farklı alanlara genişler. C ve Fortran gibi diller çoğu zaman alt katmanlarda yüksek performans sağlar. NumPy bir paket, <code>eig</code> veya <code>det</code> bir fonksiyon, dinamik programlama bir algoritma tekniği, Magma ise kendi diline sahip uzmanlaşmış bir bilgisayarlı cebir sistemidir.</p>
+<p>Bu ayrımları oturttuğunda yeni bir terim gördüğünde önce şu soruyu sorabilirsin: <em>Bu bir dil mi, dili çalıştıran sistem mi, hazır kod koleksiyonu mu, geliştirme aracı mı, yoksa bir problem çözme yöntemi mi?</em></p></div></section>
+</main></div>
+<footer>Tek dosyalık bağımsız HTML belge · Harici yazı tipi, betik veya stil dosyası kullanmaz.</footer>
+</div>
+</body>
+</html>
