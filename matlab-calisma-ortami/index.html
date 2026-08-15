@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MATLAB Çalışma Ortamı ve Program Yapısı | MAT6201</title>
+<meta name="description" content="MATLAB arayüzü, Command Window, Workspace, script ve fonksiyon dosyaları, kapsam, dosya çağırma ve hata ayıklama üzerine uygulamalı ders notu.">
+<meta name="author" content="Melih Mert Oskay">
+<link rel="canonical" href="https://melihmertoskay.github.io/MAT6201/matlab-calisma-ortami/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MAT6201 Ders Notları">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="MATLAB Çalışma Ortamı ve Program Yapısı">
+<meta property="og:description" content="Tek komuttan script ve fonksiyonlara, çalışma alanlarından küçük bir MATLAB projesine uzanan uygulamalı giriş.">
+<meta property="og:url" content="https://melihmertoskay.github.io/MAT6201/matlab-calisma-ortami/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/notes.css">
+<script src="../assets/site.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="hero">
+<a class="back-link" href="../">← Ders notlarına dön</a>
+<p class="eyebrow">MAT6201 · 3. konu</p>
+<h1>MATLAB Çalışma Ortamı ve Program Yapısı</h1>
+<p class="lead">Tek kullanımlık bir komuttan başlayıp tekrar çalıştırılabilen script'lere, açık girdileri ve çıktıları olan fonksiyonlara ve birden fazla dosyadan oluşan küçük bir MATLAB çalışmasına uzanan uygulamalı giriş.</p>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="İçindekiler"><strong>İçindekiler</strong>
+<details open><summary>1. MATLAB ile çalışmaya başlamak</summary><ol>
+<li><a href="#s1-1">1.1 Etkileşimli hesaplama</a></li><li><a href="#s1-2">1.2 MATLAB masaüstü</a></li><li><a href="#s1-3">1.3 Bir komutun yolculuğu</a></li>
+</ol></details>
+<details><summary>2. Command Window ve Workspace</summary><ol>
+<li><a href="#s2-1">2.1 İfade, değer ve atama</a></li><li><a href="#s2-2">2.2 Değişken adları</a></li><li><a href="#s2-3">2.3 Noktalı virgül ve ans</a></li><li><a href="#s2-4">2.4 who, whos ve exist</a></li><li><a href="#s2-5">2.5 clear, clc ve close all</a></li><li><a href="#s2-6">2.6 help, doc ve lookfor</a></li>
+</ol></details>
+<details><summary>3. Dosyalar ve arama yolu</summary><ol>
+<li><a href="#s3-1">3.1 Current Folder</a></li><li><a href="#s3-2">3.2 pwd, cd ve dir</a></li><li><a href="#s3-3">3.3 MATLAB dosyayı nasıl bulur?</a></li><li><a href="#s3-4">3.4 İsim çakışmaları</a></li>
+</ol></details>
+<details><summary>4. Komutları saklamak: script</summary><ol>
+<li><a href="#s4-1">4.1 Command Window neden yetmez?</a></li><li><a href="#s4-2">4.2 İlk .m dosyası</a></li><li><a href="#s4-3">4.3 Script'in çalışma alanı</a></li><li><a href="#s4-4">4.4 Yorumlar</a></li><li><a href="#s4-5">4.5 Kod bölümleri</a></li>
+</ol></details>
+<details><summary>5. Tekrar kullanılabilir kod: fonksiyon</summary><ol>
+<li><a href="#s5-1">5.1 Fonksiyona neden ihtiyaç var?</a></li><li><a href="#s5-2">5.2 Fonksiyonun yapısı</a></li><li><a href="#s5-3">5.3 Girdi ve çıktı</a></li><li><a href="#s5-4">5.4 Dosya adı</a></li><li><a href="#s5-5">5.5 Yerel çalışma alanı</a></li><li><a href="#s5-6">5.6 Yerel fonksiyon ve alt program</a></li>
+</ol></details>
+<details><summary>6. Kapsam ve dosyalar arası çalışma</summary><ol>
+<li><a href="#s6-1">6.1 Base ve function workspace</a></li><li><a href="#s6-2">6.2 Yerel ve global değişken</a></li><li><a href="#s6-3">6.3 Dosyalar arası çağrı</a></li>
+</ol></details>
+<details><summary>7. Çalıştırma ve hata ayıklama</summary><ol>
+<li><a href="#s7-1">7.1 Run ve Run Section</a></li><li><a href="#s7-2">7.2 Hata mesajını okumak</a></li><li><a href="#s7-3">7.3 Kesme noktası</a></li>
+</ol></details>
+<details><summary>8. Küçük bir MATLAB çalışması</summary><ol>
+<li><a href="#s8-1">8.1 Komuttan iki dosyalı projeye</a></li><li><a href="#s8-2">8.2 Özet</a></li><li><a href="#kaynaklar">Kaynaklar</a></li>
+</ol></details>
+</nav>
+
+<main>
+<p>Önceki konuda bilimsel bir problemin modele, yönteme, algoritmaya ve programa nasıl dönüştüğünü; MATLAB'ın da bu süreci destekleyen bir dil, uygulama ve ekosistem olduğunu gördük. Artık MATLAB'ın <em>neden</em> var olduğunu biliyoruz. Şimdi onu açıp çalışmanın nasıl düzenlendiğine bakalım.</p>
+<p>Bu konuda çok sayıda matematik komutu ezberlemeyeceğiz. Önce çalışma ortamını ve program yapısını kuracağız. Çünkü doğru formülü bilmek yetmez: kodun nerede çalıştığını, verinin nerede tutulduğunu ve hesabın başka bir gün nasıl tekrarlanacağını da bilmek gerekir.</p>
+
+<section class="chapter" id="bolum1">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 1</p><h2>MATLAB ile çalışmaya başlamak</h2><p>MATLAB'ı hesap makinesinden programa dönüştüren yol, denediğimiz işlemleri saklayıp düzenleyebilmemizdir.</p></header>
+
+<div class="subsection" id="s1-1"><h3><span class="num">1.1</span>Etkileşimli hesaplama ne demektir?</h3>
+<p>MATLAB'ın güçlü fikirlerinden biri doğrudan bir çalışma döngüsüdür: komutu yaz, sonucu hemen gör, değiştir ve yeniden dene.</p>
+<pre data-lang="MATLAB"><code>&gt;&gt; 2 + 3
+
+ans =
+
+     5</code></pre>
+<p><code>&gt;&gt;</code> işareti MATLAB'ın komut beklediğini gösteren istemdir; sen yazmazsın. <code>2 + 3</code> bir <strong>ifade</strong>dir (<span class="en">expression</span>). MATLAB ifadeyi değerlendirir ve değerini gösterir.</p>
+<div class="analogy"><span class="label">Benzetme</span>Command Window laboratuvar tezgâhı gibidir: bir fikri hemen denersin. Deneyi daha sonra aynı sırayla tekrarlamak istiyorsan adımları deftere geçirirsin. MATLAB'da bu defter script dosyasıdır.</div>
+</div>
+
+<div class="subsection" id="s1-2"><h3><span class="num">1.2</span>MATLAB masaüstünde ne görüyoruz?</h3>
+<dl class="defs"><dt>Command Window</dt><dd>Komutları doğrudan çalıştırır.</dd><dt>Workspace</dt><dd>Bellekteki değişkenleri gösterir.</dd><dt>Files / Current Folder</dt><dd>Çalışılan klasördeki dosyaları gösterir.</dd><dt>Editor</dt><dd>Saklanacak kod dosyalarını düzenler.</dd><dt>Command History</dt><dd>Daha önce verilen komutları listeler.</dd><dt>Figure</dt><dd>Grafikleri ayrı bir pencerede gösterir.</dd></dl>
+<p>Panel yerleşimi sürüme ve kişisel düzene göre değişebilir; görevler değişmez. Command Window ve Editor MATLAB dilinin kendisi değil, o dili kullanmayı kolaylaştıran uygulama araçlarıdır.</p>
+</div>
+
+<div class="subsection" id="s1-3"><h3><span class="num">1.3</span>Bir komutun yolculuğu</h3>
+<pre data-lang="MATLAB"><code>yaricap = 5;
+alan = pi * yaricap^2</code></pre>
+<ol><li>MATLAB sağ taraftaki ifadeyi değerlendirir.</li><li><code>yaricap</code> ve <code>alan</code> bellekte oluşturulur.</li><li>Workspace paneli bu değişkenleri gösterir.</li><li>İkinci satır noktalı virgülle bitmediği için sonuç Command Window'a yazılır.</li></ol>
+<div class="flow">Komut → değerlendirme → değişken → Workspace → gerekirse çıktı</div>
+<p>Editor'daki kod da sonunda aynı değerlendirme sistemine gider. Farkı, komutların dosyada saklanıp yeniden çalıştırılabilmesidir.</p>
+</div>
+</section>
+
+<section class="chapter" id="bolum2">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 2</p><h2>Command Window ve Workspace</h2><p>Komutların ürettiği değerler bellekte yaşar; Workspace bu durumu görünür kılar.</p></header>
+
+<div class="subsection" id="s2-1"><h3><span class="num">2.1</span>İfade, değer ve atama</h3>
+<pre data-lang="MATLAB"><code>yukseklik = 45;
+g = 9.81;
+sure = sqrt(2 * yukseklik / g);</code></pre>
+<p><code>=</code> burada matematiksel eşitlik değil, <strong>atama</strong>dır (<span class="en">assignment</span>): önce sağ taraf hesaplanır, sonra değer soldaki ada bağlanır. Bu yüzden <code>x = x + 1</code> programlamada anlamlıdır; mevcut değer bir artırılıp yeniden <code>x</code>'e atanır.</p>
+<div class="callout"><span class="label">İleride önemli olacak</span>Eşitliği sınayan karşılaştırma <code>==</code> işaretidir. Bunu koşullu ifadeler konusunda ele alacağız. Şimdilik <code>=</code> işaretini “değer ata” diye oku.</div>
+</div>
+
+<div class="subsection" id="s2-2"><h3><span class="num">2.2</span>Değişken adları nasıl seçilir?</h3>
+<p>Ad bir harfle başlamalı; devamında harf, rakam veya alt çizgi bulunabilir. Boşluk ve tire kullanılamaz. MATLAB büyük ve küçük harfi ayırır: <code>alan</code>, <code>Alan</code> ve <code>ALAN</code> farklı adlardır.</p>
+<div class="code-grid"><pre data-lang="MATLAB"><code>% Açık
+yaricap = 5;
+daireAlani = pi*yaricap^2;</code></pre><pre data-lang="MATLAB"><code>% Belirsiz
+x1 = 5;
+a = pi*x1^2;</code></pre></div>
+<p>Hazır fonksiyon adlarını değişken olarak kullanmak da tehlikelidir. <code>sum = 12;</code> ataması, hazır <code>sum</code> fonksiyonunu gölgeleyebilir.</p>
+</div>
+
+<div class="subsection" id="s2-3"><h3><span class="num">2.3</span>Noktalı virgül ve <code>ans</code></h3>
+<p>Satır sonundaki noktalı virgül hesabı durdurmaz; yalnızca çıktıyı bastırır:</p>
+<div class="code-grid"><pre data-lang="MATLAB"><code>x = 1:10
+% Değer gösterilir.</code></pre><pre data-lang="MATLAB"><code>x = 1:10;
+% Değer saklanır, gösterilmez.</code></pre></div>
+<p>Sonucu adlandırmazsan MATLAB onu geçici <code>ans</code> değişkenine koyar. Sonraki isimsiz sonuç <code>ans</code>'i değiştirebileceği için programlarda anlamlı bir ad kullanmak daha güvenlidir.</p>
+</div>
+
+<div class="subsection" id="s2-4"><h3><span class="num">2.4</span><code>who</code>, <code>whos</code> ve <code>exist</code></h3>
+<dl class="defs"><dt><code>who</code></dt><dd>Etkin workspace'teki değişken adlarını listeler.</dd><dt><code>whos</code></dt><dd>Boyut, tür ve bellek kullanımı gibi ayrıntıları da gösterir.</dd><dt><code>exist</code></dt><dd>Bir değişkenin, dosyanın veya fonksiyonun bulunup bulunmadığını denetler.</dd></dl>
+<pre data-lang="MATLAB"><code>who
+whos
+exist("yukseklik","var")
+exist("dusmeSuresi","file")</code></pre>
+<p><code>exist</code>'e ikinci argüman vermek, değişken mi dosya mı aradığını açıkça belirtir.</p>
+</div>
+
+<div class="subsection" id="s2-5"><h3><span class="num">2.5</span><code>clear</code>, <code>clc</code> ve <code>close all</code></h3>
+<div class="table-wrap"><table><thead><tr><th>Komut</th><th>Etkisi</th></tr></thead><tbody><tr><td><code>clear</code></td><td>Etkin workspace'teki değişkenleri bellekten kaldırır.</td></tr><tr><td><code>clc</code></td><td>Command Window'da görünen metni temizler; değişkenleri silmez.</td></tr><tr><td><code>close all</code></td><td>Açık ve görünür Figure pencerelerini kapatır.</td></tr></tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
+<p>Her script'i ezbere <code>clear; clc; close all;</code> ile başlatmak zorunlu değildir. Temiz başlangıç bazen yararlıdır; asıl hedef dışarıdaki tesadüfi değişkenlere bağımlı olmayan kod yazmaktır.</p>
+</div>
+
+<div class="subsection" id="s2-6"><h3><span class="num">2.6</span><code>help</code>, <code>doc</code> ve <code>lookfor</code></h3>
+<pre data-lang="MATLAB"><code>help sqrt
+doc sqrt
+lookfor square root</code></pre>
+<p><code>help</code> kısa açıklamayı Command Window'da, <code>doc</code> ayrıntılı belge ve örnekleri gösterir. <code>lookfor</code>, adını bilmediğin işlevi açıklama kelimeleriyle aramana yardım eder.</p>
+<div class="callout"><span class="label">Okuma alışkanlığı</span>Bir fonksiyon belgesinde önce sözdizimine, sonra girdi ve çıktılara, ardından örneklere bak. Örneği kendi verine uygulamadan önce tür ve boyutların uyuştuğunu denetle.</div>
+</div>
+
+<div class="exercises"><h4>Kendini sına</h4><ol>
+<li><code>clc</code> sonrasında değişkenler neden durur?<details class="answer"><summary>Yanıt</summary><p><code>clc</code> yalnızca görünen metni temizler. Bellekteki değişkenler için <code>clear</code> gerekir.</p></details></li>
+<li><code>sonuc = 2 + 3;</code> ile <code>2 + 3</code> arasındaki fark nedir?<details class="answer"><summary>Yanıt</summary><p>İlk sonuç <code>sonuc</code>'a atanır ve gösterilmez. İkincisi adlandırılmadığı için <code>ans</code>'e gider ve ekranda görünür.</p></details></li>
+<li><code>whos</code>, <code>who</code>'dan ne fazlasını verir?<details class="answer"><summary>Yanıt</summary><p>Değişkenlerin boyut, tür ve bellek kullanımı gibi özelliklerini de verir.</p></details></li>
+</ol></div>
+</section>
+
+<section class="chapter" id="bolum3">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 3</p><h2>Dosyalar, klasörler ve MATLAB arama yolu</h2><p>Dosyayı yazmak yetmez; MATLAB'ın onu nerede arayacağını da bilmek gerekir.</p></header>
+
+<div class="subsection" id="s3-1"><h3><span class="num">3.1</span>Current Folder neden önemlidir?</h3>
+<p>Editor'da açık dosya ile MATLAB'ın <strong>geçerli çalışma klasörü</strong> (<span class="en">current folder</span>) aynı şey değildir. Dosyayı ekranda görebilir, fakat çağırdığında MATLAB'ın bulamadığını görebilirsin.</p>
+<p>Yol belirtmeden bir dosya çağrıldığında MATLAB önce geçerli klasöre, sonra <strong>arama yolundaki</strong> (<span class="en">search path</span>) klasörlere bakar.</p>
+<div class="analogy"><span class="label">Benzetme</span>Current Folder bulunduğun oda, search path bakılacak rafların listesidir. Dosya başka binadaysa yalnızca adını söylemek yetmez.</div>
+</div>
+
+<div class="subsection" id="s3-2"><h3><span class="num">3.2</span><code>pwd</code>, <code>cd</code> ve <code>dir</code></h3>
+<pre data-lang="MATLAB"><code>pwd                 % Hangi klasördeyim?
+dir                 % Burada hangi dosyalar var?
+cd("C:\MAT6201")   % Başka klasöre geç.</code></pre>
+<p>Tam konum <strong>mutlak yol</strong>, mevcut klasörden başlayan konum <strong>göreli yol</strong>dur. Veri dosyalarını daha sonra ayrıntılandıracağız; burada kodun bulunması için bu ayrım yeterlidir.</p>
+</div>
+
+<div class="subsection" id="s3-3"><h3><span class="num">3.3</span>MATLAB bir dosyayı nasıl bulur?</h3>
+<pre data-lang="MATLAB"><code>which dusmeSuresi
+which sum -all
+path</code></pre>
+<p><code>which</code> bir adın hangi dosyaya çözüldüğünü, <code>-all</code> aynı adlı diğer adayları gösterir. <code>path</code> arama yolunu listeler. Küçük çalışmalarda ilgili dosyaları aynı proje klasöründe tutmak, her klasörü kalıcı olarak path'e eklemekten daha anlaşılırdır.</p>
+</div>
+
+<div class="subsection" id="s3-4"><h3><span class="num">3.4</span>İsim çakışmaları ve gölgeleme</h3>
+<p>Current Folder'da <code>sum.m</code> oluşturursan hazır toplam fonksiyonu yerine kendi dosyan çağrılabilir. <code>pi</code>, <code>mean</code> veya <code>plot</code> adlı değişkenler de hazır anlamı gölgeleyebilir.</p>
+<p>Bir komut aniden farklı davranıyorsa sor: aynı adlı değişken var mı, Current Folder'da aynı adlı dosya var mı, path üzerinde başka sürüm var mı? <code>which ad -all</code> bu sorunun hızlı aracıdır.</p>
+<div class="callout"><span class="label">Adlandırma</span><code>hesap.m</code> yerine <code>dusmeSuresi.m</code> gibi yaptığı işi anlatan özgün adlar kullan. Ad yalnızca okunabilirliği değil, doğru dosyanın bulunmasını da etkiler.</div>
+</div>
+</section>
+
+<section class="chapter" id="bolum4">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 4</p><h2>Komutları dosyada saklamak: script</h2><p>Command Window denemek, script aynı işlem yolunu saklamak ve yeniden çalıştırmak içindir.</p></header>
+
+<div class="subsection" id="s4-1"><h3><span class="num">4.1</span>Command Window neden yetmez?</h3>
+<p>Otuz satırlık hesapta komut sırasını korumak, düzeltmeyi yeniden uygulamak ve yöntemi paylaşmak zorlaşır. Command History geçmişi gösterse de açıklamalı ve düzenli bir programın yerini tutmaz.</p>
+<p>Komutları metin dosyasında saklayınca işlem görünür, tek komutla tekrarlanır ve sürüm kontrolüyle izlenebilir.</p>
+</div>
+
+<div class="subsection" id="s4-2"><h3><span class="num">4.2</span>İlk <code>.m</code> dosyası</h3>
+<p><code>daire_hesabi.m</code> adında dosya oluştur:</p>
+<pre data-lang="MATLAB"><code>% Dairenin alanını ve çevresini hesapla.
+yaricap = 5;
+alan = pi * yaricap^2;
+cevre = 2 * pi * yaricap;</code></pre>
+<p>Bu dosya bir <strong>script</strong>tir; doğrudan yürütülecek komutlardan oluşur. Command Window'a uzantısız <code>daire_hesabi</code> yazarak veya Run düğmesiyle çalıştırılır. <code>.m</code> uzantısı tek başına script mi fonksiyon mu olduğunu söylemez; iç yapı söyler.</p>
+</div>
+
+<div class="subsection" id="s4-3"><h3><span class="num">4.3</span>Script'in çalışma alanı</h3>
+<p>Script kendine ait workspace oluşturmaz; çağıran çalışma alanında yürür. Command Window'dan çağrılırsa genellikle base workspace'i, bir fonksiyon içinden çağrılırsa o fonksiyonun workspace'ini kullanır.</p>
+<pre data-lang="MATLAB"><code>% Gizli bağımlılık:
+alan = pi * yaricap^2;</code></pre>
+<p><code>yaricap</code> önceden varsa script çalışır, yoksa hata verir. Gereken girdi dosyada veya parametre listesinde görünmediği için bu bir <strong>gizli çalışma alanı bağımlılığı</strong>dır.</p>
+</div>
+
+<div class="subsection" id="s4-4"><h3><span class="num">4.4</span>Yorum satırları</h3>
+<pre data-lang="MATLAB"><code>% Tek satırlık yorum
+g = 9.81;  % m/s^2
+
+%{
+Birden fazla satırlık
+açıklama veya geçici kod
+%}</code></pre>
+<p><code>%{</code> ve <code>%}</code> kendi satırlarında tek başına olmalıdır. İyi yorum kodu Türkçeye tekrarlamaz; kullanılan birimi, varsayımı veya şaşırtıcı kararın nedenini açıklar.</p>
+</div>
+
+<div class="subsection" id="s4-5"><h3><span class="num">4.5</span>Kod bölümleri ve gizli sıra</h3>
+<pre data-lang="MATLAB"><code>%% Parametreler
+yukseklik = 45;
+g = 9.81;
+
+%% Hesap
+sure = sqrt(2*yukseklik/g);
+
+%% Sonuç
+sure</code></pre>
+<p><code>%%</code>, Editor'ın bir bölümü ayrı çalıştırmasını sağlar. Keşif sırasında yararlıdır; fakat “Hesap” bölümünü parametrelerden önce çalıştırırsan gereken değerler bulunmayabilir.</p>
+<div class="callout"><span class="label">Deney ve program</span>Bölümleri istediğin sırada yürütmek deney yaparken hızlıdır. Güvenilir program ise temiz başlangıçta baştan sona doğru çalışır; sonuç Workspace'te tesadüfen kalan değerlere bağlı değildir.</div>
+</div>
+
+<div class="exercises"><h4>Kendini sına</h4><ol>
+<li>Editor'da açık dosyayı MATLAB neden bulamayabilir?<details class="answer"><summary>Yanıt</summary><p>Açık olması dosyayı Current Folder'a veya search path'e eklemez.</p></details></li>
+<li>Script neden dışarıdaki değişkene farkında olmadan bağımlı olabilir?<details class="answer"><summary>Yanıt</summary><p>Kendi workspace'i yoktur; çağıranın alanındaki değişkenleri açık girdi listesi olmadan görebilir.</p></details></li>
+<li>Bir <code>%%</code> bölümü neden tek başına hata verebilir?<details class="answer"><summary>Yanıt</summary><p>Gerekli değişkenler çalıştırılmamış önceki bölümde oluşturuluyor olabilir.</p></details></li>
+</ol></div>
+</section>
+
+<section class="chapter" id="bolum5">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 5</p><h2>Tekrar kullanılabilir kod: fonksiyon</h2><p>Script işlem sırasını saklar; fonksiyon hangi veriyi istediğini ve ne ürettiğini açık sözleşmeye dönüştürür.</p></header>
+
+<div class="subsection" id="s5-1"><h3><span class="num">5.1</span>Script varken fonksiyona neden ihtiyaç var?</h3>
+<p>Daire hesabını farklı yarıçaplar için kullanmak üzere script içindeki sayıyı değiştirebilirsin. Başka dosyalar aynı hesabı kullanacak veya yüzlerce değer işlenecekse bu yöntem kırılganlaşır.</p>
+<p>Fonksiyon gerekli veriyi <strong>girdi</strong> olarak alır, kendi yerel alanında çalışır ve sonucu <strong>çıktı</strong> olarak verir.</p>
+<div class="analogy"><span class="label">Benzetme</span>Script sırayla uygulanacak talimat listesidir. Fonksiyon ise giriş ve çıkışı belli bir makinedir: yarıçapı verirsin, alanı alırsın; ara parçalar atölyeye dağılmaz.</div>
+</div>
+
+<div class="subsection" id="s5-2"><h3><span class="num">5.2</span>Fonksiyonun temel yapısı</h3>
+<pre data-lang="MATLAB"><code>function alan = daireAlani(yaricap)
+    alan = pi * yaricap^2;
+end</code></pre>
+<dl class="defs"><dt><code>function</code></dt><dd>Fonksiyon tanımını başlatır.</dd><dt><code>alan</code></dt><dd>Döndürülecek çıktı değişkenidir.</dd><dt><code>daireAlani</code></dt><dd>Fonksiyonun adıdır.</dd><dt><code>yaricap</code></dt><dd>Beklenen girdi parametresidir.</dd><dt><code>end</code></dt><dd>Fonksiyon gövdesini bitirir.</dd></dl>
+</div>
+
+<div class="subsection" id="s5-3"><h3><span class="num">5.3</span>Girdi, argüman ve çıktı</h3>
+<pre data-lang="MATLAB"><code>sonuc = daireAlani(5);</code></pre>
+<p>Tanımdaki <code>yaricap</code> <strong>parametre</strong>, çağrıdaki <code>5</code> <strong>argüman</strong>dır. İçerideki <code>alan</code> çıktısı çağıranın <code>sonuc</code> değişkenine gider; adların aynı olması gerekmez.</p>
+<pre data-lang="MATLAB"><code>function [alan,cevre] = daireBilgileri(yaricap)
+    alan = pi*yaricap^2;
+    cevre = 2*pi*yaricap;
+end
+
+[A,C] = daireBilgileri(5);</code></pre>
+<p>Köşeli parantez birden fazla çıktının sırasını belirtir.</p>
+</div>
+
+<div class="subsection" id="s5-4"><h3><span class="num">5.4</span>Dosya adı ile ana fonksiyon</h3>
+<p>Ayrı dosyadaki ana fonksiyon <code>daireAlani</code> ise dosya adı <code>daireAlani.m</code> olmalıdır. MATLAB programı dosya adıyla ilişkilendirir. Dosya Current Folder'da veya path üzerinde olduğunda Command Window'dan hazır fonksiyon gibi çağrılır.</p>
+</div>
+
+<div class="subsection" id="s5-5"><h3><span class="num">5.5</span>Fonksiyonun yerel çalışma alanı</h3>
+<pre data-lang="MATLAB"><code>function alan = daireAlani(yaricap)
+    yaricapKare = yaricap^2;
+    alan = pi*yaricapKare;
+end</code></pre>
+<p>Fonksiyon bittiğinde <code>yaricapKare</code> gibi yerel değişkenler sona erer. Base workspace'e yalnızca çağrıda yakalanan çıktı gelir. Bu yalıtım fonksiyonun Workspace'te tesadüfen duran aynı adlı değişkenlerden etkilenmesini önler.</p>
+</div>
+
+<div class="subsection" id="s5-6"><h3><span class="num">5.6</span>Yerel fonksiyon ve alt program</h3>
+<p>Bir dosyada birden fazla fonksiyon bulunabilir. İlk fonksiyon ana, diğerleri <strong>yerel fonksiyon</strong>dur (<span class="en">local function</span>) ve yalnızca aynı dosya içinden çağrılır.</p>
+<pre data-lang="MATLAB"><code>function sure = dusmeSuresi(yukseklik,g)
+    kontrolEt(yukseklik,g);
+    sure = sqrt(2*yukseklik/g);
+end
+
+function kontrolEt(yukseklik,g)
+    % Doğrulamayı ileride geliştireceğiz.
+end</code></pre>
+<p><strong>Alt program</strong> belirli işi yapan ve başka kodca çağrılan birim için genel addır; MATLAB'a özgü dosya türü değildir. Fonksiyonlar alt program rolü görür. Script'ler de yerel fonksiyon içerebilir; eski sürümlerle uyum için bunları script kodunun sonuna koymak güvenli düzendir.</p>
+</div>
+
+<div class="exercises"><h4>Kendini sına</h4><ol>
+<li>Script ve fonksiyonun temel workspace farkı nedir?<details class="answer"><summary>Yanıt</summary><p>Script çağıranın workspace'inde yürür; fonksiyonun ayrı yerel workspace'i vardır.</p></details></li>
+<li><code>A</code> neden fonksiyon içindeki <code>alan</code> ile aynı adı taşımak zorunda değildir?<details class="answer"><summary>Yanıt</summary><p>Çıktı konumuyla döner; çağıran kod onu istediği ada atayabilir.</p></details></li>
+<li>Yerel fonksiyon neden Command Window'dan çağrılamaz?<details class="answer"><summary>Yanıt</summary><p>Görünürlüğü bulunduğu dosyayla sınırlıdır; dışarıya ana fonksiyon açılır.</p></details></li>
+</ol></div>
+</section>
+
+<section class="chapter" id="bolum6">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 6</p><h2>Değişken kapsamı ve dosyalar arası çalışma</h2><p>Program büyüdüğünde “değer nedir?” kadar “bu değeri kim görebilir ve nereden geldi?” sorusu önemlidir.</p></header>
+
+<div class="subsection" id="s6-1"><h3><span class="num">6.1</span>Base workspace ve function workspace</h3>
+<div class="table-wrap"><table><thead><tr><th>Özellik</th><th>Base workspace</th><th>Function workspace</th></tr></thead><tbody><tr><td>Kim kullanır?</td><td>Command Window ve oradan çağrılan script.</td><td>İlgili fonksiyon ve içinden çağrılan script.</td></tr><tr><td>Ömrü</td><td>Temizlenene veya oturum bitene kadar.</td><td>Fonksiyon çağrısı bitene kadar.</td></tr><tr><td>Veri girişi</td><td>Atama, yükleme, script.</td><td>Öncelikle girdi argümanları.</td></tr><tr><td>Veri çıkışı</td><td>Zaten ana alandadır.</td><td>Çıktı argümanları.</td></tr></tbody></table></div>
+<p class="table-hint">→ Tabloyu yana kaydırarak tamamını görebilirsiniz.</p>
+<p>Debugger fonksiyon içinde durduğunda Workspace paneli o fonksiyonun alanını gösterebilir. Değişkenler kaybolmamıştır; başka kapsamı inceliyorsundur.</p>
+</div>
+
+<div class="subsection" id="s6-2"><h3><span class="num">6.2</span>Yerel ve global değişkenler</h3>
+<p>Fonksiyon içindeki sıradan değişken yereldir. <code>global</code> bildirimiyle farklı çalışma alanları aynı kopyayı paylaşabilir:</p>
+<pre data-lang="MATLAB"><code>global g
+g = 9.81;</code></pre>
+<div class="code-grid"><pre data-lang="MATLAB"><code>% Gizli bağımlılık
+function t = dusmeSuresi(h)
+    global g
+    t = sqrt(2*h/g);
+end</code></pre><pre data-lang="MATLAB"><code>% Açık bağımlılık
+function t = dusmeSuresi(h,g)
+    t = sqrt(2*h/g);
+end</code></pre></div>
+<p>İkinci biçim neye ihtiyaç duyduğunu açıklar ve daha kolay sınanır. Global değişkeni tanı, fakat olağan veri aktarımı için parametreyi tercih et.</p>
+</div>
+
+<div class="subsection" id="s6-3"><h3><span class="num">6.3</span>Dosyalar arası çağrı ve bağımlılık</h3>
+<div class="code-grid"><pre data-lang="ornek_dusme.m"><code>yukseklik = 45;
+g = 9.81;
+sure = dusmeSuresi(yukseklik,g);</code></pre><pre data-lang="dusmeSuresi.m"><code>function sure = dusmeSuresi(yukseklik,g)
+    sure = sqrt(2*yukseklik/g);
+end</code></pre></div>
+<p>İlk dosya ikinciye bağımlıdır. <code>dusmeSuresi.m</code> paylaşılmazsa script tamamlanmış değildir. Fonksiyon dosyası aynı proje klasöründe veya erişilebilir path üzerinde olmalıdır.</p>
+</div>
+</section>
+
+<section class="chapter" id="bolum7">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 7</p><h2>Editor'da çalıştırma ve hata ayıklama</h2><p>Programın iç durumunu gözlemlemek, hatayı tahminden sınanabilir soruya dönüştürür.</p></header>
+
+<div class="subsection" id="s7-1"><h3><span class="num">7.1</span>Run, Run Section ve fonksiyonu çağırmak</h3>
+<p>Script Run ile baştan sona, Run Section ile seçili <code>%%</code> bölümü kadar çalışır. Girdi bekleyen fonksiyon ise tek başına senaryo değildir. <code>dusmeSuresi.m</code> dosyasında yalnızca Run'a basarsan hangi değerlerin kullanılacağı bilinmez.</p>
+<pre data-lang="MATLAB"><code>sure = dusmeSuresi(45,9.81);</code></pre>
+<p>Script “bu adımları uygula”, fonksiyon “bana girdi verildiğinde bu işi yap” der.</p>
+</div>
+
+<div class="subsection" id="s7-2"><h3><span class="num">7.2</span>MATLAB hata mesajını okumak</h3>
+<pre data-lang="MATLAB"><code>Unrecognized function or variable 'dusmeSuresi'.
+
+Error in ornek_dusme (line 3)
+sure = dusmeSuresi(yukseklik,g);</code></pre>
+<p>Önce açıklamayı oku, sonra dosya ve satıra git. Burada olası nedenler yanlış ad, eksik dosya, yanlış Current Folder veya path sorunudur. <code>which</code>, <code>exist</code> ve <code>pwd</code> ile varsayımları sınarsın.</p>
+<div class="callout"><span class="label">Tanı sırası</span>Mesajı oku → satırı bul → gereken değişken ve dosyaları denetle → en küçük düzeltmeyi yap → yeniden çalıştır.</div>
+</div>
+
+<div class="subsection" id="s7-3"><h3><span class="num">7.3</span>Kesme noktası ve adım adım çalışma</h3>
+<p>Satırın kenarına <strong>kesme noktası</strong> (<span class="en">breakpoint</span>) koyduğunda program orada durur; Workspace o andaki etkin alanı gösterir.</p>
+<dl class="defs"><dt>Step</dt><dd>Bir sonraki satırı çalıştırıp durur.</dd><dt>Continue</dt><dd>Sonraki kesme noktasına veya sona ilerler.</dd><dt>Stop</dt><dd>Hata ayıklamayı bitirir.</dd><dt>Call Stack</dt><dd>Mevcut satıra hangi çağrı zinciriyle gelindiğini gösterir.</dd></dl>
+<p>Fonksiyon içinde durduğunda istem <code>K&gt;&gt;</code> biçimini alabilir. Bu anda ifadeler etkin function workspace'inde değerlendirilir.</p>
+</div>
+
+<div class="exercises"><h4>Kendini sına</h4><ol>
+<li>Girdi alan fonksiyonda yalnız Run neden hata verebilir?<details class="answer"><summary>Yanıt</summary><p>Gerekli argümanlar sağlanmamıştır; fonksiyon değerlerle çağrılmalıdır.</p></details></li>
+<li><code>Unrecognized function or variable</code> için hangi araçlar yararlıdır?<details class="answer"><summary>Yanıt</summary><p><code>which</code>, <code>exist</code> ve <code>pwd</code> dosya çözümünü ve klasörü denetler.</p></details></li>
+<li>Breakpoint'te Workspace neden farklıdır?<details class="answer"><summary>Yanıt</summary><p>Panel o anda etkin olan function workspace'i gösteriyor olabilir.</p></details></li>
+</ol></div>
+</section>
+
+<section class="chapter" id="bolum8">
+<header class="chapter-head"><p class="chapter-kicker">Bölüm 8</p><h2>Komuttan küçük bir MATLAB çalışmasına</h2><p>İkinci konudaki düşen cisim örneğini bu kez düzenli program yapısına dönüştürüyoruz.</p></header>
+
+<div class="subsection" id="s8-1"><h3><span class="num">8.1</span>Baştan sona iki dosyalı örnek</h3>
+<p><strong>Soru:</strong> Hava direncini ihmal edersek 45 metre yükseklikten bırakılan cisim ne kadar sürede yere ulaşır?</p>
+<div class="math">t = √(2h/g)</div>
+<h4>1. Command Window'da dene</h4>
+<pre data-lang="MATLAB"><code>h = 45;
+g = 9.81;
+t = sqrt(2*h/g)</code></pre>
+<h4>2. Senaryoyu script'e taşı</h4>
+<pre data-lang="ornek_dusme.m"><code>%% Parametreler
+yukseklik = 45;       % metre
+yercekimi = 9.81;     % m/s^2
+
+%% Hesap
+sure = dusmeSuresi(yukseklik,yercekimi);
+
+%% Sonuç
+sure</code></pre>
+<h4>3. Genel hesabı fonksiyona ayır</h4>
+<pre data-lang="dusmeSuresi.m"><code>function sure = dusmeSuresi(yukseklik,yercekimi)
+% DUSMESURESI Hava direnci yokken düşme süresini hesaplar.
+%   SURE = DUSMESURESI(YUKSEKLIK,YERCEKIMI)
+
+    sure = sqrt(2*yukseklik/yercekimi);
+end</code></pre>
+<p>Fonksiyon tanımının altındaki ilk kesintisiz yorum bloğu, <code>help dusmeSuresi</code> komutuyla görülen kendi yardım metnine dönüşür.</p>
+<h4>4. Dosyaları birlikte tut</h4>
+<pre data-lang="Dosya yapısı"><code>dusme-deneyi/
+├── ornek_dusme.m
+└── dusmeSuresi.m</code></pre>
+<p>Script örnek senaryoyu, fonksiyon genel hesabı temsil eder. Fonksiyon base workspace'te önceden <code>g</code> bulunmasına bağlı değildir.</p>
+<h4>5. Bir hatayı tanıla</h4>
+<pre data-lang="MATLAB"><code>pwd
+dir
+which dusmeSuresi
+exist("dusmeSuresi","file")</code></pre>
+<p>Fonksiyon dosyasının adını değiştirirsen bu komutlar sorunun klasör, isim veya path katmanında olduğunu gösterir. Böylece dersin zinciri birleşir: Current Folder dosyaları tutar, script senaryoyu yürütür, fonksiyon hesabı yalıtır, parametreler bağımlılıkları açıklar ve Workspace sonucu gösterir.</p>
+</div>
+
+<div class="subsection" id="s8-2"><h3><span class="num">8.2</span>Bölüm özeti</h3>
+<ol><li>Command Window kısa ve etkileşimli denemeler içindir.</li><li>Değişkenler etkin workspace'te yaşar; <code>who</code> ve <code>whos</code> ile incelenir.</li><li>Noktalı virgül hesabı değil çıktıyı bastırır; isimsiz sonuç <code>ans</code>'e gider.</li><li><code>clear</code>, <code>clc</code> ve <code>close all</code> farklı katmanları yönetir.</li><li>MATLAB dosyaları Current Folder ve search path üzerinde arar.</li><li>Script komut dizisini saklar fakat ayrı workspace oluşturmaz.</li><li>Fonksiyon açık girdiler alır, yerel workspace'te çalışır ve çıktı döndürür.</li><li>Global değişken mümkün olsa da açık parametre aktarımı daha güvenlidir.</li><li>Dosyalar arası çağrı, birlikte taşınması gereken bağımlılıklar oluşturur.</li><li>Breakpoint ve Workspace programın çalışırken taşıdığı durumu görünür kılar.</li></ol>
+<blockquote>Programın güvenilirliği yalnızca doğru formülden değil; girdilerin nereden geldiğini, kodun hangi kapsamda çalıştığını ve gereken dosyaların nasıl bulunduğunu açık hâle getirmekten doğar.</blockquote>
+<p>Artık MATLAB ortamını kullanabiliyor ve tek kullanımlık hesabı script ile fonksiyona dönüştürebiliyoruz. Sıradaki konuda sayıları, matematiksel ifadeleri ve temel fonksiyonları daha yakından inceleyeceğiz.</p>
+</div>
+
+<div class="subsection sources" id="kaynaklar"><h3><span class="num">Ek</span>Kaynaklar</h3>
+<p>MATLAB davranışları ve komutları için resmî MathWorks belgeleri.</p>
+<h4>Script, fonksiyon ve workspace</h4><ul>
+<li><a href="https://www.mathworks.com/help/matlab/matlab_prog/create-scripts.html">MathWorks — Create Scripts</a></li>
+<li><a href="https://www.mathworks.com/help/matlab/matlab_prog/create-functions-in-files.html">MathWorks — Create Functions in Files</a></li>
+<li><a href="https://www.mathworks.com/help/matlab/matlab_prog/base-and-function-workspaces.html">MathWorks — Base and Function Workspaces</a></li>
+<li><a href="https://www.mathworks.com/help/matlab/matlab_prog/local-functions-in-scripts.html">MathWorks — Add Functions to Scripts</a></li>
+</ul>
+<h4>Dosya, Editor ve komutlar</h4><ul>
+<li><a href="https://www.mathworks.com/help/matlab/matlab_env/files-and-folders-that-matlab-accesses.html">MathWorks — Files and Folders That MATLAB Accesses</a></li>
+<li><a href="https://www.mathworks.com/help/matlab/matlab_env/what-is-the-matlab-search-path.html">MathWorks — What Is the MATLAB Search Path?</a></li>
+<li><a href="https://www.mathworks.com/help/matlab/matlab_prog/create-and-run-sections.html">MathWorks — Create and Run Sections in Code</a></li>
+<li><a href="https://www.mathworks.com/help/matlab/matlab_prog/comments.html">MathWorks — Add Comments to Code</a></li>
+<li><a href="https://www.mathworks.com/help/matlab/ref/clear.html">MathWorks — clear</a>, <a href="https://www.mathworks.com/help/matlab/ref/clc.html">clc</a>, <a href="https://www.mathworks.com/help/matlab/ref/global.html">global</a></li>
+<li><a href="https://www.mathworks.com/help/matlab/ref/who.html">MathWorks — who</a>, <a href="https://www.mathworks.com/help/matlab/ref/whos.html">whos</a>, <a href="https://www.mathworks.com/help/matlab/ref/exist.html">exist</a></li>
+</ul>
+</div>
+</section>
+</main>
+</div>
+<footer>MAT6201 · MATLAB Çalışma Ortamı ve Program Yapısı</footer>
+</div>
+</body>
+</html>
+
